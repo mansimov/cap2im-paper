@@ -1,0 +1,118 @@
+\begin{thebibliography}{15}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bachman \& Precup(2015)Bachman and Precup]{bachman_sdm}
+Bachman, Philip and Precup, Doina.
+\newblock Data generation as sequential decision making.
+\newblock \emph{CoRR}, abs/1506.03504, 2015.
+\newblock URL \url{http://arxiv.org/abs/1506.03504}.
+
+\bibitem[Bahdanau et~al.(2015)Bahdanau, Cho, and Bengio]{bahdanau_mt}
+Bahdanau, D., Cho, K., and Bengio, Y.
+\newblock Neural machine translation by jointly learning to align and
+  translate.
+\newblock \emph{ICLR}, 2015.
+
+\bibitem[Cho et~al.(2014)Cho, van Merrienboer, G{\"{u}}l{\c{c}}ehre, Bahdanau,
+  Bougares, Schwenk, and Bengio]{cho_mt}
+Cho, Kyunghyun, van Merrienboer, Bart, G{\"{u}}l{\c{c}}ehre, {\c{C}}aglar,
+  Bahdanau, Dzmitry, Bougares, Fethi, Schwenk, Holger, and Bengio, Yoshua.
+\newblock Learning phrase representations using {RNN} encoder-decoder for
+  statistical machine translation.
+\newblock In \emph{Proceedings of the 2014 Conference on Empirical Methods in
+  Natural Language Processing, {EMNLP} 2014}, pp.\  1724--1734, 2014.
+
+\bibitem[Denton et~al.(2015)Denton, Chintala, Szlam, and Fergus]{denton_lapgan}
+Denton, Emily~L., Chintala, Soumith, Szlam, Arthur, and Fergus, Robert.
+\newblock Deep generative image models using a laplacian pyramid of adversarial
+  networks.
+\newblock \emph{CoRR}, abs/1506.05751, 2015.
+\newblock URL \url{http://arxiv.org/abs/1506.05751}.
+
+\bibitem[Goodfellow et~al.(2014)Goodfellow, Pouget{-}Abadie, Mirza, Xu,
+  Warde{-}Farley, Ozair, Courville, and Bengio]{goodfellow_gan}
+Goodfellow, Ian~J., Pouget{-}Abadie, Jean, Mirza, Mehdi, Xu, Bing,
+  Warde{-}Farley, David, Ozair, Sherjil, Courville, Aaron~C., and Bengio,
+  Yoshua.
+\newblock Generative adversarial nets.
+\newblock In \emph{Advances in Neural Information Processing Systems 27: Annual
+  Conference on Neural Information Processing Systems 2014, December 8-13 2014,
+  Montreal, Quebec, Canada}, pp.\  2672--2680, 2014.
+\newblock URL
+  \url{http://papers.nips.cc/paper/5423-generative-adversarial-nets}.
+
+\bibitem[Graves et~al.(2013)Graves, Jaitly, and Mohamed]{graves_speech}
+Graves, A., Jaitly, N., and Mohamed, A.{-}r.
+\newblock Hybrid speech recognition with deep bidirectional {LSTM}.
+\newblock In \emph{2013 {IEEE} Workshop on Automatic Speech Recognition and
+  Understanding}, pp.\  273--278, 2013.
+
+\bibitem[Gregor et~al.(2015)Gregor, Danihelka, Graves, and
+  Wierstra]{gregor_draw}
+Gregor, Karol, Danihelka, Ivo, Graves, Alex, and Wierstra, Daan.
+\newblock {DRAW:} {A} recurrent neural network for image generation.
+\newblock \emph{CoRR}, abs/1502.04623, 2015.
+
+\bibitem[Gutmann \& Hyv{\"{a}}rinen(2010)Gutmann and
+  Hyv{\"{a}}rinen]{gutmann_nce}
+Gutmann, Michael and Hyv{\"{a}}rinen, Aapo.
+\newblock Noise-contrastive estimation: {A} new estimation principle for
+  unnormalized statistical models.
+\newblock In \emph{Proceedings of the Thirteenth International Conference on
+  Artificial Intelligence and Statistics, {AISTATS} 2010, Chia Laguna Resort,
+  Sardinia, Italy, May 13-15, 2010}, pp.\  297--304, 2010.
+\newblock URL \url{http://www.jmlr.org/proceedings/papers/v9/gutmann10a.html}.
+
+\bibitem[Hinton \& Salakhutdinov(2006)Hinton and Salakhutdinov]{hinton_dbn}
+Hinton, Geoffrey and Salakhutdinov, Ruslan.
+\newblock Reducing the dimensionality of data with neural networks.
+\newblock \emph{Science}, Vol. 313:\penalty0 504--507, 2006.
+
+\bibitem[Kingma \& Welling(2013)Kingma and Welling]{kingma_vae}
+Kingma, Diederik~P. and Welling, Max.
+\newblock Auto-encoding variational bayes.
+\newblock \emph{CoRR}, abs/1312.6114, 2013.
+\newblock URL \url{http://arxiv.org/abs/1312.6114}.
+
+\bibitem[Krizhevsky et~al.(2012)Krizhevsky, Sutskever, and
+  Hinton]{krizhevsky_imagenet}
+Krizhevsky, Alex, Sutskever, Ilya, and Hinton, Geoffrey~E.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In \emph{Advances in Neural Information Processing Systems 25: 26th
+  Annual Conference on Neural Information Processing Systems 2012. Proceedings
+  of a meeting held December 3-6, 2012, Lake Tahoe, Nevada, United States.},
+  pp.\  1106--1114, 2012.
+
+\bibitem[Salakhutdinov \& Hinton(2009)Salakhutdinov and Hinton]{russ_dbm}
+Salakhutdinov, Ruslan and Hinton, Geoffrey~E.
+\newblock Deep boltzmann machines.
+\newblock In \emph{Proceedings of the Twelfth International Conference on
+  Artificial Intelligence and Statistics, {AISTATS} 2009, Clearwater Beach,
+  Florida, USA, April 16-18, 2009}, pp.\  448--455, 2009.
+\newblock URL
+  \url{http://www.jmlr.org/proceedings/papers/v5/salakhutdinov09a.html}.
+
+\bibitem[Smolensky(1986)]{smolensky_rbm}
+Smolensky, Paul.
+\newblock Information processing in dynamical systems: foundations of harmony
+  theory.
+\newblock \emph{Parallel Distributed Processing: Explorations in the
+  Microstructure of Cognition}, 1986.
+
+\bibitem[Srivastava et~al.(2015)Srivastava, Mansimov, and
+  Salakhutdinov]{nitish_video}
+Srivastava, Nitish, Mansimov, Elman, and Salakhutdinov, Ruslan.
+\newblock Unsupervised learning of video representations using {LSTM}s.
+\newblock \emph{ICML}, 2015.
+
+\bibitem[Sutskever et~al.(2014)Sutskever, Vinyals, and Le]{ilya_mt}
+Sutskever, Ilya, Vinyals, Oriol, and Le, Quoc V.~V.
+\newblock Sequence to sequence learning with neural networks.
+\newblock In \emph{Advances in Neural Information Processing Systems 27}, pp.\
+  3104--3112. 2014.
+
+\end{thebibliography}
