@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2012)
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: iclr-paper.aux
 The style file: iclr-style/iclr2016_conference.bst
@@ -18,36 +18,36 @@ Warning--I didn't find a database entry for "DBLP:conf/aistats/2010"
 Warning--empty publisher in ilya_mt
 You've used 15 entries,
             2773 wiz_defined-function locations,
-            684 strings with 8417 characters,
-and the built_in function-call counts, 8232 in all, are:
-= -- 751
-> -- 484
-< -- 13
-+ -- 162
-- -- 147
-* -- 631
-:= -- 1210
-add.period$ -- 52
+            687 strings with 8501 characters,
+and the built_in function-call counts, 8333 in all, are:
+= -- 761
+> -- 493
+< -- 12
++ -- 165
+- -- 150
+* -- 650
+:= -- 1227
+add.period$ -- 54
 call.type$ -- 15
-change.case$ -- 94
+change.case$ -- 95
 chr.to.int$ -- 15
 cite$ -- 31
-duplicate$ -- 395
-empty$ -- 642
-format.name$ -- 172
-if$ -- 1782
+duplicate$ -- 396
+empty$ -- 646
+format.name$ -- 173
+if$ -- 1801
 int.to.chr$ -- 1
 int.to.str$ -- 1
 missing$ -- 15
-newline$ -- 89
+newline$ -- 91
 num.names$ -- 60
-pop$ -- 190
+pop$ -- 191
 preamble$ -- 1
-purify$ -- 79
+purify$ -- 80
 quote$ -- 0
-skip$ -- 345
+skip$ -- 344
 stack$ -- 0
-substring$ -- 311
+substring$ -- 317
 swap$ -- 92
 text.length$ -- 7
 text.prefix$ -- 0
@@ -56,5 +56,5 @@ type$ -- 165
 warning$ -- 1
 while$ -- 68
 width$ -- 0
-write$ -- 211
+write$ -- 215
 (There were 4 error messages)

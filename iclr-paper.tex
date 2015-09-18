@@ -45,7 +45,7 @@ At the end.
 
 \section{Introduction}
 
-Generating realistic images from their descriptions is a very hard task that combines together two challenging problems of language modelling and image generation. Generating images from captions is a significantly harder problem than a reverse problem of generating captions from images which has recenly attracted a lot of attention. The model has to capture the semantic knowledge expressed in the description and then use it to generate the values of RGB channels of each pixel in the image ...
+Generating realistic images from their descriptions is a very hard task that combines together two challenging problems of language modelling and image generation. The model has to capture the semantic knowledge expressed in the description and then use it to generate the values of three color channels of each pixel in the image. Generating images from captions is a significantly harder problem than a reverse problem of generating captions from images which has recenly attracted a lot of attention.
 
 \section{Related Work}
 
@@ -92,15 +92,15 @@ where $\readop$ and $\writeop$ are the same attention operators as in \citep{gre
 
 The $align$ function introduced by \cite{bahdanau_mt} is used to compute probabilities $\alpha_{1...n}$ by first computing the energies $e_{t,0}, e_{t,1}, ..., e_{t,n}$ and then rescaling them to the probability distribution $\alpha_{1}, \alpha_{2}, ..., \alpha_{n}$
 \begin{align}
-e_{tj} &= v^{T}tanh(U\hlang_{j} + W\hdec_{t})\\
+e_{tj} &= v^{T}tanh(U\hlang_{j} + W\hdec_{t} + b)\\
 \alpha_{j} &= softmax(e_{tj})
 \end{align}
 
-where $softmax(e_{tj}) = \frac{exp(e_{tj})}{\sum_{j=1}^{N}e_{tj}}$
+where $softmax(e_{tj}) = \frac{exp(e_{tj})}{\sum_{j=1}^{N}exp(e_{tj})}$
 
 \subsection{Learning}
 
-The model is learned by the modified version of Stochastic Gradient Variation Bayes (SGVB) algorithm introduced by \cite{kingma_vae}. The model is trained to maximize the marginal likelihood $\loss$ of the correct image $x$ given the input caption $y$. The $\loss$ is decomposed into the latent loss $\lloss$ and the reconstruction loss $\rloss$. 
+The model is learned by the modified version of Stochastic Gradient Variation Bayes (SGVB) algorithm introduced by \cite{kingma_vae}. The model is trained to maximize the lower bound of marginal likelihood $\loss$ of the correct image $x$ given the input caption $y$. The $\loss$ is decomposed into the latent loss $\lloss$ and the reconstruction loss $\rloss$. 
 
 The reconstruction loss $\rloss$ equals to $\frac{1}{L}\sum_{l=1}^{L}(log\,p(x_{t}|y,z)$ where $L$ is the number of samples used during training, which was set to $1$ in our experiments.
 
