@@ -1,8 +1,10 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2012)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: iclr-paper.aux
 The style file: iclr-style/iclr2016_conference.bst
 Database file #1: iclr-paper.bib
+A bad cross reference---entry "xu_captions"
+refers to entry "DBLP:conf/icml/2015", which doesn't exist
 A bad cross reference---entry "graves_speech"
 refers to entry "DBLP:conf/asru/2013", which doesn't exist
 A bad cross reference---entry "russ_dbm"
@@ -11,50 +13,54 @@ A bad cross reference---entry "goodfellow_gan"
 refers to entry "DBLP:conf/nips/2014", which doesn't exist
 A bad cross reference---entry "gutmann_nce"
 refers to entry "DBLP:conf/aistats/2010", which doesn't exist
+A bad cross reference---entry "russ_binarizedmnist"
+refers to entry "DBLP:conf/icml/2008", which doesn't exist
 Warning--I didn't find a database entry for "DBLP:conf/asru/2013"
 Warning--I didn't find a database entry for "DBLP:conf/aistats/2009"
 Warning--I didn't find a database entry for "DBLP:conf/nips/2014"
 Warning--I didn't find a database entry for "DBLP:conf/aistats/2010"
+Warning--I didn't find a database entry for "DBLP:conf/icml/2015"
+Warning--I didn't find a database entry for "DBLP:conf/icml/2008"
 Warning--empty publisher in ilya_mt
-You've used 15 entries,
+You've used 19 entries,
             2773 wiz_defined-function locations,
-            687 strings with 8501 characters,
-and the built_in function-call counts, 8333 in all, are:
-= -- 761
-> -- 493
-< -- 12
-+ -- 165
-- -- 150
-* -- 650
-:= -- 1227
-add.period$ -- 54
-call.type$ -- 15
-change.case$ -- 95
-chr.to.int$ -- 15
-cite$ -- 31
-duplicate$ -- 396
-empty$ -- 646
-format.name$ -- 173
-if$ -- 1801
+            715 strings with 9628 characters,
+and the built_in function-call counts, 10669 in all, are:
+= -- 978
+> -- 640
+< -- 16
++ -- 214
+- -- 195
+* -- 834
+:= -- 1574
+add.period$ -- 71
+call.type$ -- 19
+change.case$ -- 122
+chr.to.int$ -- 19
+cite$ -- 39
+duplicate$ -- 502
+empty$ -- 817
+format.name$ -- 226
+if$ -- 2307
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 15
-newline$ -- 91
-num.names$ -- 60
-pop$ -- 191
+missing$ -- 19
+newline$ -- 116
+num.names$ -- 76
+pop$ -- 240
 preamble$ -- 1
-purify$ -- 80
+purify$ -- 103
 quote$ -- 0
-skip$ -- 344
+skip$ -- 442
 stack$ -- 0
-substring$ -- 317
-swap$ -- 92
-text.length$ -- 7
+substring$ -- 397
+swap$ -- 118
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 165
+type$ -- 209
 warning$ -- 1
-while$ -- 68
+while$ -- 86
 width$ -- 0
-write$ -- 215
-(There were 4 error messages)
+write$ -- 277
+(There were 6 error messages)

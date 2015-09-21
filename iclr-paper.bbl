@@ -1,4 +1,4 @@
-\begin{thebibliography}{15}
+\begin{thebibliography}{19}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -75,11 +75,24 @@ Hinton, Geoffrey~E., Osindero, Simon, and Teh, Yee~Whye.
 \newblock \doi{10.1162/neco.2006.18.7.1527}.
 \newblock URL \url{http://dx.doi.org/10.1162/neco.2006.18.7.1527}.
 
+\bibitem[Karpathy \& Li(2014)Karpathy and Li]{karpathy_captions}
+Karpathy, Andrej and Li, Fei{-}Fei.
+\newblock Deep visual-semantic alignments for generating image descriptions.
+\newblock \emph{CoRR}, abs/1412.2306, 2014.
+\newblock URL \url{http://arxiv.org/abs/1412.2306}.
+
 \bibitem[Kingma \& Welling(2013)Kingma and Welling]{kingma_vae}
 Kingma, Diederik~P. and Welling, Max.
 \newblock Auto-encoding variational bayes.
 \newblock \emph{CoRR}, abs/1312.6114, 2013.
 \newblock URL \url{http://arxiv.org/abs/1312.6114}.
+
+\bibitem[Kiros et~al.(2014)Kiros, Salakhutdinov, and Zemel]{kiros_captions}
+Kiros, Ryan, Salakhutdinov, Ruslan, and Zemel, Richard~S.
+\newblock Unifying visual-semantic embeddings with multimodal neural language
+  models.
+\newblock \emph{CoRR}, abs/1411.2539, 2014.
+\newblock URL \url{http://arxiv.org/abs/1411.2539}.
 
 \bibitem[Krizhevsky et~al.(2012)Krizhevsky, Sutskever, and
   Hinton]{krizhevsky_imagenet}
@@ -99,6 +112,16 @@ Salakhutdinov, Ruslan and Hinton, Geoffrey~E.
 \newblock URL
   \url{http://www.jmlr.org/proceedings/papers/v5/salakhutdinov09a.html}.
 
+\bibitem[Salakhutdinov \& Murray(2008)Salakhutdinov and
+  Murray]{russ_binarizedmnist}
+Salakhutdinov, Ruslan and Murray, Iain.
+\newblock On the quantitative analysis of deep belief networks.
+\newblock In \emph{Machine Learning, Proceedings of the Twenty-Fifth
+  International Conference {(ICML} 2008), Helsinki, Finland, June 5-9, 2008},
+  pp.\  872--879, 2008.
+\newblock \doi{10.1145/1390156.1390266}.
+\newblock URL \url{http://doi.acm.org/10.1145/1390156.1390266}.
+
 \bibitem[Smolensky(1986)]{smolensky_rbm}
 Smolensky, Paul.
 \newblock Information processing in dynamical systems: foundations of harmony
@@ -117,5 +140,16 @@ Sutskever, Ilya, Vinyals, Oriol, and Le, Quoc V.~V.
 \newblock Sequence to sequence learning with neural networks.
 \newblock In \emph{Advances in Neural Information Processing Systems 27}, pp.\
   3104--3112. 2014.
+
+\bibitem[Xu et~al.(2015)Xu, Ba, Kiros, Cho, Courville, Salakhutdinov, Zemel,
+  and Bengio]{xu_captions}
+Xu, Kelvin, Ba, Jimmy, Kiros, Ryan, Cho, Kyunghyun, Courville, Aaron~C.,
+  Salakhutdinov, Ruslan, Zemel, Richard~S., and Bengio, Yoshua.
+\newblock Show, attend and tell: Neural image caption generation with visual
+  attention.
+\newblock In \emph{Proceedings of the 32nd International Conference on Machine
+  Learning, {ICML} 2015, Lille, France, 6-11 July 2015}, pp.\  2048--2057,
+  2015.
+\newblock URL \url{http://jmlr.org/proceedings/papers/v37/xuc15.html}.
 
 \end{thebibliography}
