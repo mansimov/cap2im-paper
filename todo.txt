@@ -1,0 +1,8 @@
+COCO
+
+1) show table of SSI and PR curve
+2) show samples unfolded over time as well as the words the model is attending to (both success and failure cases)
+3) show generated samples with color flipped, background changed etc. (DONE)
+4) compare samples with LAPGAN, VAE etc.
+5) show tsne plot of types of images and well as topic of samples where the model works well where works badly
+6) maybe failure cases.

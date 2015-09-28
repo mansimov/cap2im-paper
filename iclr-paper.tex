@@ -5,6 +5,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{caption}
+%\usepackage{subcaption}
+\usepackage{subfig}
 
 
 \newcommand{\sigmoid}{\boldsymbol{\sigma}}
@@ -35,7 +37,7 @@
 \title{Generating Images From Captions\\ With Attention}
 
 \author{
-Elman Mansimov\textsuperscript{*}, Emilio Parisotto\thanks{Equal Contribution} , Jimmy Lei Ba \& Ruslan Salakhutdinov\\
+Elman Mansimov, Emilio Parisotto, Jimmy Lei Ba \& Ruslan Salakhutdinov\\
 Department of Computer Science\\
 University of Toronto\\
 Toronto, Ontario, Canada \\
@@ -136,16 +138,6 @@ During the image generation step, we throw away the inference network from the d
 \section{Experiments}
 \subsection{MNIST With Captions}
 As a toy experiment, we have trained our model on the two digit MNIST dataset with captions constructed on the fly. Two random digits were either placed horizontally or vertically, so that they don't overlap, on the black $60 \times 60$ background. The caption indicated the way digits were placed in the image and had the following template: \textit{the digit (1) is (2) the (3) of the digit (4) \textless eos\textgreater}. (1) and (4) were the digit numbers, (2) was either on or at, (3) was one of the adjectives top, bottom, left or right. For example, the generated images corresponding to the caption \textit{the digit seven is at the bottom of the digit five \textless eos\textgreater} as well as other captions are shown on~\ref{fig:fig1}. While most of the generative models were trained on the version of binarized MNIST dataset \citep{russ_binarizedmnist}, our model was trained directly on pixel intensities with binary cross entropy cost function.
-
-\subsection{COCO}
-TODO:
-1) show table of SSI and PR curve
-2) show samples unfolded over time as well as the words the model is attending to (both success and failure cases)
-3) show generated samples with colour flipped, background changed etc.
-4) compare samples with LAPGAN, VAE etc.
-5) show tsne plot of types of images and well as topic of samples where the model works well where works badly
-
-\subsection{CIFAR}
 
 \begin{figure}[t]
 \label{fig1}
@@ -285,6 +277,143 @@ TODO:
 \captionsetup{labelformat=empty}
 \caption{Figure 1: Four examples show the generated images unfolded over several timesteps as well as the top three words the model attends to while generating images.}
 \end{figure}
+
+\subsection{COCO}
+
+Microsoft COCO \citep{mscoco} is a largest dataset of images annotated with captions consisting of 83k images. The rich collection of images with variety of styles, backgrounds and objects makes the task of learning a good generative model conditioned on caption very challenging. Since some of the images have more than five captions attached to them, for consistency with related work on caption generation we disregard extra captions.
+
+In the following subsections we make both qualitative and quantitative analysis of our model as well as compare its performance with other related generative models.
+
+\subsubsection{Analysis of Generated Images}
+The main goal of this work is to learn a model that can understand the semantic meaning expressed in description of the image, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To verify that, we generated a set of captions inspired by COCO dataset and changed some words in the captions to see whether the model made the relevant changed in the generated samples.
+
+First, we wanted to see whether the model understood one of the simplest properties of any object, the color. We generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all school buses specifically are colored yellow. As you can see below, the model managed to generate images with an object that looked like a bus with the correct color.
+
+\vspace{-0.3cm}
+\begin{figure}[h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[A \underline{yellow} school bus parked in a parking lot.
+]{\includegraphics[width=0.22\textwidth]{figures/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
+%
+\subfloat[A \underline{red} school bus parked in a parking lot.
+]{\includegraphics[width=0.22\textwidth]{figures/a-red-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
+%
+\subfloat[A \underline{green} school bus parked in a parking lot.
+]{\includegraphics[width=0.22\textwidth]{figures/a-green-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
+%
+\subfloat[A \underline{blue} school bus parked in a parking lot.
+]{\includegraphics[width=0.22\textwidth]{figures/a-blue-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
+%
+\end{center}
+%\caption{whole image caption}
+\label{fig:label}
+\vspace{-0.2cm}
+\end{figure}
+
+Apart from changing the colors of objects, we were curious whether changing the background of the scene described in the caption would result in the appropriate changes in the generated samples. It is a somewhat harder task for a model than changing the color, due to larger number of changes that have to be made in the generated samples. Nevertheless as shown below, changing the grass type from dry to green as well as adding clouds in the caption has resulted in the appropriate changes.
+
+\vspace{-0.3cm}
+\begin{figure}[h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[A very large commercial plane flying in the \underline{blue} skies.
+]{\includegraphics[width=0.48\textwidth]{figures/a-very-large-commercial-plane-flying-in-the-blue-skies-sharp.png}}\quad
+%
+\subfloat[A very large commercial plane flying in the \underline{cloudy} skies.
+]{\includegraphics[width=0.48\textwidth]{figures/a-very-large-commercial-plane-flying-in-the-cloudy-skies-sharp.png}}\quad
+%
+%
+\end{center}
+%\caption{whole image caption}
+\label{fig:label}
+\vspace{-0.8cm}
+\end{figure}
+
+\begin{figure}[h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[A heard of elephants walking across a \underline{dry} grass field.
+]{\includegraphics[width=0.48\textwidth]{figures/a-herd-of-elephants-walking-across-a-dry-grass-field-sharp.png}}\quad
+%
+\subfloat[A heard of elephants walking across a \underline{green} grass field.
+]{\includegraphics[width=0.48\textwidth]{figures/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png}}\quad
+%
+%
+\end{center}
+%\caption{whole image caption}
+\label{fig:label}
+\vspace{-0.2cm}
+\end{figure}
+
+Despite an infinite number of ways of changing colors and backgrounds in descriptions, in general we have found that the model made appropriate changes as long as some similar patter was present in the training set. However, it wasn't always the case when changing an object itself in the description. In cases, when objects did't have a noticeable differences in their properties, such as shape or color, the changes in the generated samples weren't very clearly seen. This could be attributed to the limitation of the model to grasp the detailed understanding of each object. 
+
+
+\vspace{-0.3cm}
+\begin{figure}[h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[The \underline{decadent chocolate dessert} is on the table.
+]{\includegraphics[width=0.48\textwidth]{figures/the-decadent-chocolate-dessert-is-on-the-table-2-sharp.png}}\quad
+%
+\subfloat[The \underline{bowl of banas} is on the table.
+]{\includegraphics[width=0.48\textwidth]{figures/a-bowl-of-bananas-is-on-the-table-2-sharp.png}}\quad
+%
+%
+\end{center}
+%\caption{whole image caption}
+\label{fig:label}
+\vspace{-0.8cm}
+\end{figure}
+
+\begin{figure}[!h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[A vintage photo of a \underline{cat}.
+]{\includegraphics[width=0.48\textwidth]{figures/a-vintage-photo-of-a-cat-sharp.png}}\quad
+%
+\subfloat[A vintage photo of a \underline{dog}.
+]{\includegraphics[width=0.48\textwidth]{figures/a-vintage-photo-of-a-dog-sharp.png}}\quad
+%
+%
+\end{center}
+%\caption{whole image caption}
+\label{fig:labelr}
+\vspace{-0.2cm}
+\end{figure}
+
+\subsubsection{Analysis of Attention}
+
+To be added soon.
+
+\subsubsection{Comparison With Other Models}
+The quantitative evaluation of generative models has been a subject of ambiguity within a machine learning community. Compared to reporting classification accuracies, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To avoid ambiguity, we report results on two different metrics as well as do qualitative comparison of generative models.
+
+As shown on Figure blah, we have sampled the images from the same caption in four of the best models.
+
+First, to compare the the peformance of our model with other generative models trained with variational objective, we report the Recall$@$K, namely the mean number of sentences for which the correct image is ranked within the top-K retrieved results, based on the lower bound of likelihood $\loss$. If you want to get a really good results build a model like Ryan did. Do deal away with easy images we take ratio with ... with mean caption. To deal with large computational complexity of looping over each image we only consider closest neightbors. The precision Recall curve is reported there...
+
+Second, 
+
+\vspace{-0.3cm}
+\begin{figure}[!t]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat{\includegraphics[width=0.22\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp.png}}\quad
+%
+\subfloat{\includegraphics[width=0.22\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png}}\quad
+%
+\subfloat{\includegraphics[width=0.22\textwidth]{to-do.png}}\quad
+%
+\subfloat{\includegraphics[width=0.22\textwidth]{to-do.png}}\quad
+%
+\end{center}
+\caption{Four different models displaying results from sampling caption \textit{A group of people walk on a beach with surf boards.}}
+\label{fig:label}
+\vspace{-0.2cm}
+\end{figure}
+
+\subsection{CIFAR}
 
 \bibliography{iclr-paper}
 \bibliographystyle{iclr-style/iclr2016_conference}

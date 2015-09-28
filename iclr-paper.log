@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.1.24)  21 SEP 2015 18:03
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.1.24)  28 SEP 2015 03:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -297,56 +297,84 @@ Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
 \c@ContinuedFloat=\count111
 Package caption Info: hyperref package is loaded.
 )
-(./iclr-paper.aux)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+\c@KVtest=\count112
+\sf@farskip=\skip58
+\sf@captopadj=\dimen123
+\sf@capskip=\skip59
+\sf@nearskip=\skip60
+\c@subfigure=\count113
+\c@subfigure@save=\count114
+\c@lofdepth=\count115
+\c@subtable=\count116
+\c@subtable@save=\count117
+\c@lotdepth=\count118
+\sf@top=\skip61
+\sf@bottom=\skip62
+)
+(./iclr-paper.aux
+
+LaTeX Warning: Label `fig:label' multiply defined.
+
+
+LaTeX Warning: Label `fig:label' multiply defined.
+
+
+LaTeX Warning: Label `fig:label' multiply defined.
+
+
+LaTeX Warning: Label `fig:label' multiply defined.
+
+)
 \openout1 = `iclr-paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 48.
-
-(/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 50.
+ (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 \AtBeginShipoutBox=\box28
 
 (/usr/local/texlive/2012/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count112
-\scratchdimen=\dimen123
+\scratchcounter=\count119
+\scratchdimen=\dimen124
 \scratchbox=\box29
-\nofMPsegments=\count113
-\nofMParguments=\count114
+\nofMPsegments=\count120
+\nofMParguments=\count121
 \everyMPshowfont=\toks20
-\MPscratchCnt=\count115
-\MPscratchDim=\dimen124
-\MPnumerator=\count116
-\makeMPintoPDFobject=\count117
+\MPscratchCnt=\count122
+\MPscratchDim=\dimen125
+\MPnumerator=\count123
+\makeMPintoPDFobject=\count124
 \everyMPtoPDFconversion=\toks21
 )
-Package hyperref Info: Link coloring OFF on input line 48.
+Package hyperref Info: Link coloring OFF on input line 50.
  (/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 
 (/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count118
+\c@section@level=\count125
 )
-LaTeX Info: Redefining \ref on input line 48.
-LaTeX Info: Redefining \pageref on input line 48.
-LaTeX Info: Redefining \nameref on input line 48.
+LaTeX Info: Redefining \ref on input line 50.
+LaTeX Info: Redefining \pageref on input line 50.
+LaTeX Info: Redefining \nameref on input line 50.
 
 (./iclr-paper.out) (./iclr-paper.out)
 \@outlinefile=\write3
@@ -369,25 +397,24 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 51.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 51.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 51.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 53.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 53.
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for OMS+pcr on input line 51.
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 53.
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/omspcr.fd
 File: omspcr.fd 
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 51.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 53.
 
-Overfull \hbox (7.51506pt too wide) in paragraph at lines 51--51
+Overfull \hbox (7.51506pt too wide) in paragraph at lines 53--53
 [][] 
  []
 
@@ -395,338 +422,600 @@ Overfull \hbox (7.51506pt too wide) in paragraph at lines 51--51
 
 ]
 [2]
-LaTeX Font Info:    Try loading font information for OML+ptm on input line 138.
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 140.
 
  (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/omlptm.fd
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/it' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 138.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 140.
 
 
-LaTeX Warning: Reference `fig:fig1' on page 3 undefined on input line 138.
+LaTeX Warning: Reference `fig:fig1' on page 3 undefined on input line 140.
 
-[3] <figures/5-7-4.png, id=160, 60.225pt x 60.225pt>
+<figures/5-7-4.png, id=155, 60.225pt x 60.225pt>
 File: figures/5-7-4.png Graphic file (type png)
  <use figures/5-7-4.png>
-Package pdftex.def Info: figures/5-7-4.png used on input line 154.
+Package pdftex.def Info: figures/5-7-4.png used on input line 146.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/5-7-6.png, id=161, 60.225pt x 60.225pt>
+<figures/5-7-6.png, id=156, 60.225pt x 60.225pt>
 File: figures/5-7-6.png Graphic file (type png)
  <use figures/5-7-6.png>
-Package pdftex.def Info: figures/5-7-6.png used on input line 158.
+Package pdftex.def Info: figures/5-7-6.png used on input line 150.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/5-7-9.png, id=162, 60.225pt x 60.225pt>
+<figures/5-7-9.png, id=157, 60.225pt x 60.225pt>
 File: figures/5-7-9.png Graphic file (type png)
  <use figures/5-7-9.png>
-Package pdftex.def Info: figures/5-7-9.png used on input line 162.
+Package pdftex.def Info: figures/5-7-9.png used on input line 154.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/5-7-13.png, id=163, 60.225pt x 60.225pt>
+<figures/5-7-13.png, id=158, 60.225pt x 60.225pt>
 File: figures/5-7-13.png Graphic file (type png)
  <use figures/5-7-13.png>
-Package pdftex.def Info: figures/5-7-13.png used on input line 166.
+Package pdftex.def Info: figures/5-7-13.png used on input line 158.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/5-7-17.png, id=164, 60.225pt x 60.225pt>
+<figures/5-7-17.png, id=159, 60.225pt x 60.225pt>
 File: figures/5-7-17.png Graphic file (type png)
  <use figures/5-7-17.png>
-Package pdftex.def Info: figures/5-7-17.png used on input line 170.
+Package pdftex.def Info: figures/5-7-17.png used on input line 162.
+(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
+
+Overfull \hbox (2.09851pt too wide) in paragraph at lines 163--163
+[]|[]| 
+ []
+
+<figures/5-7-22.png, id=160, 60.225pt x 60.225pt>
+File: figures/5-7-22.png Graphic file (type png)
+ <use figures/5-7-22.png>
+Package pdftex.def Info: figures/5-7-22.png used on input line 166.
+(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
+
+Overfull \hbox (2.09851pt too wide) in paragraph at lines 167--167
+[]|[]| 
+ []
+
+<figures/5-7-26.png, id=161, 60.225pt x 60.225pt>
+File: figures/5-7-26.png Graphic file (type png)
+ <use figures/5-7-26.png>
+Package pdftex.def Info: figures/5-7-26.png used on input line 170.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
 Overfull \hbox (2.09851pt too wide) in paragraph at lines 171--171
 []|[]| 
  []
 
-<figures/5-7-22.png, id=165, 60.225pt x 60.225pt>
-File: figures/5-7-22.png Graphic file (type png)
- <use figures/5-7-22.png>
-Package pdftex.def Info: figures/5-7-22.png used on input line 174.
+<figures/5-7-27.png, id=162, 60.225pt x 60.225pt>
+File: figures/5-7-27.png Graphic file (type png)
+ <use figures/5-7-27.png>
+Package pdftex.def Info: figures/5-7-27.png used on input line 174.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
 Overfull \hbox (2.09851pt too wide) in paragraph at lines 175--175
 []|[]| 
  []
 
-<figures/5-7-26.png, id=166, 60.225pt x 60.225pt>
-File: figures/5-7-26.png Graphic file (type png)
- <use figures/5-7-26.png>
-Package pdftex.def Info: figures/5-7-26.png used on input line 178.
-(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
-
-Overfull \hbox (2.09851pt too wide) in paragraph at lines 179--179
-[]|[]| 
- []
-
-<figures/5-7-27.png, id=167, 60.225pt x 60.225pt>
-File: figures/5-7-27.png Graphic file (type png)
- <use figures/5-7-27.png>
-Package pdftex.def Info: figures/5-7-27.png used on input line 182.
-(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
-
-Overfull \hbox (2.09851pt too wide) in paragraph at lines 183--183
-[]|[]| 
- []
-
-<figures/9-2-4.png, id=168, 60.225pt x 60.225pt>
+<figures/9-2-4.png, id=163, 60.225pt x 60.225pt>
 File: figures/9-2-4.png Graphic file (type png)
  <use figures/9-2-4.png>
-Package pdftex.def Info: figures/9-2-4.png used on input line 187.
+Package pdftex.def Info: figures/9-2-4.png used on input line 179.
+(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
+
+Overfull \hbox (1.9186pt too wide) in paragraph at lines 180--180
+[]|[]| 
+ []
+
+<figures/9-2-6.png, id=164, 60.225pt x 60.225pt>
+File: figures/9-2-6.png Graphic file (type png)
+ <use figures/9-2-6.png>
+Package pdftex.def Info: figures/9-2-6.png used on input line 183.
+(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
+
+Overfull \hbox (1.9186pt too wide) in paragraph at lines 184--184
+[]|[]| 
+ []
+
+<figures/9-2-9.png, id=165, 60.225pt x 60.225pt>
+File: figures/9-2-9.png Graphic file (type png)
+ <use figures/9-2-9.png>
+Package pdftex.def Info: figures/9-2-9.png used on input line 187.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
 Overfull \hbox (1.9186pt too wide) in paragraph at lines 188--188
 []|[]| 
  []
 
-<figures/9-2-6.png, id=169, 60.225pt x 60.225pt>
-File: figures/9-2-6.png Graphic file (type png)
- <use figures/9-2-6.png>
-Package pdftex.def Info: figures/9-2-6.png used on input line 191.
+<figures/9-2-13.png, id=166, 60.225pt x 60.225pt>
+File: figures/9-2-13.png Graphic file (type png)
+ <use figures/9-2-13.png>
+Package pdftex.def Info: figures/9-2-13.png used on input line 191.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
 Overfull \hbox (1.9186pt too wide) in paragraph at lines 192--192
 []|[]| 
  []
 
-<figures/9-2-9.png, id=170, 60.225pt x 60.225pt>
-File: figures/9-2-9.png Graphic file (type png)
- <use figures/9-2-9.png>
-Package pdftex.def Info: figures/9-2-9.png used on input line 195.
-(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
-
-Overfull \hbox (1.9186pt too wide) in paragraph at lines 196--196
-[]|[]| 
- []
-
-<figures/9-2-13.png, id=171, 60.225pt x 60.225pt>
-File: figures/9-2-13.png Graphic file (type png)
- <use figures/9-2-13.png>
-Package pdftex.def Info: figures/9-2-13.png used on input line 199.
-(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
-
-Overfull \hbox (1.9186pt too wide) in paragraph at lines 200--200
-[]|[]| 
- []
-
-<figures/9-2-17.png, id=172, 60.225pt x 60.225pt>
+<figures/9-2-17.png, id=167, 60.225pt x 60.225pt>
 File: figures/9-2-17.png Graphic file (type png)
  <use figures/9-2-17.png>
-Package pdftex.def Info: figures/9-2-17.png used on input line 203.
+Package pdftex.def Info: figures/9-2-17.png used on input line 195.
+(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
+
+Overfull \hbox (4.32846pt too wide) in paragraph at lines 196--196
+[]|[]| 
+ []
+
+<figures/9-2-22.png, id=168, 60.225pt x 60.225pt>
+File: figures/9-2-22.png Graphic file (type png)
+ <use figures/9-2-22.png>
+Package pdftex.def Info: figures/9-2-22.png used on input line 199.
+(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
+
+Overfull \hbox (4.32846pt too wide) in paragraph at lines 200--200
+[]|[]| 
+ []
+
+<figures/9-2-26.png, id=169, 60.225pt x 60.225pt>
+File: figures/9-2-26.png Graphic file (type png)
+ <use figures/9-2-26.png>
+Package pdftex.def Info: figures/9-2-26.png used on input line 203.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
 Overfull \hbox (4.32846pt too wide) in paragraph at lines 204--204
 []|[]| 
  []
 
-<figures/9-2-22.png, id=173, 60.225pt x 60.225pt>
-File: figures/9-2-22.png Graphic file (type png)
- <use figures/9-2-22.png>
-Package pdftex.def Info: figures/9-2-22.png used on input line 207.
+<figures/9-2-27.png, id=170, 60.225pt x 60.225pt>
+File: figures/9-2-27.png Graphic file (type png)
+ <use figures/9-2-27.png>
+Package pdftex.def Info: figures/9-2-27.png used on input line 207.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
 Overfull \hbox (4.32846pt too wide) in paragraph at lines 208--208
 []|[]| 
  []
 
-<figures/9-2-26.png, id=174, 60.225pt x 60.225pt>
-File: figures/9-2-26.png Graphic file (type png)
- <use figures/9-2-26.png>
-Package pdftex.def Info: figures/9-2-26.png used on input line 211.
-(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
-
-Overfull \hbox (4.32846pt too wide) in paragraph at lines 212--212
-[]|[]| 
- []
-
-<figures/9-2-27.png, id=175, 60.225pt x 60.225pt>
-File: figures/9-2-27.png Graphic file (type png)
- <use figures/9-2-27.png>
-Package pdftex.def Info: figures/9-2-27.png used on input line 215.
-(pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
-
-Overfull \hbox (4.32846pt too wide) in paragraph at lines 216--216
-[]|[]| 
- []
-
-<figures/1-0-4.png, id=176, 60.225pt x 60.225pt>
+<figures/1-0-4.png, id=171, 60.225pt x 60.225pt>
 File: figures/1-0-4.png Graphic file (type png)
  <use figures/1-0-4.png>
-Package pdftex.def Info: figures/1-0-4.png used on input line 220.
+Package pdftex.def Info: figures/1-0-4.png used on input line 212.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/1-0-6.png, id=177, 60.225pt x 60.225pt>
+<figures/1-0-6.png, id=172, 60.225pt x 60.225pt>
 File: figures/1-0-6.png Graphic file (type png)
  <use figures/1-0-6.png>
-Package pdftex.def Info: figures/1-0-6.png used on input line 224.
+Package pdftex.def Info: figures/1-0-6.png used on input line 216.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (1.9186pt too wide) in paragraph at lines 225--225
+Overfull \hbox (1.9186pt too wide) in paragraph at lines 217--217
 []|[]| 
  []
 
-<figures/1-0-9.png, id=178, 60.225pt x 60.225pt>
+<figures/1-0-9.png, id=173, 60.225pt x 60.225pt>
 File: figures/1-0-9.png Graphic file (type png)
  <use figures/1-0-9.png>
-Package pdftex.def Info: figures/1-0-9.png used on input line 228.
+Package pdftex.def Info: figures/1-0-9.png used on input line 220.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (1.9186pt too wide) in paragraph at lines 229--229
+Overfull \hbox (1.9186pt too wide) in paragraph at lines 221--221
 []|[]| 
  []
 
-<figures/1-0-12.png, id=179, 60.225pt x 60.225pt>
+<figures/1-0-12.png, id=174, 60.225pt x 60.225pt>
 File: figures/1-0-12.png Graphic file (type png)
  <use figures/1-0-12.png>
-Package pdftex.def Info: figures/1-0-12.png used on input line 232.
+Package pdftex.def Info: figures/1-0-12.png used on input line 224.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/1-0-17.png, id=180, 60.225pt x 60.225pt>
+<figures/1-0-17.png, id=175, 60.225pt x 60.225pt>
 File: figures/1-0-17.png Graphic file (type png)
  <use figures/1-0-17.png>
-Package pdftex.def Info: figures/1-0-17.png used on input line 236.
+Package pdftex.def Info: figures/1-0-17.png used on input line 228.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (0.8086pt too wide) in paragraph at lines 237--237
+Overfull \hbox (0.8086pt too wide) in paragraph at lines 229--229
 []|[]| 
  []
 
-<figures/1-0-22.png, id=181, 60.225pt x 60.225pt>
+<figures/1-0-22.png, id=176, 60.225pt x 60.225pt>
 File: figures/1-0-22.png Graphic file (type png)
  <use figures/1-0-22.png>
-Package pdftex.def Info: figures/1-0-22.png used on input line 240.
+Package pdftex.def Info: figures/1-0-22.png used on input line 232.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (0.8086pt too wide) in paragraph at lines 241--241
+Overfull \hbox (0.8086pt too wide) in paragraph at lines 233--233
 []|[]| 
  []
 
-<figures/1-0-25.png, id=182, 60.225pt x 60.225pt>
+<figures/1-0-25.png, id=177, 60.225pt x 60.225pt>
 File: figures/1-0-25.png Graphic file (type png)
  <use figures/1-0-25.png>
-Package pdftex.def Info: figures/1-0-25.png used on input line 244.
+Package pdftex.def Info: figures/1-0-25.png used on input line 236.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/1-0-28.png, id=183, 60.225pt x 60.225pt>
+<figures/1-0-28.png, id=178, 60.225pt x 60.225pt>
 File: figures/1-0-28.png Graphic file (type png)
  <use figures/1-0-28.png>
-Package pdftex.def Info: figures/1-0-28.png used on input line 248.
+Package pdftex.def Info: figures/1-0-28.png used on input line 240.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (9.13843pt too wide) in paragraph at lines 249--249
+Overfull \hbox (9.13843pt too wide) in paragraph at lines 241--241
 []|[]| 
  []
 
-<figures/4-8-4.png, id=184, 60.225pt x 60.225pt>
+<figures/4-8-4.png, id=179, 60.225pt x 60.225pt>
 File: figures/4-8-4.png Graphic file (type png)
  <use figures/4-8-4.png>
-Package pdftex.def Info: figures/4-8-4.png used on input line 253.
+Package pdftex.def Info: figures/4-8-4.png used on input line 245.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/4-8-6.png, id=185, 60.225pt x 60.225pt>
+<figures/4-8-6.png, id=180, 60.225pt x 60.225pt>
 File: figures/4-8-6.png Graphic file (type png)
  <use figures/4-8-6.png>
-Package pdftex.def Info: figures/4-8-6.png used on input line 257.
+Package pdftex.def Info: figures/4-8-6.png used on input line 249.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-<figures/4-8-9.png, id=186, 60.225pt x 60.225pt>
+<figures/4-8-9.png, id=181, 60.225pt x 60.225pt>
 File: figures/4-8-9.png Graphic file (type png)
  <use figures/4-8-9.png>
-Package pdftex.def Info: figures/4-8-9.png used on input line 261.
+Package pdftex.def Info: figures/4-8-9.png used on input line 253.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (1.36838pt too wide) in paragraph at lines 262--262
+Overfull \hbox (1.36838pt too wide) in paragraph at lines 254--254
 []|[]| 
  []
 
-<figures/4-8-14.png, id=187, 60.225pt x 60.225pt>
+<figures/4-8-14.png, id=182, 60.225pt x 60.225pt>
 File: figures/4-8-14.png Graphic file (type png)
  <use figures/4-8-14.png>
-Package pdftex.def Info: figures/4-8-14.png used on input line 265.
+Package pdftex.def Info: figures/4-8-14.png used on input line 257.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (2.09851pt too wide) in paragraph at lines 266--266
+Overfull \hbox (2.09851pt too wide) in paragraph at lines 258--258
 []|[]| 
  []
 
-<figures/4-8-18.png, id=188, 60.225pt x 60.225pt>
+<figures/4-8-18.png, id=183, 60.225pt x 60.225pt>
 File: figures/4-8-18.png Graphic file (type png)
  <use figures/4-8-18.png>
-Package pdftex.def Info: figures/4-8-18.png used on input line 269.
+Package pdftex.def Info: figures/4-8-18.png used on input line 261.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (2.09851pt too wide) in paragraph at lines 270--270
+Overfull \hbox (2.09851pt too wide) in paragraph at lines 262--262
 []|[]| 
  []
 
-<figures/4-8-22.png, id=189, 60.225pt x 60.225pt>
+<figures/4-8-22.png, id=184, 60.225pt x 60.225pt>
 File: figures/4-8-22.png Graphic file (type png)
  <use figures/4-8-22.png>
-Package pdftex.def Info: figures/4-8-22.png used on input line 273.
+Package pdftex.def Info: figures/4-8-22.png used on input line 265.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (0.8086pt too wide) in paragraph at lines 274--274
+Overfull \hbox (0.8086pt too wide) in paragraph at lines 266--266
 []|[]| 
  []
 
-<figures/4-8-25.png, id=190, 60.225pt x 60.225pt>
+<figures/4-8-25.png, id=185, 60.225pt x 60.225pt>
 File: figures/4-8-25.png Graphic file (type png)
  <use figures/4-8-25.png>
-Package pdftex.def Info: figures/4-8-25.png used on input line 277.
+Package pdftex.def Info: figures/4-8-25.png used on input line 269.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (7.10835pt too wide) in paragraph at lines 278--278
+Overfull \hbox (7.10835pt too wide) in paragraph at lines 270--270
 []|[]| 
  []
 
-<figures/4-8-28.png, id=191, 60.225pt x 60.225pt>
+<figures/4-8-28.png, id=186, 60.225pt x 60.225pt>
 File: figures/4-8-28.png Graphic file (type png)
  <use figures/4-8-28.png>
-Package pdftex.def Info: figures/4-8-28.png used on input line 281.
+Package pdftex.def Info: figures/4-8-28.png used on input line 273.
 (pdftex.def)             Requested size: 39.75092pt x 39.75229pt.
 
-Overfull \hbox (14.14827pt too wide) in paragraph at lines 282--282
+Overfull \hbox (14.14827pt too wide) in paragraph at lines 274--274
 []|[]| 
  []
 
-(./iclr-paper.bbl [4 <./figures/5-7-4.png (PNG copy)> <./figures/5-7-6.png (PNG
- copy)> <./figures/5-7-9.png (PNG copy)> <./figures/5-7-13.png (PNG copy)> <./f
-igures/5-7-17.png (PNG copy)> <./figures/5-7-22.png (PNG copy)> <./figures/5-7-
-26.png (PNG copy)> <./figures/5-7-27.png (PNG copy)> <./figures/9-2-4.png (PNG 
-copy)> <./figures/9-2-6.png (PNG copy)> <./figures/9-2-9.png (PNG copy)> <./fig
-ures/9-2-13.png (PNG copy)> <./figures/9-2-17.png (PNG copy)> <./figures/9-2-22
-.png (PNG copy)> <./figures/9-2-26.png (PNG copy)> <./figures/9-2-27.png (PNG c
-opy)> <./figures/1-0-4.png (PNG copy)> <./figures/1-0-6.png (PNG copy)> <./figu
-res/1-0-9.png (PNG copy)> <./figures/1-0-12.png (PNG copy)> <./figures/1-0-17.p
-ng (PNG copy)> <./figures/1-0-22.png (PNG copy)> <./figures/1-0-25.png (PNG cop
-y)> <./figures/1-0-28.png (PNG copy)> <./figures/4-8-4.png (PNG copy)> <./figur
-es/4-8-6.png (PNG copy)> <./figures/4-8-9.png (PNG copy)> <./figures/4-8-14.png
- (PNG copy)> <./figures/4-8-18.png (PNG copy)> <./figures/4-8-22.png (PNG copy)
-> <./figures/4-8-25.png (PNG copy)> <./figures/4-8-28.png (PNG copy)>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 292.
+[3]
+<figures/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png, id=207, 128.48p
+t x 64.24pt>
+File: figures/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png Graphic fil
+e (type png)
 
-[5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 292.
+<use figures/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png>
+Package pdftex.def Info: figures/a-yellow-school-bus-parked-in-a-parking-lot-sh
+arp.png used on input line 297.
+(pdftex.def)             Requested size: 87.44717pt x 43.72379pt.
+
+Underfull \hbox (badness 4217) in paragraph at lines 297--297
+[]|\OT1/ptm/m/n/9 A $[]$ school bus
+ []
+
+
+<figures/a-red-school-bus-parked-in-a-parking-lot-sharp.png, id=208, 128.48pt x
+ 64.24pt>
+File: figures/a-red-school-bus-parked-in-a-parking-lot-sharp.png Graphic file (
+type png)
+ <use figures/a-red-school-bus-parked-in-a-parking-lot-sharp.png>
+Package pdftex.def Info: figures/a-red-school-bus-parked-in-a-parking-lot-sharp
+.png used on input line 300.
+(pdftex.def)             Requested size: 87.44717pt x 43.72379pt.
+
+<figures/a-green-school-bus-parked-in-a-parking-lot-sharp.png, id=209, 128.48pt
+ x 64.24pt>
+File: figures/a-green-school-bus-parked-in-a-parking-lot-sharp.png Graphic file
+ (type png)
+ <use figures/a-green-school-bus-parked-in-a-parking-lot-sharp.png>
+Package pdftex.def Info: figures/a-green-school-bus-parked-in-a-parking-lot-sha
+rp.png used on input line 303.
+(pdftex.def)             Requested size: 87.44717pt x 43.72379pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--303
+[]|\OT1/ptm/m/n/9 A $[]$ school bus
+ []
+
+
+<figures/a-blue-school-bus-parked-in-a-parking-lot-sharp.png, id=210, 128.48pt 
+x 64.24pt>
+File: figures/a-blue-school-bus-parked-in-a-parking-lot-sharp.png Graphic file 
+(type png)
+ <use figures/a-blue-school-bus-parked-in-a-parking-lot-sharp.png>
+Package pdftex.def Info: figures/a-blue-school-bus-parked-in-a-parking-lot-shar
+p.png used on input line 306.
+(pdftex.def)             Requested size: 87.44717pt x 43.72379pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 306--306
+[]|\OT1/ptm/m/n/9 A $[]$ school bus
+ []
+
+
+Underfull \vbox (badness 1342) has occurred while \output is active []
+
+ [4 <./figures/5-7-4.png (PNG copy)> <./figures/5-7-6.png (PNG copy)> <./figure
+s/5-7-9.png (PNG copy)> <./figures/5-7-13.png (PNG copy)> <./figures/5-7-17.png
+ (PNG copy)> <./figures/5-7-22.png (PNG copy)> <./figures/5-7-26.png (PNG copy)
+> <./figures/5-7-27.png (PNG copy)> <./figures/9-2-4.png (PNG copy)> <./figures
+/9-2-6.png (PNG copy)> <./figures/9-2-9.png (PNG copy)> <./figures/9-2-13.png (
+PNG copy)> <./figures/9-2-17.png (PNG copy)> <./figures/9-2-22.png (PNG copy)> 
+<./figures/9-2-26.png (PNG copy)> <./figures/9-2-27.png (PNG copy)> <./figures/
+1-0-4.png (PNG copy)> <./figures/1-0-6.png (PNG copy)> <./figures/1-0-9.png (PN
+G copy)> <./figures/1-0-12.png (PNG copy)> <./figures/1-0-17.png (PNG copy)> <.
+/figures/1-0-22.png (PNG copy)> <./figures/1-0-25.png (PNG copy)> <./figures/1-
+0-28.png (PNG copy)> <./figures/4-8-4.png (PNG copy)> <./figures/4-8-6.png (PNG
+ copy)> <./figures/4-8-9.png (PNG copy)> <./figures/4-8-14.png (PNG copy)> <./f
+igures/4-8-18.png (PNG copy)> <./figures/4-8-22.png (PNG copy)> <./figures/4-8-
+25.png (PNG copy)> <./figures/4-8-28.png (PNG copy)> <./figures/a-yellow-school
+-bus-parked-in-a-parking-lot-sharp.png (PNG copy)> <./figures/a-red-school-bus-
+parked-in-a-parking-lot-sharp.png (PNG copy)> <./figures/a-green-school-bus-par
+ked-in-a-parking-lot-sharp.png (PNG copy)> <./figures/a-blue-school-bus-parked-
+in-a-parking-lot-sharp.png (PNG copy)>]pdfTeX warning (ext4): destination with 
+the same identifier (name{subfigure.34.1}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.320 \subfloat
+               [A very large commercial plane flying in the \underline{blue}...
+
+<figures/a-very-large-commercial-plane-flying-in-the-blue-skies-sharp.png, id=2
+22, 289.08pt x 64.24pt>
+File: figures/a-very-large-commercial-plane-flying-in-the-blue-skies-sharp.png 
+Graphic file (type png)
+
+<use figures/a-very-large-commercial-plane-flying-in-the-blue-skies-sharp.png>
+Package pdftex.def Info: figures/a-very-large-commercial-plane-flying-in-the-bl
+ue-skies-sharp.png used on input line 321.
+(pdftex.def)             Requested size: 190.79109pt x 42.39754pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.323 \subfloat
+               [A very large commercial plane flying in the \underline{cloud...
+
+<figures/a-very-large-commercial-plane-flying-in-the-cloudy-skies-sharp.png, id
+=223, 289.08pt x 64.24pt>
+File: figures/a-very-large-commercial-plane-flying-in-the-cloudy-skies-sharp.pn
+g Graphic file (type png)
+
+<use figures/a-very-large-commercial-plane-flying-in-the-cloudy-skies-sharp.png
+>
+Package pdftex.def Info: figures/a-very-large-commercial-plane-flying-in-the-cl
+oudy-skies-sharp.png used on input line 324.
+(pdftex.def)             Requested size: 190.79109pt x 42.39754pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.336 \subfloat
+               [A heard of elephants walking across a \underline{dry} grass ...
+
+<figures/a-herd-of-elephants-walking-across-a-dry-grass-field-sharp.png, id=224
+, 289.08pt x 64.24pt>
+File: figures/a-herd-of-elephants-walking-across-a-dry-grass-field-sharp.png Gr
+aphic file (type png)
+
+<use figures/a-herd-of-elephants-walking-across-a-dry-grass-field-sharp.png>
+Package pdftex.def Info: figures/a-herd-of-elephants-walking-across-a-dry-grass
+-field-sharp.png used on input line 337.
+(pdftex.def)             Requested size: 190.79109pt x 42.39754pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.339 \subfloat
+               [A heard of elephants walking across a \underline{green} gras...
+
+<figures/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png, id=2
+25, 289.08pt x 64.24pt>
+File: figures/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png 
+Graphic file (type png)
+
+<use figures/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png>
+Package pdftex.def Info: figures/a-herd-of-elephants-walking-across-a-green-gra
+ss-field-sharp.png used on input line 340.
+(pdftex.def)             Requested size: 190.79109pt x 42.39754pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.356 \subfloat
+               [The \underline{decadent chocolate dessert} is on the table.
+<figures/the-decadent-chocolate-dessert-is-on-the-table-2-sharp.png, id=226, 28
+9.08pt x 64.24pt>
+File: figures/the-decadent-chocolate-dessert-is-on-the-table-2-sharp.png Graphi
+c file (type png)
+
+<use figures/the-decadent-chocolate-dessert-is-on-the-table-2-sharp.png>
+Package pdftex.def Info: figures/the-decadent-chocolate-dessert-is-on-the-table
+-2-sharp.png used on input line 357.
+(pdftex.def)             Requested size: 190.79109pt x 42.39754pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.359 \subfloat
+               [The \underline{bowl of banas} is on the table.
+<figures/a-bowl-of-bananas-is-on-the-table-2-sharp.png, id=227, 289.08pt x 64.2
+4pt>
+File: figures/a-bowl-of-bananas-is-on-the-table-2-sharp.png Graphic file (type 
+png)
+ <use figures/a-bowl-of-bananas-is-on-the-table-2-sharp.png>
+Package pdftex.def Info: figures/a-bowl-of-bananas-is-on-the-table-2-sharp.png 
+used on input line 360.
+(pdftex.def)             Requested size: 190.79109pt x 42.39754pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.372 \subfloat
+               [A vintage photo of a \underline{cat}.
+<figures/a-vintage-photo-of-a-cat-sharp.png, id=228, 289.08pt x 64.24pt>
+File: figures/a-vintage-photo-of-a-cat-sharp.png Graphic file (type png)
+
+<use figures/a-vintage-photo-of-a-cat-sharp.png>
+Package pdftex.def Info: figures/a-vintage-photo-of-a-cat-sharp.png used on inp
+ut line 373.
+(pdftex.def)             Requested size: 190.79109pt x 42.39754pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.375 \subfloat
+               [A vintage photo of a \underline{dog}.
+<figures/a-vintage-photo-of-a-dog-sharp.png, id=229, 289.08pt x 64.24pt>
+File: figures/a-vintage-photo-of-a-dog-sharp.png Graphic file (type png)
+
+<use figures/a-vintage-photo-of-a-dog-sharp.png>
+Package pdftex.def Info: figures/a-vintage-photo-of-a-dog-sharp.png used on inp
+ut line 376.
+(pdftex.def)             Requested size: 190.79109pt x 42.39754pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.402 \subfloat
+               {\includegraphics[width=0.22\textwidth]{figures/a-group-of-pe...
+
+<figures/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp.png, id=230, 
+128.48pt x 128.48pt>
+File: figures/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp.png Grap
+hic file (type png)
+
+<use figures/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp.png>
+Package pdftex.def Info: figures/a-group-of-people-walk-on-a-beach-with-surf-bo
+ards-sharp.png used on input line 402.
+(pdftex.def)             Requested size: 87.44717pt x 87.44757pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.404 \subfloat
+               {\includegraphics[width=0.22\textwidth]{figures/a-group-of-pe...
+
+<figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png, id=231,
+ 128.48pt x 128.48pt>
+File: figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png Gra
+phic file (type png)
+
+<use figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png>
+Package pdftex.def Info: figures/a-group-of-people-walk-on-a-beach-with-surf-bo
+ards-lapgan.png used on input line 404.
+(pdftex.def)             Requested size: 87.44717pt x 87.44757pt.
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.406 \subfloat
+               {\includegraphics[width=0.22\textwidth]{to-do.png}}\quad
+
+LaTeX Warning: File `to-do.png' not found on input line 406.
+
+
+! Package pdftex.def Error: File `to-do.png' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.406 ...raphics[width=0.22\textwidth]{to-do.png}}
+                                                  \quad
+? 
+pdfTeX warning (ext4): destination with the same identifier (name{subfigure.34.
+4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.408 \subfloat
+               {\includegraphics[width=0.22\textwidth]{to-do.png}}\quad
+
+LaTeX Warning: File `to-do.png' not found on input line 408.
+
+
+! Package pdftex.def Error: File `to-do.png' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.408 ...raphics[width=0.22\textwidth]{to-do.png}}
+                                                  \quad
+? 
+[5 <./figures/a-very-large-commercial-plane-flying-in-the-blue-skies-sharp.png 
+(PNG copy)> <./figures/a-very-large-commercial-plane-flying-in-the-cloudy-skies
+-sharp.png (PNG copy)> <./figures/a-herd-of-elephants-walking-across-a-dry-gras
+s-field-sharp.png (PNG copy)> <./figures/a-herd-of-elephants-walking-across-a-g
+reen-grass-field-sharp.png (PNG copy)> <./figures/the-decadent-chocolate-desser
+t-is-on-the-table-2-sharp.png (PNG copy)> <./figures/a-bowl-of-bananas-is-on-th
+e-table-2-sharp.png (PNG copy)> <./figures/a-vintage-photo-of-a-cat-sharp.png (
+PNG copy)> <./figures/a-vintage-photo-of-a-dog-sharp.png (PNG copy)>]
+(./iclr-paper.bbl [6 <./figures/a-group-of-people-walk-on-a-beach-with-surf-boa
+rds-sharp.png (PNG copy)> <./figures/a-group-of-people-walk-on-a-beach-with-sur
+f-boards-lapgan.png (PNG copy)>])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 421.
+ [7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 421.
  (./iclr-paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 292.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 292.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 421.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 421.
 Package rerunfilecheck Info: File `iclr-paper.out' has not changed.
-(rerunfilecheck)             Checksum: 683BF51B1CD4044C157D89ED5A4FAE29;591.
+(rerunfilecheck)             Checksum: E83C17CE3CE0069B41FFD64F12278C71;848.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 292.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 421.
  ) 
 Here is how much of TeX's memory you used:
- 7951 strings out of 493488
- 117628 string characters out of 3141326
- 226179 words of memory out of 3000000
- 11068 multiletter control sequences out of 15000+200000
- 27684 words of font info for 59 fonts, out of 3000000 for 9000
+ 8203 strings out of 493488
+ 125014 string characters out of 3141326
+ 231117 words of memory out of 3000000
+ 11285 multiletter control sequences out of 15000+200000
+ 26752 words of font info for 59 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 37i,14n,45p,1035b,439s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,14n,46p,1035b,458s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local
@@ -739,17 +1028,16 @@ texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/te
 xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
 ve/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
 2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2
-012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/201
-2/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2012/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2012/t
-exmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2012/texmf-dis
-t/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/ty
-pe1/urw/times/utmr8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/urw/ti
-mes/utmri8a.pfb>
-Output written on iclr-paper.pdf (5 pages, 237960 bytes).
+012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/201
+2/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2012
+/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2012/texmf-d
+ist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/urw/
+times/utmri8a.pfb>
+Output written on iclr-paper.pdf (7 pages, 644756 bytes).
 PDF statistics:
- 291 PDF objects out of 1000 (max. 8388607)
- 231 compressed objects within 3 object streams
- 52 named destinations out of 1000 (max. 500000)
- 249 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 339 PDF objects out of 1000 (max. 8388607)
+ 264 compressed objects within 3 object streams
+ 68 named destinations out of 1000 (max. 500000)
+ 343 words of extra memory for PDF output out of 10000 (max. 10000000)
 
