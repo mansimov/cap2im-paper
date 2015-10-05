@@ -89,7 +89,7 @@ While all of the previous work has been focused on unconditional models or model
 \section{Model}
 Our proposed model can be viewed as a part of sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video} where captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$ and $\oimage$ be the image corresponding to that caption.
 
-\subsection{Modelling Language: the Bidirectional Attention RNN}
+\subsection{Language Model: the Bidirectional Attention RNN}
 
 The input caption sentences are fed into a deterministic Bidirectional LSTM\cite{} that encodes the variable size sentences into the vector representation $s$. Bidirectional LSTM consists of one Forward LSTM and Backward LSTM which combine information from past and future respectively. The Forward LSTM computes the sequence of forward hidden states $[\overrightarrow{h}^{lang}_{1}, \overrightarrow{h}^{lang}_{2}, ..., \overrightarrow{h}^{lang}_{N}]$ , whereas the Backward LSTM computes the sequence of backward hidden states $[\overleftarrow{h}^{lang}_{1}, \overleftarrow{h}^{lang}_{2}, ..., \overleftarrow{h}^{lang}_{N}]$. Then these hidden states are concatenated together into the sequence $[\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, where $\hlang_{n} = [\overrightarrow{h}^{lang}_{n}, \overleftarrow{h}^{lang}_{n}], 1\leq n\leq N$.
 
@@ -102,9 +102,11 @@ Setting $\alpha_{1...N}$ to $\frac{1}{N}$ turns the encoder into the vanilla mod
 
 
 
-\subsection{Modelling Images: the Conditional DRAW Network}
+\subsection{Image Model: the Conditional DRAW Network}
 
-The image generative model is a DRAW model, which is a stochastic recurrent neural network that consists of Inference LSTM that infers the distribution of latent variables of image $x$ given $y$ and then the Generator LSTM that uses the inferred latent variables in order to reconstruct the image $x$ given $y$. Formally, the decoder iteratively computes the following equations for $t=1,...,T$
+The image generative model is a DRAW model, which is a stochastic recurrent neural network that consists of Inference LSTM that infers the distribution of latent variables of image $x$ given $y$ and then the Generator LSTM that uses the inferred latent variables in order to reconstruct the image $x$ given $y$. We extend the DRAW network to include the $align$ function by \cite{bahdanau_mt} which used to compute the alignment between the input caption and intermediate image generative steps:
+
+Formally, the decoder iteratively computes the following equations for $t=1,...,T$
 \begin{align}
 \label{eq:x_hat}
 \hat{x}_t &= x-\sigmoid(\canv_{t-1})\\
@@ -113,23 +115,26 @@ r_t &= \readop(x_t, \hat{x}_t, \hdec_{t-1})\\
 \henc_t &= \encoder(\henc_{t-1}, [r_t, \hdec_{t-1}])\\
 \lat_t &\sim \post(\Lat_t|\henc_t)\\
 \hdec_t &= \decoder(\hdec_{t-1}, z_t, s_{t-1})\\
-s_{t} &= align(\hdec_{t-1}, \hlangall)\\
+s_{t} &= align(\hdec_{t-1}, \hlangall) \\
 \label{eq:write}
 \canv_t &= \canv_{t-1} + \writeop(\hdec_t)
 \end{align}
 
-where $\readop$ and $\writeop$ are the same attention operators as in \citep{gregor_draw}, $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{n}]$ and $\canv_{0}, \hdec_{0}, \henc_{0}$ are initialized to the learned biases.
+where $\readop$ and $\writeop$ are the same attention operators as in \citep{gregor_draw}, $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{n}]$ and $\canv_{0}, \hdec_{0}, \henc_{0}$ are initialized to the learned biases. 
 
-The $align$ function introduced by \cite{bahdanau_mt} is used to compute probabilities $\alpha_{1...n}$ by first computing the energies $e_{t,0}, e_{t,1}, ..., e_{t,n}$ and then rescaling them to the probability distribution $\alpha_{1}, \alpha_{2}, ..., \alpha_{n}$
+The cooresponding alignment probabilities $\alpha_{1...n}$ at each step are obtained by:
 \begin{align}
 e_{tj} &= v^{T}tanh(U\hlang_{j} + W\hdec_{t} + b)\\
-\alpha_{j} &= softmax(e_{tj})
+\alpha_{j} &= \frac{exp(e_{tj})}{\sum_{j=1}^{N}exp(e_{tj})}.
 \end{align}
 
-where $softmax(e_{tj}) = \frac{exp(e_{tj})}{\sum_{j=1}^{N}exp(e_{tj})}$
+
 
 
 \subsection{Learning}
+
+
+
 
 The model is learned by the modified version of Stochastic Gradient Variation Bayes (SGVB) algorithm introduced by \cite{kingma_vae}. The model is trained to maximize the lower bound of marginal likelihood $\loss$ of the correct image $x$ given the input caption $y$. The $\loss$ is decomposed into the latent loss $\lloss$ and the reconstruction loss $\rloss$. 
 
