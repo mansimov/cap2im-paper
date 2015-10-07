@@ -337,14 +337,15 @@ During the image generation step, we throw away the inference network from the d
 
 \subsection{COCO}
 
-Microsoft COCO \citep{mscoco} is the largest dataset of images annotated with captions consisting of roughly 83k images. The rich collection of images with variety of styles, backgrounds and objects makes the task of learning a good generative model conditioned on caption very challenging. Since some of the images have more than five captions attached to them, for consistency with related work on caption generation we disregard extra captions.
+Microsoft COCO \citep{mscoco} is a very large dataset of roughly 83k images, each annotated with 5 captions. The rich collection of images with a wide variety of styles, backgrounds and objects makes the task of learning a good generative model conditioned on a caption very challenging. For consistency with related work on caption generation, we disregard four of the five captions when training our model.
+%Since some of the images have more than five captions attached to them, 
 
-In the following subsections we make both qualitative and quantitative analysis of our model as well as compare its performance with the performances of other related generative models.
+In the following subsections, we analyze both the qualitative and quantitative aspects of our model as well as compare its performance with that of other, related generative models.
 
 \subsubsection{Analysis of Generated Images}
-The main goal of this work is to learn a model that can understand the semantic meaning expressed in the descriptions of the images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To verify that, we wrote a set of captions inspired by COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
+The main goal of this work is to learn a model that can understand the semantic meaning expressed in the textual descriptions of images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To verify that, we wrote a set of captions inspired by the COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
 
-First, we wanted to see whether the model understood one of the most basic properties of any object, the color. As shown in Figure~\ref{fig:genimages1}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all school buses specifically are colored yellow. Despite that, the model managed to generate images of an object that is reminiscent of the bus pained with the relevant color.
+First, we wanted to see whether the model understood one of the most basic properties of any object, the color. In Figure~\ref{fig:genimages1}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all mentioned school buses are specifically colored yellow. Despite that, the model managed to generate images of an object that is visually reminiscent of a school bus that is painted with the specified color.
 
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
@@ -367,7 +368,7 @@ First, we wanted to see whether the model understood one of the most basic prope
 \vspace{-0.3cm}
 \end{figure}
 
-Apart from changing the colors of objects, we were curious whether changing the background of the scene described in the caption would result in the appropriate changes in the generated samples. Changing the background in images is a somewhat harder task for a model that changing the color, due to the larger visual area in images that is taken by the background. Nevertheless, as shown in Figure~\ref{fig:genimages2} changing the skies from blue to rainy as well as changing the grass type from dry to green resulted in the appropriate changes. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.
+Apart from changing the colors of objects, we were curious whether changing the background of the scene described in a caption would result in the appropriate changes in the generated samples. The task of changing the background of an image is somewhat harder than just changing the color of an object because the model will have to make alterations over a wider visual area. Nevertheless, as shown in Figure~\ref{fig:genimages2} changing the skies from blue to rainy in a caption as well as changing the grass type from dry to green in another caption resulted in the appropriate changes in the generated image. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.
 
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
@@ -394,12 +395,12 @@ Apart from changing the colors of objects, we were curious whether changing the 
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png}}\quad
 %
 \end{center}
-\caption{Examples of changing the background while keeping the caption fixed. The respective nearest training images based on pixelwise distance are displayed on top.}
+\caption{Examples of changing the background while keeping the caption fixed. The respective nearest training images based on pixel-wise L2 distance are displayed on top.}
 \label{fig:genimages2}
 \vspace{-0.3cm}
 \end{figure}
 
-Despite an infinite number of ways of changing colors and backgrounds in descriptions, in general we found that the model made appropriate changes as long as some similar patter was present in the training set. However, it wasn't always the case when changing an object itself in the description. As you can see in Figure~\ref{fig:genimages3}, when objects didn't have a clear fine grained differences, such as different shape or color, the relevant changes in the generated samples weren't very clearly seen. This highlighted the limitation of the model to grasp the detailed understanding of each object.
+Despite an infinite number of ways of changing colors and backgrounds in descriptions, in general we found that the model made appropriate changes as long as some similar pattern was present in the training set. However, the model struggled when the visual difference between objects was very small, such as the objects having the same general shape and colors. In Figure~\ref{fig:genimages3}, we demonstrate that when we swap two objects that are both visually similar, for example cats and dogs, it is difficult to discriminate solely from the generated samples whether it is an image of a cat or dog, even though we might notice an animal-like shape. This highlights a limitation of the model in that it has difficulty modelling the fine-grained details of objects. 
  
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
@@ -407,7 +408,7 @@ Despite an infinite number of ways of changing colors and backgrounds in descrip
 \subfloat[\underline{The decadent chocolate} \underline{desert} is on the table.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/the-decadent-chocolate-dessert-is-on-the-table-sharp.png}}\quad
 %
-\subfloat[\underline{A bowl of banas} is on the table.
+\subfloat[\underline{A bowl of bananas} is on the table.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-bowl-of-bananas-is-on-the-table-sharp.png}}\quad
 %
 \subfloat[A vintage photo of a \underline{cat}.
