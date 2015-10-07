@@ -344,7 +344,7 @@ The main goal of this work is to learn a model that can understand the semantic 
 
 First, we wanted to see whether the model understood one of the most basic properties of any object, the color. As shown in Figure~\ref{fig:genimages1}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all school buses specifically are colored yellow. Despite that, the model managed to generate images of an object that is reminiscent of the bus pained with the relevant color.
 
-\begin{figure}[!h]
+\begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
 \subfloat[A \underline{yellow} school bus parked in a parking lot.
@@ -421,8 +421,29 @@ Despite an infinite number of ways of changing colors and backgrounds in descrip
 \end{figure}
 
 \subsubsection{Analysis of Attention}
+Unfortunately, we found that there was no connection between the patches drawn on canvas and most attended words at each timestep. During the image generation, the model mostly focused on several words that carried the semantic meaning of caption. The words which were mostly attended during all generation steps indicated the kind of scene the model would generate. For example, as shown in Figure~\ref{fig:attentimages1} by equally looking at words deset and forest allowed the model to make relevant changes in the scene. Whereas in the second example, the model completely ignored word sun and didn't make any changes.
 
-Unfortunately, we found that there was no real connection between the patches drawn on canvas and most attended words at each timestep. During the generation, the model mostly focused on several words that were represented the idea in the caption. The most attended words allowed us to interpret whether the model would make relevant changes. 
+\begin{figure}[!h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[\hlcthree{A} rider \hlcone{on} a blue \hlcone{motorcycle} in the \underline{\hlctwo{desert}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sharp.png}}\quad
+%
+\subfloat[\hlcthree{A} rider \hlcone{on} a blue \hlcone{motorcycle} in the \underline{\hlctwo{forest}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-forest-sharp.png}}\quad
+%
+\subfloat[\hlctwo{A} \hlcone{surfer}, a woman, and a child walk on the \underline{\hlctwo{beach}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-beach-sharp.png}}\quad
+%
+\subfloat[\hlcthree{A} \hlcone{surfer}, a woman, and a child walk on the \underline{\hlczero{sun}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-sun-sharp.png}}\quad
+%
+\end{center}
+\caption{Examples of most attended words while changing the background in the caption.}
+\label{fig:attentimages1}
+\vspace{-0.3cm}
+\end{figure}
+
 
 \subsubsection{Comparison With Other Models}
 The quantitative evaluation of generative models has been a subject of ambiguity in a machine learning community. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparisions between performances of generative models, we report results on two different metrics as well as do some qualitative comparison of different generative models.
@@ -463,14 +484,36 @@ Instead of calculating error per each pixel, we turn to the smarter metric, such
 \hline
 LAPGAN & - & - & - & - & - & 0.08 \\ % - & - & - & - & - & 0.08
 \hline
-Fully-conn. VAE (L2 cost) & 0.7 & 4.6 & 8.7 & 46.8 & 54 & 0.122 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
-Conv. VAE (L2 cost) & 0.7 & 4.4 & 8.5 & 46.6 & 54 & \textbf{0.131} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
-Noalign DRAW & \textbf{1.0} & 6.1 & 11.2 & 52.1 & \textbf{48} & 0.114 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
-Skipthought DRAW & \textbf{1.0} & \textbf{6.2} & \textbf{11.5} & \textbf{52.5} & \textbf{48} & 0.118 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
-Align DRAW & 0.9 & \textbf{6.2} & 11.2 & \textbf{52.5} & \textbf{48} & 0.115 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
+Fully-conn. VAE (L2 cost) & 1.0 & 5.6 & 10.4 & 51.1 & 51 & 0.156 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
+Conv. VAE (L2 cost) & 1.0 & 5.9 & 10.9 & 50.8 & 50 & \textbf{0.164} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
+Skipthought DRAW & 2.0 & 11.2 & 18.9 & 63.3 & 36 & 0.157 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
+Noalign DRAW & 2.8 & \textbf{14.1} & \textbf{23.1} & 68.0 & \textbf{31} & 0.155 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
+Align DRAW & \textbf{3.0} & 14.0 & 22.9 & \textbf{68.5} & \textbf{31} & 0.156 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
 \end{tabulary}
 \end{center}
 \end{table}
+
+% \begin{table}[!t]
+% \begin{center}
+% \begin{tabulary}{\linewidth}{c || c c c c c || c}
+% \hline
+% \multicolumn{7}{c}{\textbf{COCO (before sharpening)}} \\
+% \hline
+% & \multicolumn{5}{c||}{Image Search} & Image Similarity \\
+% %\cline{2-6}
+% \textbf{Model} & \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@50} & \textbf{Med r} & \textbf{SSI} \\
+% \hline
+% \hline
+% LAPGAN & - & - & - & - & - & 0.08 \\ % - & - & - & - & - & 0.08
+% \hline
+% Fully-conn. VAE (L2 cost) & 0.7 & 4.6 & 8.7 & 46.8 & 54 & 0.122 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
+% Conv. VAE (L2 cost) & 0.7 & 4.4 & 8.5 & 46.6 & 54 & \textbf{0.131} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
+% Noalign DRAW & \textbf{1.0} & 6.1 & 11.2 & 52.1 & \textbf{48} & 0.114 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
+% Skipthought DRAW & \textbf{1.0} & \textbf{6.2} & \textbf{11.5} & \textbf{52.5} & \textbf{48} & 0.118 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
+% Align DRAW & 0.9 & \textbf{6.2} & 11.2 & \textbf{52.5} & \textbf{48} & 0.115 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
+% \end{tabulary}
+% \end{center}
+% \end{table}
 
 
 \bibliography{iclr-paper}
