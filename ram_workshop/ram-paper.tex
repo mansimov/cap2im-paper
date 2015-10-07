@@ -425,7 +425,30 @@ Despite an infinite number of ways of changing colors and backgrounds in descrip
 
 \subsubsection{Analysis of Attention}
 
-Unfortunately, we found that there was no real connection between the patches drawn on canvas and most attended words at each timestep. During the generation, the model mostly focused on several words that were represented the idea in the caption. The most attended words allowed us to interpret whether the model would make relevant changes. 
+After flipping set of words in the captions, we were curious to see which words did the model attend to when generating images. It turned out that during the generation step, the model mostly focused on the specific words that carried out the main semantic meaning expressed in the sentences. The attention values in sentences helped us interpret the reasons why the model did or didn't make relevant changes in images when flipping words. For example, as shown in Figure~\ref{fig:attentimages1} despite flipping word ``desert'' to ``forest'', the model equally looked at these words and thus made the correct changes. Whereas, flipping between words ``beach'' and ``sun'' has resulted in no change, due to the model ignoring the word ``sun''.
+
+We also tried to analyze the way the model generated images. Unfortunately, we found that there was no connection between the patches drawn on canvas and the most attended words at particular timesteps.
+
+\begin{figure}[!h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[\hlcthree{A} rider \hlcone{on} a blue \hlcone{motorcycle} in the \underline{\hlctwo{desert}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sharp.png}}\quad
+%
+\subfloat[\hlcthree{A} rider \hlcone{on} a blue \hlcone{motorcycle} in the \underline{\hlctwo{forest}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-forest-sharp.png}}\quad
+%
+\subfloat[\hlctwo{A} \hlcone{surfer}, a woman, and a child walk on the \underline{\hlctwo{beach}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-beach-sharp.png}}\quad
+%
+\subfloat[\hlcthree{A} \hlcone{surfer}, a woman, and a child walk on the \underline{\hlczero{sun}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-sun-sharp.png}}\quad
+%
+\end{center}
+\caption{Examples of most attended words while changing the background in the caption.}
+\label{fig:attentimages1}
+\vspace{-0.3cm}
+\end{figure} 
 
 \subsubsection{Comparison With Other Models}
 The quantitative evaluation of generative models has been a subject of ambiguity in a machine learning community. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparisions between performances of generative models, we report results on two different metrics as well as do some qualitative comparison of different generative models.
@@ -439,7 +462,7 @@ The quantitative evaluation of generative models has been a subject of ambiguity
 %
 \subfloat[Conv. VAE]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-convdeconvvae.png}}\quad
 %
-\subfloat{\includegraphics[width=0.23\textwidth]{to-do.png}}\quad
+\subfloat[Fully-conn. VAE]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-fcvae.png}}\quad
 %
 \end{center}
 \caption{Four different models displaying results from sampling caption \textit{A group of people walk on a beach with surf boards.}}
@@ -453,7 +476,7 @@ As for the quantitative comparison of different models, we first compare the per
 
 Instead of calculating error per each pixel, we turn to the smarter metric, such as Structural Similarity Index (SSI), which incorporates luminace and contrast masking into the error calculation. Due to strong inter-dependencies of closer pixels, the metric is calculated on the small windows of the image. To calculate SSI, we sampled fifty images from prior of each generative model per each caption in the test set.
 
-\begin{table}[!t]
+\begin{table}[!b]
 \begin{center}
 \begin{tabulary}{\linewidth}{c || c c c c c || c}
 \hline
@@ -466,11 +489,11 @@ Instead of calculating error per each pixel, we turn to the smarter metric, such
 \hline
 LAPGAN & - & - & - & - & - & 0.08 \\ % - & - & - & - & - & 0.08
 \hline
-Fully-conn. VAE (L2 cost) & 0.7 & 4.6 & 8.7 & 46.8 & 54 & 0.122 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
-Conv. VAE (L2 cost) & 0.7 & 4.4 & 8.5 & 46.6 & 54 & \textbf{0.131} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
-Noalign DRAW & \textbf{1.0} & 6.1 & 11.2 & 52.1 & \textbf{48} & 0.114 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
-Skipthought DRAW & \textbf{1.0} & \textbf{6.2} & \textbf{11.5} & \textbf{52.5} & \textbf{48} & 0.118 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
-Align DRAW & 0.9 & \textbf{6.2} & 11.2 & \textbf{52.5} & \textbf{48} & 0.115 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
+Fully-conn. VAE (L2 cost) & 1.0 & 5.6 & 10.4 & 51.1 & 51 & 0.156 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
+Conv. VAE (L2 cost) & 1.0 & 5.9 & 10.9 & 50.8 & 50 & \textbf{0.164} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
+Skipthought DRAW & 2.0 & 11.2 & 18.9 & 63.3 & 36 & 0.157 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
+Noalign DRAW & 2.8 & \textbf{14.1} & \textbf{23.1} & 68.0 & \textbf{31} & 0.155 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
+Align DRAW & \textbf{3.0} & 14.0 & 22.9 & \textbf{68.5} & \textbf{31} & 0.156 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
 \end{tabulary}
 \end{center}
 \end{table}
