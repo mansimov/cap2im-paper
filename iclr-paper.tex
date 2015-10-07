@@ -8,6 +8,13 @@
 \usepackage{caption}
 %\usepackage{subcaption}
 \usepackage{subfig}
+\usepackage{tabulary}
+\usepackage{soul}
+\usepackage{color}
+\usepackage{xcolor}
+
+\captionsetup{font=small}
+
 
 \newcommand{\comm}[1]{}
 \newcommand{\given}{\,|\,}
@@ -36,13 +43,28 @@
 \newcommand{\loss}{\mathcal{L}}
 \newcommand{\lloss}{\mathcal{L}^{z}}
 \newcommand{\rloss}{\mathcal{L}^{x}}
+\newcommand{\hlc}[2][yellow]{{\sethlcolor{#1}\hl{#2}}}
+
+\definecolor{0}{RGB}{247,251,255}
+\definecolor{1}{RGB}{222,235,247}
+\definecolor{2}{RGB}{198,219,239}
+\definecolor{3}{RGB}{158,202,225}
+\definecolor{4}{RGB}{107,174,214}
+\definecolor{5}{RGB}{66,146,198}
+
+\newcommand{\hlczero}[1]{\hlc[0]{#1}}
+\newcommand{\hlcone}[1]{\hlc[1]{#1}}
+\newcommand{\hlctwo}[1]{\hlc[2]{#1}}
+\newcommand{\hlcthree}[1]{\hlc[3]{#1}}
+\newcommand{\hlcfour}[1]{\hlc[4]{#1}}
+\newcommand{\hlcfive}[1]{\hlc[5]{#1}}
+
 
 \newenvironment{myfont}{\fontfamily{[pcr]}\selectfont}{\par}
 \DeclareTextFontCommand{\textmyfont}{\myfont}
 
 \setlength{\abovecaptionskip}{5pt} % Chosen fairly arbitrarily
 \setlength{\belowcaptionskip}{5pt} % Chosen fairly arbitrarily
-
 
 \title{Generating Images From Captions\\ With Attention}
 
@@ -69,12 +91,10 @@ At the end.
 
 Statistical natural image modelling remains a fundamental problem in computer vision and image understanding. This has motivated recent approaches in generative modelling applied to natural images by employing deep neural networks for their inference and generative components. Image generative models studied previously are often restricted to learning unconditional models of images distribution or conditioned on simple structured annotations, for example classification labels. Despite the advances in generative models, learning the highly structured natural image distribution alone in the high dimensional pixel space alone proves to be a difficult task. In real world, however, images rarely appear in isolation. They often accompanied by their unstructured textual descriptions on web pages and in books. One domain presents substantial amount of relating information of the other domain. The additional information from image and unstructured text description could be used to simplify the image modelling task.
 
-There are two directions in learning a generative model of image and text.  One approach is to learn a text generative model conditioned on the images. Significant amount of recent works have been focusing on generating captions from images\citep{karpathy_captions}, \citep{xu_captions}, \citep{kiros_captions} and etc. The models take an image descriptor and generate unstructured texts through a recurrent decoder. By contrast, learning a generative model for image and text may also be studied by generating images correctly interpreting the text description. 
+There are two directions in learning a generative model of image and text.  One approach is to learn a text generative model conditioned on the images. Significant amount of recent works has been focused on generating captions from images \citep{karpathy_captions}, \citep{xu_captions}, \citep{kiros_captions} and etc. The models take an image descriptor and generate unstructured texts through a recurrent decoder. By contrast, learning a generative model for image and text may also be studied by generating images correctly interpreting the text description. 
 Generating high dimensional realistic images from their descriptions is a more difficult approach that combines two challenging components of language modelling and image generation. Namely, the model has to capture the semantic meaning expressed in the description and then use that knowledge to generate pixel intensities of the image. Although, the interesting high dimensional natural images lay on a small manifold that is difficult to capture, the additional text description cues of a target image may simplify the learning problem by focusing on the conditional distribution.   
 
-
 In this paper, we illustrate how simple sequential deep learning techniques can be used to build a conditional probabilistic model over natural image space effectively. By using a sequence to sequence framework to approach the problem of image generation from unstructured natural language captions, our model iteratively draws the patches on canvas, while attending to the relevant words in the description. Overall, the main contributions of this work are the following:
-
 
 \section{Related Work}
 
@@ -86,6 +106,17 @@ Generative Adversarial Networks (GANs) \citep{goodfellow_gan} are another type o
 
 While all of the previous work has been focused on unconditional models or models conditioned on labels, to the best of our knowledge this paper is the first to introduce the generative model of images conditioned on captions.
 
+\begin{figure}[!t]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\includegraphics[width=0.99\textwidth]{figures/alignDraw-cropped.pdf}\quad
+%
+\end{center}
+\caption{The image of the proposed model}
+\label{fig:figmodel}
+\vspace{-0.3cm}
+\end{figure}
+
 \section{Model}
 Our proposed model can be viewed as a part of sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video} where captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$ and $\oimage$ be the image corresponding to that caption.
 
@@ -93,15 +124,11 @@ Our proposed model can be viewed as a part of sequence-to-sequence framework \ci
 \label{sec:lang}
 The input caption sentences are fed into a deterministic Bidirectional LSTM\cite{} that encodes the variable size sentences into the vector representation $s$. Bidirectional LSTM consists of one Forward LSTM and Backward LSTM which combine information from past and future respectively. The Forward LSTM computes the sequence of forward hidden states $[\overrightarrow{h}^{lang}_{1}, \overrightarrow{h}^{lang}_{2}, ..., \overrightarrow{h}^{lang}_{N}]$ , whereas the Backward LSTM computes the sequence of backward hidden states $[\overleftarrow{h}^{lang}_{1}, \overleftarrow{h}^{lang}_{2}, ..., \overleftarrow{h}^{lang}_{N}]$. Then these hidden states are concatenated together into the sequence $[\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, where $\hlang_{n} = [\overrightarrow{h}^{lang}_{n}, \overleftarrow{h}^{lang}_{n}], 1\leq n\leq N$.
 
-
-
-
-
 \subsection{Image Model: the Conditional DRAW Network}
 
 The DRAW network \cite{gregor_draw} is a sequential probabilistic model generating images by accumulating the output at each iterative step. While the original DRAW network assumes the latent variables are independent, it has shown in \citep{bachman_sdm} the model performance is improved by including the dependencies of latent variables. 
 
-We extended the architecture the DRAW network generative process to include additional input caption from the language model described in Sec. (\ref{sec:lang}). Similarly to the original DRAW network, the conditional DRAW network is a stochastic recurrent neural network that consists of Inference LSTM that infers the distribution of latent variables of image $x$ given $y$ and then the Generator LSTM that uses the inferred latent variables in order to reconstruct the image $x$ given $y$. The $align$ function is used to compute the alignment between the input caption and intermediate image generative steps as in \cite{bahdanau_mt}:
+We extended the architecture the DRAW network generative process to include additional input caption from the language model described in Sec. (\ref{sec:lang}). Similarly to the original DRAW network, the conditional DRAW network is a stochastic recurrent neural network that consists of Inference LSTM that infers the distribution of latent variables of image $x$ given $y$ and then the Generative LSTM that uses the inferred latent variables in order to reconstruct the image $x$ given $y$. The $align$ function is used to compute the alignment between the input caption and intermediate image generative steps as in \cite{bahdanau_mt}:
 
 Formally, the image is generated by iteratively computing the following equations for $t=1,...,T$
 \begin{align}
@@ -118,7 +145,7 @@ s_{t} &= align(\hdec_{t-1}, \hlangall) \\
 \end{align}
 
 where $\readop$ and $\writeop$ are the same attention operators as in \citep{gregor_draw}.
-Given the caption representation from the language model, $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, the $algin$ operator computes the final sentence representation $s_t$ through a weighted sum using alignment probabilities $\alpha_{1...N}$:
+Given the caption representation from the language model, $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, the $align$ operator computes the final sentence representation $s_t$ through a weighted sum using alignment probabilities $\alpha_{1...N}$:
 \begin{align}
 s_t=align(\hdec_{t-1}, \hlangall) = \alpha_{1}\hlang_{1} + \alpha_{2}\hlang_{2} + ... + \alpha_{N}\hlang_{N}.
 \end{align}
@@ -132,12 +159,7 @@ e_{tj} &= v^{T}tanh(U\hlang_{j} + W\hdec_{t} + b)\\
 Here $\hlang_{0}$ is initialized to the learned bias.
 Setting $\alpha_{1...N}$ to $\frac{1}{N}$ turns the encoder into the vanilla model introduced in \citep{cho_mt} without the attention. 
 
-
-
 \subsection{Learning}
-
-
-
 
 The model is learned by the modified version of Stochastic Gradient Variation Bayes (SGVB) algorithm introduced by \cite{kingma_vae}. The model is trained to maximize the lower bound of marginal likelihood $\loss$ of the correct image $x$ given the input caption $y$. The $\loss$ is decomposed into the latent loss $\lloss$ and the reconstruction loss $\rloss$. 
 
@@ -169,284 +191,287 @@ The expectation can be approximate by $\numSamples$ Monte Carlo samples $\LatSam
 During the image generation step, we throw away the inference network from the decoder and instead sample from the prior distribution. Due to the blurriness of samples generated by DRAW model, we do an additional post processing step, where we use the generator of the adversarial network trained on residuals of laplacian pyramid to sharpen the generated images, similar to \citep{denton_lapgan}. By fixing the prior of adversarial generator to the mean of uniform distribution, it gets treated as a deterministic neural network which allows us to calculate the lower bound of likelihood. The reconstuction loss becomes the loss between sharpened image and correct image, whereas the latent loss stays the same. We also noticed that sampling from the mean of uniform distribution allowed us to generate much less noisy samples than by sampling from the uniform distribution itself.  
 
 \section{Experiments}
-\subsection{MNIST With Captions}
-As a toy experiment, we have trained our model on the two digit MNIST dataset with captions constructed on the fly. Two random digits were either placed horizontally or vertically, so that they don't overlap, on the black $60 \times 60$ background. The caption indicated the way digits were placed in the image and had the following template: \textit{the digit (1) is (2) the (3) of the digit (4) \textless eos\textgreater}. (1) and (4) were the digit numbers, (2) was either on or at, (3) was one of the adjectives top, bottom, left or right. For example, the generated images corresponding to the caption \textit{the digit seven is at the bottom of the digit five \textless eos\textgreater} as well as other captions are shown on~\ref{fig:fig1}. While most of the generative models were trained on the version of binarized MNIST dataset \citep{russ_binarizedmnist}, our model was trained directly on pixel intensities with binary cross entropy cost function.
+% \subsection{MNIST With Captions}
+% As a toy experiment, we have trained our model on the two digit MNIST dataset with captions constructed on the fly. Two random digits were either placed horizontally or vertically, so that they don't overlap, on the black $60 \times 60$ background. The caption indicated the way digits were placed in the image and had the following template: \textit{the digit (1) is (2) the (3) of the digit (4) \textless eos\textgreater}. (1) and (4) were the digit numbers, (2) was either on or at, (3) was one of the adjectives top, bottom, left or right. For example, the generated images corresponding to the caption \textit{the digit seven is at the bottom of the digit five \textless eos\textgreater} as well as other captions are shown on~\ref{fig:fig1}. While most of the generative models were trained on the version of binarized MNIST dataset \citep{russ_binarizedmnist}, our model was trained directly on pixel intensities with binary cross entropy cost function.
 
-\begin{figure}[t]
-\label{fig1}
-\captionsetup{labelformat=empty}
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/5-7-4.png}
-  \caption{\textit{is digit 5}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/5-7-6.png}
-  \caption{\textit{is digit 5}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/5-7-9.png}
-  \caption{\textit{is digit 5}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/5-7-13.png}
-  \caption{\textit{is digit 5}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/5-7-17.png}
-  \caption{\mbox{\textit{eos 7 digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/5-7-22.png}
-  \caption{\mbox{\textit{eos 7 digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/5-7-26.png}
-  \caption{\mbox{\textit{eos 7 digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/5-7-27.png}
-  \caption{\mbox{\textit{eos 7 digit}}}
-\endminipage\hfill
+% \begin{figure}[t]
+% \label{fig1}
+% \captionsetup{labelformat=empty}
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/5-7-4.png}
+%   \caption{\textit{is digit 5}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/5-7-6.png}
+%   \caption{\textit{is digit 5}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/5-7-9.png}
+%   \caption{\textit{is digit 5}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/5-7-13.png}
+%   \caption{\textit{is digit 5}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/5-7-17.png}
+%   \caption{\mbox{\textit{eos 7 digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/5-7-22.png}
+%   \caption{\mbox{\textit{eos 7 digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/5-7-26.png}
+%   \caption{\mbox{\textit{eos 7 digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/5-7-27.png}
+%   \caption{\mbox{\textit{eos 7 digit}}}
+% \endminipage\hfill
 
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/9-2-4.png}
-  \caption{\mbox{\textit{eos digit 2}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/9-2-6.png}
-  \caption{\mbox{\textit{eos digit 2}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/9-2-9.png}
-  \caption{\mbox{\textit{eos digit 2}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/9-2-13.png}
-  \caption{\mbox{\textit{eos digit 2}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/9-2-17.png}
-  \caption{\mbox{\textit{of top digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/9-2-22.png}
-  \caption{\mbox{\textit{of top digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/9-2-26.png}
-  \caption{\mbox{\textit{of top digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/9-2-27.png}
-  \caption{\mbox{\textit{of top digit}}}
-\endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/9-2-4.png}
+%   \caption{\mbox{\textit{eos digit 2}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/9-2-6.png}
+%   \caption{\mbox{\textit{eos digit 2}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/9-2-9.png}
+%   \caption{\mbox{\textit{eos digit 2}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/9-2-13.png}
+%   \caption{\mbox{\textit{eos digit 2}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/9-2-17.png}
+%   \caption{\mbox{\textit{of top digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/9-2-22.png}
+%   \caption{\mbox{\textit{of top digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/9-2-26.png}
+%   \caption{\mbox{\textit{of top digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/9-2-27.png}
+%   \caption{\mbox{\textit{of top digit}}}
+% \endminipage\hfill
 
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/1-0-4.png}
-  \caption{\mbox{\textit{eos 0 of}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/1-0-6.png}
-  \caption{\mbox{\textit{eos digit 0}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/1-0-9.png}
-  \caption{\mbox{\textit{eos digit 0}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/1-0-12.png}
-  \caption{\mbox{\textit{eos 0 of}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/1-0-17.png}
-  \caption{\mbox{\textit{1 digit the}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/1-0-22.png}
-  \caption{\mbox{\textit{1 digit the}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/1-0-25.png}
-  \caption{\mbox{\textit{1 digit on}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/1-0-28.png}
-  \caption{\mbox{\textit{digit the eos}}}
-\endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/1-0-4.png}
+%   \caption{\mbox{\textit{eos 0 of}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/1-0-6.png}
+%   \caption{\mbox{\textit{eos digit 0}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/1-0-9.png}
+%   \caption{\mbox{\textit{eos digit 0}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/1-0-12.png}
+%   \caption{\mbox{\textit{eos 0 of}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/1-0-17.png}
+%   \caption{\mbox{\textit{1 digit the}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/1-0-22.png}
+%   \caption{\mbox{\textit{1 digit the}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/1-0-25.png}
+%   \caption{\mbox{\textit{1 digit on}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/1-0-28.png}
+%   \caption{\mbox{\textit{digit the eos}}}
+% \endminipage\hfill
 
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/4-8-4.png}
-  \caption{\textit{left 8 4}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/4-8-6.png}
-  \caption{\textit{left 8 4}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/4-8-9.png}
-  \caption{\mbox{\textit{left digit 4}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/4-8-14.png}
-  \caption{\mbox{\textit{eos 8 digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/4-8-18.png}
-  \caption{\mbox{\textit{eos 8 digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/4-8-22.png}
-  \caption{\mbox{\textit{8 digit the}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/4-8-25.png}
-  \caption{\mbox{\textit{8 digit digit}}}
-\endminipage\hfill
-\minipage{0.1\textwidth}
-  \includegraphics[width=\linewidth]{figures/4-8-28.png}
-  \caption{\mbox{\textit{digit digit the}}}
-\endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/4-8-4.png}
+%   \caption{\textit{left 8 4}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/4-8-6.png}
+%   \caption{\textit{left 8 4}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/4-8-9.png}
+%   \caption{\mbox{\textit{left digit 4}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/4-8-14.png}
+%   \caption{\mbox{\textit{eos 8 digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/4-8-18.png}
+%   \caption{\mbox{\textit{eos 8 digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/4-8-22.png}
+%   \caption{\mbox{\textit{8 digit the}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/4-8-25.png}
+%   \caption{\mbox{\textit{8 digit digit}}}
+% \endminipage\hfill
+% \minipage{0.1\textwidth}
+%   \includegraphics[width=\linewidth]{figures/4-8-28.png}
+%   \caption{\mbox{\textit{digit digit the}}}
+% \endminipage\hfill
 
-\captionsetup{labelformat=empty}
-\caption{Figure 1: Four examples show the generated images unfolded over several timesteps as well as the top three words the model attends to while generating images.}
-\end{figure}
+% \captionsetup{labelformat=empty}
+% \caption{Figure 1: Four examples show the generated images unfolded over several timesteps as well as the top three words the model attends to while generating images.}
+% \end{figure}
 
 \subsection{COCO}
 
-Microsoft COCO \citep{mscoco} is a largest dataset of images annotated with captions consisting of 83k images. The rich collection of images with variety of styles, backgrounds and objects makes the task of learning a good generative model conditioned on caption very challenging. Since some of the images have more than five captions attached to them, for consistency with related work on caption generation we disregard extra captions.
+Microsoft COCO \citep{mscoco} is the largest dataset of images annotated with captions consisting of roughly 83k images. The rich collection of images with variety of styles, backgrounds and objects makes the task of learning a good generative model conditioned on caption very challenging. Since some of the images have more than five captions attached to them, for consistency with related work on caption generation we disregard extra captions.
 
-In the following subsections we make both qualitative and quantitative analysis of our model as well as compare its performance with other related generative models.
+In the following subsections we make both qualitative and quantitative analysis of our model as well as compare its performance with the performances of other related generative models.
 
 \subsubsection{Analysis of Generated Images}
-The main goal of this work is to learn a model that can understand the semantic meaning expressed in description of the image, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To verify that, we generated a set of captions inspired by COCO dataset and changed some words in the captions to see whether the model made the relevant changed in the generated samples.
+The main goal of this work is to learn a model that can understand the semantic meaning expressed in the descriptions of the images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To verify that, we wrote a set of captions inspired by COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
 
-First, we wanted to see whether the model understood one of the simplest properties of any object, the color. We generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all school buses specifically are colored yellow. As you can see below, the model managed to generate images with an object that looked like a bus with the correct color.
-
-\vspace{-0.3cm}
-\begin{figure}[h]
-\captionsetup[subfigure]{labelformat=empty}
-\begin{center}
-\subfloat[A \underline{yellow} school bus parked in a parking lot.
-]{\includegraphics[width=0.22\textwidth]{figures/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
-%
-\subfloat[A \underline{red} school bus parked in a parking lot.
-]{\includegraphics[width=0.22\textwidth]{figures/a-red-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
-%
-\subfloat[A \underline{green} school bus parked in a parking lot.
-]{\includegraphics[width=0.22\textwidth]{figures/a-green-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
-%
-\subfloat[A \underline{blue} school bus parked in a parking lot.
-]{\includegraphics[width=0.22\textwidth]{figures/a-blue-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
-%
-\end{center}
-%\caption{whole image caption}
-\label{fig:label}
-\vspace{-0.2cm}
-\end{figure}
-
-Apart from changing the colors of objects, we were curious whether changing the background of the scene described in the caption would result in the appropriate changes in the generated samples. It is a somewhat harder task for a model than changing the color, due to larger number of changes that have to be made in the generated samples. Nevertheless as shown below, changing the grass type from dry to green as well as adding clouds in the caption has resulted in the appropriate changes.
-
-\vspace{-0.3cm}
-\begin{figure}[h]
-\captionsetup[subfigure]{labelformat=empty}
-\begin{center}
-\subfloat[A very large commercial plane flying in the \underline{blue} skies.
-]{\includegraphics[width=0.48\textwidth]{figures/a-very-large-commercial-plane-flying-in-the-blue-skies-sharp.png}}\quad
-%
-\subfloat[A very large commercial plane flying in the \underline{cloudy} skies.
-]{\includegraphics[width=0.48\textwidth]{figures/a-very-large-commercial-plane-flying-in-the-cloudy-skies-sharp.png}}\quad
-%
-%
-\end{center}
-%\caption{whole image caption}
-\label{fig:label}
-\vspace{-0.8cm}
-\end{figure}
-
-\begin{figure}[h]
-\captionsetup[subfigure]{labelformat=empty}
-\begin{center}
-\subfloat[A heard of elephants walking across a \underline{dry} grass field.
-]{\includegraphics[width=0.48\textwidth]{figures/a-herd-of-elephants-walking-across-a-dry-grass-field-sharp.png}}\quad
-%
-\subfloat[A heard of elephants walking across a \underline{green} grass field.
-]{\includegraphics[width=0.48\textwidth]{figures/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png}}\quad
-%
-%
-\end{center}
-%\caption{whole image caption}
-\label{fig:label}
-\vspace{-0.2cm}
-\end{figure}
-
-Despite an infinite number of ways of changing colors and backgrounds in descriptions, in general we have found that the model made appropriate changes as long as some similar patter was present in the training set. However, it wasn't always the case when changing an object itself in the description. In cases, when objects did't have a noticeable differences in their properties, such as shape or color, the changes in the generated samples weren't very clearly seen. This could be attributed to the limitation of the model to grasp the detailed understanding of each object. 
-
-
-\vspace{-0.3cm}
-\begin{figure}[h]
-\captionsetup[subfigure]{labelformat=empty}
-\begin{center}
-\subfloat[The \underline{decadent chocolate dessert} is on the table.
-]{\includegraphics[width=0.48\textwidth]{figures/the-decadent-chocolate-dessert-is-on-the-table-2-sharp.png}}\quad
-%
-\subfloat[The \underline{bowl of banas} is on the table.
-]{\includegraphics[width=0.48\textwidth]{figures/a-bowl-of-bananas-is-on-the-table-2-sharp.png}}\quad
-%
-%
-\end{center}
-%\caption{whole image caption}
-\label{fig:label}
-\vspace{-0.8cm}
-\end{figure}
+First, we wanted to see whether the model understood one of the most basic properties of any object, the color. As shown in Figure~\ref{fig:genimages1}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all school buses specifically are colored yellow. Despite that, the model managed to generate images of an object that is reminiscent of the bus pained with the relevant color.
 
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
-\subfloat[A vintage photo of a \underline{cat}.
-]{\includegraphics[width=0.48\textwidth]{figures/a-vintage-photo-of-a-cat-sharp.png}}\quad
+\subfloat[A \underline{yellow} school bus parked in a parking lot.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
 %
-\subfloat[A vintage photo of a \underline{dog}.
-]{\includegraphics[width=0.48\textwidth]{figures/a-vintage-photo-of-a-dog-sharp.png}}\quad
+\subfloat[A \underline{red} school bus parked in a parking lot.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-red-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
 %
+\subfloat[A \underline{green} school bus parked in a parking lot.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-green-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
+%
+\subfloat[A \underline{blue} school bus parked in a parking lot.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-blue-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
 %
 \end{center}
-%\caption{whole image caption}
-\label{fig:labelr}
-\vspace{-0.2cm}
+\caption{Examples of changing the color while keeping the caption fixed.}
+\label{fig:genimages1}
+\vspace{-0.3cm}
+\end{figure}
+
+Apart from changing the colors of objects, we were curious whether changing the background of the scene described in the caption would result in the appropriate changes in the generated samples. Changing the background in images is a somewhat harder task for a model that changing the color, due to the larger visual area in images that is taken by the background. Nevertheless, as shown in Figure~\ref{fig:genimages2} changing the skies from blue to rainy as well as changing the grass type from dry to green resulted in the appropriate changes. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.
+
+\begin{figure}[!h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-very-large-commercial-plane-flying-in-blue-skies-closest.png}}\quad
+%
+\subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-very-large-commercial-plane-flying-in-rainy-skies-closest.png}}\quad
+%
+\subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-herd-of-elephants-walking-across-a-dry-grass-field-closest.png}}\quad
+%
+\subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-herd-of-elephants-walking-across-a-green-grass-field-closest.png}}\\
+\vspace{-0.45cm}
+%
+\subfloat[A very large commercial plane flying in \underline{blue} skies.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-very-large-commercial-plane-flying-in-blue-skies-sharp.png}}\quad
+%
+\subfloat[A very large commercial plane flying in \underline{rainy} skies.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-very-large-commercial-plane-flying-in-rainy-skies-sharp.png}}\quad
+%
+\subfloat[A herd of elephants walking across a \underline{dry} grass field.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-herd-of-elephants-walking-across-a-dry-grass-field-sharp.png}}\quad
+%
+\subfloat[A herd of elephants walking across a \underline{green} grass field.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png}}\quad
+%
+\end{center}
+\caption{Examples of changing the background while keeping the caption fixed. The respective nearest training images based on pixelwise distance are displayed on top.}
+\label{fig:genimages2}
+\vspace{-0.3cm}
+\end{figure}
+
+Despite an infinite number of ways of changing colors and backgrounds in descriptions, in general we found that the model made appropriate changes as long as some similar patter was present in the training set. However, it wasn't always the case when changing an object itself in the description. As you can see in Figure~\ref{fig:genimages3}, when objects didn't have a clear fine grained differences, such as different shape or color, the relevant changes in the generated samples weren't very clearly seen. This highlighted the limitation of the model to grasp the detailed understanding of each object.
+ 
+\begin{figure}[!h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[\underline{The decadent chocolate} \underline{desert} is on the table.
+]{\includegraphics[width=0.23\textwidth]{figures/new/the-decadent-chocolate-dessert-is-on-the-table-sharp.png}}\quad
+%
+\subfloat[\underline{A bowl of banas} is on the table.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-bowl-of-bananas-is-on-the-table-sharp.png}}\quad
+%
+\subfloat[A vintage photo of a \underline{cat}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-cat-sharp.png}}\quad
+%
+\subfloat[A vintage photo of a \underline{dog}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-dog-sharp.png}}\quad
+%
+\end{center}
+\caption{Examples of changing the object while keeping the caption fixed.}
+\label{fig:genimages3}
+\vspace{-0.3cm}
 \end{figure}
 
 \subsubsection{Analysis of Attention}
 
-To be added soon.
+Unfortunately, we found that there was no real connection between the patches drawn on canvas and most attended words at each timestep. During the generation, the model mostly focused on several words that were represented the idea in the caption. The most attended words allowed us to interpret whether the model would make relevant changes. 
 
 \subsubsection{Comparison With Other Models}
-The quantitative evaluation of generative models has been a subject of ambiguity within a machine learning community. Compared to reporting classification accuracies, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To avoid ambiguity, we report results on two different metrics as well as do qualitative comparison of generative models.
+The quantitative evaluation of generative models has been a subject of ambiguity in a machine learning community. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparisions between performances of generative models, we report results on two different metrics as well as do some qualitative comparison of different generative models.
 
-As shown on Figure blah, we have sampled the images from the same caption in four of the best models.
-
-First, to compare the the peformance of our model with other generative models trained with variational objective, we report the Recall$@$K, namely the mean number of sentences for which the correct image is ranked within the top-K retrieved results, based on the lower bound of likelihood $\loss$. If you want to get a really good results build a model like Ryan did. Do deal away with easy images we take ratio with ... with mean caption. To deal with large computational complexity of looping over each image we only consider closest neightbors. The precision Recall curve is reported there...
-
-Second, 
-
-\vspace{-0.3cm}
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
-\subfloat{\includegraphics[width=0.22\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp.png}}\quad
+\subfloat[Align DRAW]{\includegraphics[width=0.23\textwidth]{figures/new/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp.png}}\quad
 %
-\subfloat{\includegraphics[width=0.22\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png}}\quad
+\subfloat[LAPGAN]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png}}\quad
 %
-\subfloat{\includegraphics[width=0.22\textwidth]{to-do.png}}\quad
+\subfloat[Conv. VAE]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-convdeconvvae.png}}\quad
 %
-\subfloat{\includegraphics[width=0.22\textwidth]{to-do.png}}\quad
+\subfloat{\includegraphics[width=0.23\textwidth]{to-do.png}}\quad
 %
 \end{center}
 \caption{Four different models displaying results from sampling caption \textit{A group of people walk on a beach with surf boards.}}
-\label{fig:label}
+\label{fig:diffmodels}
 \vspace{-0.2cm}
 \end{figure}
 
-\subsection{CIFAR}
+As you can see on Figure~\ref{fig:diffmodels}, we generated several samples from prior of each of the current state-of-the-art generative models corresponding to the caption ``A group of people walk on a beach with surf boards". While all of the samples look sharp, the images generated by LAPGAN look more noisy and don't have a very clear structure in them, whereas the images generated by variational models trained with L2 cost function have a watercolor effect on the images.
+
+As for the quantitative comparison of different models, we first compare the performances of the model trained with variational methods. We rank the images in test set conditioned on the captions based on the variational lower bound of likelihood and then report the Precision-Recall metric to evaluate the quality of the generative model. As we expected, the quality of image retrieval using generative models is worse compared to the disriminative models that were specifically build for retrieval. To deal with large computational complexity of looping through each test image, we create a shortlist of hundred images including the correct one, based on the convolutional features of VGG like model trained on CIFAR dataset. Since there are ``easy'' images for which the model assigns high likelihood independent of the query caption, we look at the ratio of likehood of image conditioned on the sentence to likelihood of image conditioned on the mean sentence representation in the training set. We found that the reconstruction error $\rloss$ increased for the sharpened images that considerably hurt the retrieval results. Since sharpening changes the statistics of images, computing reconstruction error for each pixel is not necessarily a good metric.
+
+Instead of calculating error per each pixel, we turn to the smarter metric, such as Structural Similarity Index (SSI), which incorporates luminace and contrast masking into the error calculation. Due to strong inter-dependencies of closer pixels, the metric is calculated on the small windows of the image. To calculate SSI, we sampled fifty images from prior of each generative model per each caption in the test set.
+
+\begin{table}[!t]
+\begin{center}
+\begin{tabulary}{\linewidth}{c || c c c c c || c}
+\hline
+\multicolumn{7}{c}{\textbf{COCO (before sharpening)}} \\
+\hline
+& \multicolumn{5}{c||}{Image Search} & Image Similarity \\
+%\cline{2-6}
+\textbf{Model} & \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@50} & \textbf{Med r} & \textbf{SSI} \\
+\hline
+\hline
+LAPGAN & - & - & - & - & - & 0.08 \\ % - & - & - & - & - & 0.08
+\hline
+Fully-conn. VAE (L2 cost) & 0.7 & 4.6 & 8.7 & 46.8 & 54 & 0.122 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
+Conv. VAE (L2 cost) & 0.7 & 4.4 & 8.5 & 46.6 & 54 & \textbf{0.131} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
+Noalign DRAW & \textbf{1.0} & 6.1 & 11.2 & 52.1 & \textbf{48} & 0.114 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
+Skipthought DRAW & \textbf{1.0} & \textbf{6.2} & \textbf{11.5} & \textbf{52.5} & \textbf{48} & 0.118 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
+Align DRAW & 0.9 & \textbf{6.2} & 11.2 & \textbf{52.5} & \textbf{48} & 0.115 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
+\end{tabulary}
+\end{center}
+\end{table}
+
 
 \bibliography{iclr-paper}
 \bibliographystyle{iclr-style/iclr2016_conference}
