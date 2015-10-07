@@ -13,55 +13,52 @@ A bad cross reference---entry "goodfellow_gan"
 refers to entry "DBLP:conf/nips/2014", which doesn't exist
 A bad cross reference---entry "gutmann_nce"
 refers to entry "DBLP:conf/aistats/2010", which doesn't exist
-A bad cross reference---entry "russ_binarizedmnist"
-refers to entry "DBLP:conf/icml/2008", which doesn't exist
 Warning--I didn't find a database entry for ""
 Warning--I didn't find a database entry for "DBLP:conf/asru/2013"
 Warning--I didn't find a database entry for "DBLP:conf/aistats/2009"
 Warning--I didn't find a database entry for "DBLP:conf/nips/2014"
 Warning--I didn't find a database entry for "DBLP:conf/aistats/2010"
 Warning--I didn't find a database entry for "DBLP:conf/icml/2015"
-Warning--I didn't find a database entry for "DBLP:conf/icml/2008"
 Warning--empty publisher in ilya_mt
-You've used 20 entries,
+You've used 19 entries,
             2773 wiz_defined-function locations,
-            719 strings with 9803 characters,
-and the built_in function-call counts, 11362 in all, are:
-= -- 1027
-> -- 715
-< -- 16
-+ -- 239
-- -- 219
-* -- 899
-:= -- 1686
-add.period$ -- 74
-call.type$ -- 20
-change.case$ -- 133
-chr.to.int$ -- 20
-cite$ -- 41
-duplicate$ -- 526
-empty$ -- 858
-format.name$ -- 251
-if$ -- 2446
+            709 strings with 9458 characters,
+and the built_in function-call counts, 10762 in all, are:
+= -- 965
+> -- 694
+< -- 14
++ -- 232
+- -- 213
+* -- 859
+:= -- 1606
+add.period$ -- 69
+call.type$ -- 19
+change.case$ -- 128
+chr.to.int$ -- 19
+cite$ -- 39
+duplicate$ -- 494
+empty$ -- 805
+format.name$ -- 242
+if$ -- 2307
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 20
-newline$ -- 121
-num.names$ -- 80
-pop$ -- 266
+missing$ -- 19
+newline$ -- 114
+num.names$ -- 76
+pop$ -- 256
 preamble$ -- 1
-purify$ -- 113
+purify$ -- 109
 quote$ -- 0
-skip$ -- 462
+skip$ -- 433
 stack$ -- 0
-substring$ -- 399
-swap$ -- 120
-text.length$ -- 9
+substring$ -- 365
+swap$ -- 109
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 220
+type$ -- 209
 warning$ -- 1
-while$ -- 89
+while$ -- 83
 width$ -- 0
-write$ -- 289
-(There were 6 error messages)
+write$ -- 272
+(There were 5 error messages)
