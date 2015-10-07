@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: ram-paper.aux
+The style file: unsrt85.bst
+Database file #1: ram-paper.bib
+A bad cross reference---entry "russ_dbm"
+refers to entry "DBLP:conf/aistats/2009", which doesn't exist
+A bad cross reference---entry "xu_captions"
+refers to entry "DBLP:conf/icml/2015", which doesn't exist
+Warning--I didn't find a database entry for ""
+Warning--I didn't find a database entry for "DBLP:conf/aistats/2009"
+Warning--I didn't find a database entry for "DBLP:conf/icml/2015"
+Warning--empty publisher in ilya_mt
+You've used 15 entries,
+            1814 wiz_defined-function locations,
+            523 strings with 6309 characters,
+and the built_in function-call counts, 3448 in all, are:
+= -- 328
+> -- 130
+< -- 4
++ -- 58
+- -- 29
+* -- 151
+:= -- 535
+add.period$ -- 46
+call.type$ -- 15
+change.case$ -- 15
+chr.to.int$ -- 0
+cite$ -- 16
+duplicate$ -- 184
+empty$ -- 339
+format.name$ -- 29
+if$ -- 812
+int.to.chr$ -- 0
+int.to.str$ -- 15
+missing$ -- 15
+newline$ -- 78
+num.names$ -- 15
+pop$ -- 48
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 127
+stack$ -- 0
+substring$ -- 183
+swap$ -- 61
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 29
+width$ -- 17
+write$ -- 163
+(There were 2 error messages)

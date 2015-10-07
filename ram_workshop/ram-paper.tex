@@ -352,14 +352,15 @@ During the image generation step, we throw away the inference network from the d
 
 \subsection{COCO}
 
-Microsoft COCO \citep{mscoco} is the largest dataset of images annotated with captions consisting of roughly 83k images. The rich collection of images with variety of styles, backgrounds and objects makes the task of learning a good generative model conditioned on caption very challenging. Since some of the images have more than five captions attached to them, for consistency with related work on caption generation we disregard extra captions.
+Microsoft COCO \citep{mscoco} is a very large dataset of roughly 83k images, each annotated with 5 captions. The rich collection of images with a wide variety of styles, backgrounds and objects makes the task of learning a good generative model conditioned on a caption very challenging. For consistency with related work on caption generation, we disregard four of the five captions when training our model.
+%Since some of the images have more than five captions attached to them, 
 
-In the following subsections we make both qualitative and quantitative analysis of our model as well as compare its performance with the performances of other related generative models.
+In the following subsections, we analyze both the qualitative and quantitative aspects of our model as well as compare its performance with that of other, related generative models.
 
 \subsubsection{Analysis of Generated Images}
-The main goal of this work is to learn a model that can understand the semantic meaning expressed in the descriptions of the images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To verify that, we wrote a set of captions inspired by COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
+The main goal of this work is to learn a model that can understand the semantic meaning expressed in the textual descriptions of images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To verify that, we wrote a set of captions inspired by the COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
 
-First, we wanted to see whether the model understood one of the most basic properties of any object, the color. As shown in Figure~\ref{fig:genimages1}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all school buses specifically are colored yellow. Despite that, the model managed to generate images of an object that is reminiscent of the bus pained with the relevant color.
+First, we wanted to see whether the model understood one of the most basic properties of any object, the color. In Figure~\ref{fig:genimages1}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all mentioned school buses are specifically colored yellow. Despite that, the model managed to generate images of an object that is visually reminiscent of a school bus that is painted with the specified color.
 
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
@@ -382,7 +383,7 @@ First, we wanted to see whether the model understood one of the most basic prope
 \vspace{-0.3cm}
 \end{figure}
 
-Apart from changing the colors of objects, we were curious whether changing the background of the scene described in the caption would result in the appropriate changes in the generated samples. Changing the background in images is a somewhat harder task for a model that changing the color, due to the larger visual area in images that is taken by the background. Nevertheless, as shown in Figure~\ref{fig:genimages2} changing the skies from blue to rainy as well as changing the grass type from dry to green resulted in the appropriate changes. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.
+Apart from changing the colors of objects, we were curious whether changing the background of the scene described in a caption would result in the appropriate changes in the generated samples. The task of changing the background of an image is somewhat harder than just changing the color of an object because the model will have to make alterations over a wider visual area. Nevertheless, as shown in Figure~\ref{fig:genimages2} changing the skies from blue to rainy in a caption as well as changing the grass type from dry to green in another caption resulted in the appropriate changes in the generated image. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.
 
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
@@ -409,12 +410,12 @@ Apart from changing the colors of objects, we were curious whether changing the 
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png}}\quad
 %
 \end{center}
-\caption{Examples of changing the background while keeping the caption fixed. The respective nearest training images based on pixelwise distance are displayed on top.}
+\caption{Examples of changing the background while keeping the caption fixed. The respective nearest training images based on pixel-wise L2 distance are displayed on top.}
 \label{fig:genimages2}
 \vspace{-0.3cm}
 \end{figure}
 
-Despite an infinite number of ways of changing colors and backgrounds in descriptions, in general we found that the model made appropriate changes as long as some similar patter was present in the training set. However, it wasn't always the case when changing an object itself in the description. As you can see in Figure~\ref{fig:genimages3}, when objects didn't have a clear fine grained differences, such as different shape or color, the relevant changes in the generated samples weren't very clearly seen. This highlighted the limitation of the model to grasp the detailed understanding of each object.
+Despite an infinite number of ways of changing colors and backgrounds in descriptions, in general we found that the model made appropriate changes as long as some similar pattern was present in the training set. However, the model struggled when the visual difference between objects was very small, such as the objects having the same general shape and colors. In Figure~\ref{fig:genimages3}, we demonstrate that when we swap two objects that are both visually similar, for example cats and dogs, it is difficult to discriminate solely from the generated samples whether it is an image of a cat or dog, even though we might notice an animal-like shape. This highlights a limitation of the model in that it has difficulty modelling the fine-grained details of objects. 
  
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
@@ -422,7 +423,7 @@ Despite an infinite number of ways of changing colors and backgrounds in descrip
 \subfloat[\underline{The decadent chocolate} \underline{desert} is on the table.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/the-decadent-chocolate-dessert-is-on-the-table-sharp.png}}\quad
 %
-\subfloat[\underline{A bowl of banas} is on the table.
+\subfloat[\underline{A bowl of bananas} is on the table.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-bowl-of-bananas-is-on-the-table-sharp.png}}\quad
 %
 \subfloat[A vintage photo of a \underline{cat}.
@@ -439,10 +440,33 @@ Despite an infinite number of ways of changing colors and backgrounds in descrip
 
 \subsubsection{Analysis of Attention}
 
-Unfortunately, we found that there was no real connection between the patches drawn on canvas and most attended words at each timestep. During the generation, the model mostly focused on several words that were represented the idea in the caption. The most attended words allowed us to interpret whether the model would make relevant changes. 
+After flipping set of words in the captions, we were curious to see which words did the model attend to when generating images. It turned out that during the generation step, the model mostly focused on the specific words that carried out the main semantic meaning expressed in the sentences. The attention values in sentences helped us interpret the reasons why the model did or didn't make relevant changes in images when flipping words. For example, as shown in Figure~\ref{fig:attentimages1} despite flipping word ``desert'' to ``forest'', the model equally looked at these words and thus made the correct changes. Whereas, flipping between words ``beach'' and ``sun'' has resulted in no change, due to the model ignoring the word ``sun''.
+
+We also tried to analyze the way the model generated images. Unfortunately, we found that there was no connection between the patches drawn on canvas and the most attended words at particular timesteps.
+
+\begin{figure}[!h]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\subfloat[\hlcthree{A} rider \hlcone{on} a blue \hlcone{motorcycle} in the \underline{\hlctwo{desert}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sharp.png}}\quad
+%
+\subfloat[\hlcthree{A} rider \hlcone{on} a blue \hlcone{motorcycle} in the \underline{\hlctwo{forest}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-forest-sharp.png}}\quad
+%
+\subfloat[\hlctwo{A} \hlcone{surfer}, a woman, and a child walk on the \underline{\hlctwo{beach}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-beach-sharp.png}}\quad
+%
+\subfloat[\hlcthree{A} \hlcone{surfer}, a woman, and a child walk on the \underline{\hlczero{sun}}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-sun-sharp.png}}\quad
+%
+\end{center}
+\caption{Examples of most attended words while changing the background in the caption.}
+\label{fig:attentimages1}
+\vspace{-0.3cm}
+\end{figure} 
 
 \subsubsection{Comparison With Other Models}
-The quantitative evaluation of generative models has been a subject of ambiguity in a machine learning community. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparisions between performances of generative models, we report results on two different metrics as well as do some qualitative comparison of different generative models.
+Quantitatively evaluating generative models remains a challenging task in of itself as each method of evaluation suffer from its own specific drawbacks. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparision between performances of different generative models, we report results on two different metrics as well as do some qualitative comparison of different generative models.
 
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
@@ -453,7 +477,7 @@ The quantitative evaluation of generative models has been a subject of ambiguity
 %
 \subfloat[Conv. VAE]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-convdeconvvae.png}}\quad
 %
-\subfloat{\includegraphics[width=0.23\textwidth]{to-do.png}}\quad
+\subfloat[Fully-conn. VAE]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-fcvae.png}}\quad
 %
 \end{center}
 \caption{Four different models displaying results from sampling caption \textit{A group of people walk on a beach with surf boards.}}
@@ -461,13 +485,13 @@ The quantitative evaluation of generative models has been a subject of ambiguity
 \vspace{-0.2cm}
 \end{figure}
 
-As you can see on Figure~\ref{fig:diffmodels}, we generated several samples from prior of each of the current state-of-the-art generative models corresponding to the caption ``A group of people walk on a beach with surf boards". While all of the samples look sharp, the images generated by LAPGAN look more noisy and don't have a very clear structure in them, whereas the images generated by variational models trained with L2 cost function have a watercolor effect on the images.
+In Figure~\ref{fig:diffmodels}, we generated several samples from the prior of each of the current state-of-the-art generative models, conditioned on the caption ``A group of people walk on a beach with surf boards". While all of the samples look sharp, the images generated by LAPGAN look more noisy and it is harder to make out definite objects don't have a clear structure in them, whereas the images generated by variational models trained with L2 cost function have a watercolor effect on the images.
 
 As for the quantitative comparison of different models, we first compare the performances of the model trained with variational methods. We rank the images in test set conditioned on the captions based on the variational lower bound of likelihood and then report the Precision-Recall metric to evaluate the quality of the generative model. As we expected, the quality of image retrieval using generative models is worse compared to the disriminative models that were specifically build for retrieval. To deal with large computational complexity of looping through each test image, we create a shortlist of hundred images including the correct one, based on the convolutional features of VGG like model trained on CIFAR dataset. Since there are ``easy'' images for which the model assigns high likelihood independent of the query caption, we look at the ratio of likehood of image conditioned on the sentence to likelihood of image conditioned on the mean sentence representation in the training set. We found that the reconstruction error $\rloss$ increased for the sharpened images that considerably hurt the retrieval results. Since sharpening changes the statistics of images, computing reconstruction error for each pixel is not necessarily a good metric.
 
 Instead of calculating error per each pixel, we turn to the smarter metric, such as Structural Similarity Index (SSI), which incorporates luminace and contrast masking into the error calculation. Due to strong inter-dependencies of closer pixels, the metric is calculated on the small windows of the image. To calculate SSI, we sampled fifty images from prior of each generative model per each caption in the test set.
 
-\begin{table}[!t]
+\begin{table}[!b]
 \begin{center}
 \begin{tabulary}{\linewidth}{c || c c c c c || c}
 \hline
@@ -480,11 +504,11 @@ Instead of calculating error per each pixel, we turn to the smarter metric, such
 \hline
 LAPGAN & - & - & - & - & - & 0.08 \\ % - & - & - & - & - & 0.08
 \hline
-Fully-conn. VAE (L2 cost) & 0.7 & 4.6 & 8.7 & 46.8 & 54 & 0.122 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
-Conv. VAE (L2 cost) & 0.7 & 4.4 & 8.5 & 46.6 & 54 & \textbf{0.131} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
-Noalign DRAW & \textbf{1.0} & 6.1 & 11.2 & 52.1 & \textbf{48} & 0.114 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
-Skipthought DRAW & \textbf{1.0} & \textbf{6.2} & \textbf{11.5} & \textbf{52.5} & \textbf{48} & 0.118 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
-Align DRAW & 0.9 & \textbf{6.2} & 11.2 & \textbf{52.5} & \textbf{48} & 0.115 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
+Fully-conn. VAE (L2 cost) & 1.0 & 5.6 & 10.4 & 51.1 & 51 & 0.156 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
+Conv. VAE (L2 cost) & 1.0 & 5.9 & 10.9 & 50.8 & 50 & \textbf{0.164} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
+Skipthought DRAW & 2.0 & 11.2 & 18.9 & 63.3 & 36 & 0.157 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
+Noalign DRAW & 2.8 & \textbf{14.1} & \textbf{23.1} & 68.0 & \textbf{31} & 0.155 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
+Align DRAW & \textbf{3.0} & 14.0 & 22.9 & \textbf{68.5} & \textbf{31} & 0.156 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
 \end{tabulary}
 \end{center}
 \end{table}
