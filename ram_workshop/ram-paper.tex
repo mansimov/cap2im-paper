@@ -389,9 +389,9 @@ To compare performances of different generative models, we report results on two
 
 In Figure~\ref{fig:diffmodels}, we generated several samples from the prior of each of the current state-of-the-art generative models, conditioned on the caption ``A group of people walk on a beach with surf boards".
 
-To compare performances of variational models, we rank the images conditioned on the captions in test set based on the lower bound of likelihood and then report the Precision-Recall metric. To avoid looping through each test image, we create a shortlist of 100 images including the correct one, based on the closest distance in the convolutional feature-space of a VGG-like model trained on the CIFAR dataset. To deal with ``easy'' images, we took a ratio of image likelihood conditioned on the caption to image likelihood conditioned on the mean train caption representation. We found that the reconstruction error $\rloss$ increased for sharpened images, which considerably hurt the retrieval.
+To compare performances of variational models, we rank the images conditioned on the captions in test set based on the lower bound of likelihood and then report the Precision-Recall metric (see Table~\ref{tab:results}). To avoid looping through each test image, we create a shortlist of 100 images including the correct one, based on the closest distance in the convolutional feature-space of a VGG-like model trained on the CIFAR dataset. To deal with ``easy'' images, we took a ratio of image likelihood conditioned on the caption to image likelihood conditioned on the mean train caption representation. We found that the reconstruction error $\rloss$ increased for sharpened images, which considerably hurt the retrieval.
 
-In addition we calculate Structural Similarity Index (SSI), which incorporates luminance and contrast masking into the error calculation. The metric is also calculated on small windows of the image. Since all captions in the test set are independent from each other, we sampled 50 images from the prior of each generative model for every test caption and calculated SSI.
+In addition we calculate Structural Similarity Index (SSI), which incorporates luminance and contrast masking into the error calculation. The metric is also calculated on small windows of the image. We sampled 50 images from the prior of each generative model for every test caption and calculated SSI, which is reported in Table~\ref{tab:results}.
 
 \begin{table}[!h]
 \small
@@ -416,6 +416,7 @@ Align DRAW & \textbf{3.0} & 14.0 & 22.9 & \textbf{68.5} & \textbf{31} & 0.156 \\
 \end{center}
 \vspace{-0.1cm}
 \caption{Results of different models on COCO dataset (before sharpening).}
+\label{tab:results}
 \vspace{-0.3cm}
 \end{table}
 
