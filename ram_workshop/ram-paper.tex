@@ -90,13 +90,13 @@ University of Toronto\\
 \vspace*{-0.4cm}
 \begin{abstract}
 \vspace*{-0.15cm}
-Images rarely appear in isolation as they are often accompanied by textual description that could be used to simplify image generation. In this work, we introduce model that iteratively draws patches on a canvas, while attending to the relevant words in the description. We then illustrate how our method learnt on MS COCO, generalizes to captions describing novel scenarios that are not seen in dataset.
+Images rarely appear in isolation as they are often accompanied by textual description that could be used to simplify image generation. In this work, we introduce a model that iteratively draws patches on a canvas, while attending to the relevant words in the description. After training on COCO, we then illustrate how our model generalizes to captions describing novel scenarios that are not seen in the dataset.
 \end{abstract} 
 
 \vspace{-0.1in}
 \section{Introduction}
 Statistical natural image modelling remains a fundamental problem in computer vision and image understanding.
-Generative models of images studied previously often defined distributions that were restricted to being either unconditioned or conditioned on classification labels. In real world applications, however, images rarely appear in isolation as they are often accompanied by unstructured textual descriptions, such as on web pages and in books. 
+Previously studied generative models of images often defined distributions that were restricted to being either unconditioned or conditioned on classification labels. In real world applications, however, images rarely appear in isolation as they are often accompanied by unstructured textual descriptions, such as on web pages and in books. 
 The additional information from these descriptions could be used to simplify the image modelling task. Moreover, learning generative models conditioned on text also allows a better understanding of the generalization performance of the model, as we can create textual descriptions of completely new scenes not seen at training time. 
 
 \comm{
@@ -127,19 +127,19 @@ While all of the previous work has been focused on unconditional models or model
 \section{Model}
 
 Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{N}$, and $\oimage$ be the output image. Our proposed model 
-defines a generative process of images conditioned the caption. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Our model can be viewed as utilizing the  sequence-to-sequence framework \citep{ilya_mt}.  
+defines a generative process of images conditioned on the caption. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Our model can be viewed as utilizing the  sequence-to-sequence framework \citep{ilya_mt}.  
 
 \vspace{-0.1in}
 \subsection{Language Representation: the Bidirectional Attention RNN}
 \label{sec:lang}
-We obtain the caption sentence representation by first transforming each word $y_{1},...,y_{N}$ to a vector representation using the Bidirectional RNN. In a Bidirectional RNN, the two LSTM process the input sequence from both forward and backward directions. They produce the hidden states sequences $[\overrightarrow{h}^{lang}_{1}, \overrightarrow{h}^{lang}_{2}, ..., \overrightarrow{h}^{lang}_{N}]$ and $[\overleftarrow{h}^{lang}_{1}, \overleftarrow{h}^{lang}_{2}, ..., \overleftarrow{h}^{lang}_{N}]$ respectively. Then these hidden states are concatenated together into the final sentence representation $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, where $\hlang_{n} = [\overrightarrow{h}^{lang}_{n}, \overleftarrow{h}^{lang}_{n}], 1\leq n\leq N$.
+We obtain the caption sentence representation by first transforming each word $y_{1},...,y_{N}$ to a vector representation using the Bidirectional RNN. In a Bidirectional RNN, the two LSTMs process the input sequence from both forward and backward directions. They produce the hidden states sequences $[\overrightarrow{h}^{lang}_{1}, \overrightarrow{h}^{lang}_{2}, ..., \overrightarrow{h}^{lang}_{N}]$ and $[\overleftarrow{h}^{lang}_{1}, \overleftarrow{h}^{lang}_{2}, ..., \overleftarrow{h}^{lang}_{N}]$ respectively. These hidden states are then concatenated together into the final sentence representation $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, where $\hlang_{n} = [\overrightarrow{h}^{lang}_{n}, \overleftarrow{h}^{lang}_{n}], 1\leq n\leq N$.
 
 \vspace{-0.1in}
 \subsection{Image Modelling: the Conditional alignDRAW Network}
 \comm{
 The DRAW network \cite{gregor_draw} is a sequential probabilistic model generating images by accumulating the output at each iterative step. While the original DRAW network assumes the latent variables are independent, it has shown in \citep{bachman_sdm} the model performance is improved by including the dependencies of latent variables. 
 }
-To generate images conditioned on the caption information, we extended the DRAW network \citep{gregor_draw} to include caption representation $\hlangall$ at each step, shown in Figure~\ref{fig:figmodel}. The conditional DRAW network is a stochastic recurrent neural network that consists of a set of latent variables $\Lat_t$ at each time step. Unlike the original DRAW network where latent variables are independent unit Gaussian $\mathcal{N}(0, I)$, the latent variables in the alignDRAW model have their mean and variance depends on the previous recurrent hidden states $\hdec_{t-1}$ as in \cite{bachman_sdm}. Formally, the image is generated by iteratively computing the following equations for $t=1,...,T$
+To generate images conditioned on the caption information, we extended the DRAW network \citep{gregor_draw} to include caption representation $\hlangall$ at each step, shown in Figure~\ref{fig:figmodel}. The conditional DRAW network is a stochastic recurrent neural network that consists of a set of latent variables $\Lat_t$ at each time step. Unlike the original DRAW network where latent variables are independent unit Gaussians $\mathcal{N}(0, I)$, the latent variables in the alignDRAW model have their mean and variance depend on the previous recurrent hidden states $\hdec_{t-1}$ as in \cite{bachman_sdm}. Formally, the image is generated by iteratively computing the following equations for $t=1,...,T$
 \begin{align}
 \vspace{-0.1in}
 \label{eq:x_hat}
@@ -185,8 +185,8 @@ Setting $\alpha_{1...N}$ to $\frac{1}{N}$ turns the encoder into the vanilla mod
 \end{figure}
 %\vspace{-0.1in}
 
-Our conditional alignDRAW model is trained to maximize the variational lower bound on the log-likelihood, $\log \sum_{\Lat_{1:T}} \prior(\Lat_{1:T})p(\oimage\given\icaption, \Lat_{1:T})$. The posterior inference is approximated by an inference RNN $\post(\Lat_{1:T}\given\icaption,\oimage)$ shown in red dash box in Figure (\ref{fig:figmodel}).   
-Overall, the variational objective $\loss$ is defined with the model parameters vector $\theta_\theta$ as follows:
+Our conditional alignDRAW model is trained to maximize the variational lower bound on the log-likelihood, $\log \sum_{\Lat_{1:T}} \prior(\Lat_{1:T})p(\oimage\given\icaption, \Lat_{1:T})$. The posterior inference is approximated by an inference RNN $\post(\Lat_{1:T}\given\icaption,\oimage)$ shown in the red dashed box in Figure (\ref{fig:figmodel}).   
+Overall, the variational objective $\loss$ is defined with the model parameters vector $\theta$ as follows:
 \begin{align}
 \vspace{-0.1in}
 \small
@@ -222,8 +222,10 @@ The expectation can be approximate by $\numSamples$ Monte Carlo samples $\LatSam
 }
 %\subsection{Generating Images from Captions}
 
-At the test time, images are generated by ancestral sampling the latent variables from the prior $\prior(\Lat_{1:T})$. Due to the blurriness of samples generated by the alignDRAW model, the blurry samples are fed to an additional post processing step. The generator of an adversarial network, trained independently on the residuals of a Laplacian pyramid, is used to sharpen the generated images from alignDRAW. The adversarial network is conditioned on the input caption using skip-thought vector \cite{skip-thought} and is trained similar to \citep{denton_lapgan}.    
-Instead of sampling from its prior, we fix the adversarial generator to be the mean of the original uniform distribution. This post-processing step is a deterministic mapping which enable us to calculate the lower bound on the new log-likelihood defined at the output of the adversarial generator. Interestingly, we also found the deterministic procoess generate samples with much less noise than if we had sampled from the uniform distribution.
+At the test time, images are generated by ancestral sampling the latent variables from the prior $\prior(\Lat_{1:T})$. 
+%An additional post-processing step is performed to sharpen the often blurry images generated by the alignDRAW model. 
+The generator of an adversarial network, trained independently on the residuals of a Laplacian pyramid, is used to sharpen the generated images from alignDRAW, which are often blurry. The adversarial network is trained as in \citep{denton_lapgan} but is conditioned on the skip-thought vector representation \cite{skip-thought} of the input caption.
+Instead of sampling from its prior, we fix the input to the adversarial generator to be the mean of the original uniform distribution. This post-processing step is a deterministic mapping which enables us to calculate the lower bound on the new log-likelihood defined at the output of the adversarial generator. Interestingly, we found that the deterministic process generates samples with much less noise than if we had sampled from the uniform distribution.
 
 \comm{. The reconstruction loss becomes the loss between sharpened image and correct image, whereas the latent loss stays the same. We also noticed that inputting the mean of the uniform distribution into the edge generator network allowed us to generate samples with much less noise than if we had sampled from the uniform distribution.  }
 
@@ -257,7 +259,7 @@ First, we wanted to see whether the model understood one of the most basic prope
 \vspace{-0.6cm}
 \end{figure}
 
-Apart from changing the colors of objects, we were curious whether changing the background of the scene described in a caption would result in the appropriate changes in the generated samples. The task of changing the background of an image is somewhat harder than just changing the color of an object because the model will have to make alterations over a wider visual area. Nevertheless, as shown in Figure~\ref{fig:genimages2} changing the skies from blue to rainy in a caption as well as changing the grass type from dry to green in another caption resulted in the appropriate changes in the generated image. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.
+Apart from changing the colors of objects, we were curious whether changing the background of the scene described in a caption would result in the appropriate changes in the generated samples. The task of changing the background of an image is somewhat harder than just changing the color of an object because the model will have to make alterations over a wider visual area. Nevertheless, as shown in Figure~\ref{fig:genimages2}, changing the skies from blue to rainy in a caption as well as changing the grass type from dry to green in another caption resulted in the appropriate changes in the generated image. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.
 
 \vspace{-0.5cm}
 \begin{figure}[!h]
@@ -315,7 +317,7 @@ Despite some success with changing colors and backgrounds in descriptions, the m
 
 %\subsection{Analysis of Attention}
 
-During the generation step, the model mostly focused on the specific words that carried the main semantic meaning expressed in the sentences. The attention values in sentences helped us interpret the reasons why the model made the changes it did when we flipped certain words. In Figure~\ref{fig:attentimages1} we can see that when we flipped the word ``desert'' to ``forest'', the attention over words in the sentence did not change drastically. Effectively, the model looked at ``desert'' and ``forest'' with relatively equal probability, and thus made the correct changes. In contrast, when we swap words ``beach'' and ``sun'', the model completely ignores the word ``sun'' in the second sentence, which gives us a more thorough understanding of why we see no visual differences between the images generated by each caption. We also tried to analyze the way the model generated images. Unfortunately, we found that there was no connection between the patches drawn on canvas and the most attended words at particular timesteps.
+During the generation step, the model mostly focused on the specific words that carried the main semantic meaning expressed in the sentences. The attention values in sentences helped us interpret the reasons why the model made the changes it did when we flipped certain words. In Figure~\ref{fig:attentimages1} we can see that when we flipped the word ``desert'' to ``forest'', the attention over words in the sentence did not change drastically. Effectively, the model looked at ``desert'' and ``forest'' with relatively equal probability, and thus made the correct changes. In contrast, when we swap words ``beach'' and ``sun'', the model completely ignores the word ``sun'' in the second sentence, which gives us a more thorough understanding of why we see no visual differences between the images generated by each caption. We also tried to analyze the way the model generated images. Unfortunately, we found that there was no connection between the patches drawn on the canvas and the words with highest attention at particular timesteps.
 
 % \begin{table}[!t]
 % \small
@@ -389,7 +391,7 @@ To compare performances of different generative models, we report results on two
 
 In Figure~\ref{fig:diffmodels}, we generated several samples from the prior of each of the current state-of-the-art generative models, conditioned on the caption ``A group of people walk on a beach with surf boards".
 
-To compare performances of variational models, we rank the images conditioned on the captions in test set based on the lower bound of likelihood and then report the Precision-Recall metric (see Table~\ref{tab:results}). To avoid looping through each test image, we create a shortlist of 100 images including the correct one, based on the closest distance in the convolutional feature-space of a VGG-like model trained on the CIFAR dataset. To deal with ``easy'' images, we took a ratio of image likelihood conditioned on the caption to image likelihood conditioned on the mean train caption representation. We found that the reconstruction error $\rloss$ increased for sharpened images, which considerably hurt the retrieval.
+To compare performances of variational models, we rank the images conditioned on the captions in the test set based on the lower bound of the likelihood and then report the Precision-Recall metric (see Table~\ref{tab:results}). To avoid looping through each test image, we create a shortlist of 100 images including the correct one, based on the closest distance in the convolutional feature-space of a VGG-like model trained on the CIFAR dataset. To deal with ``easy'' images, we took a ratio of image likelihood conditioned on the caption to image likelihood conditioned on the mean training caption representation. We found that the reconstruction error $\rloss$ increased for sharpened images, which considerably hurt the retrieval.
 
 In addition we calculate Structural Similarity Index (SSI), which incorporates luminance and contrast masking into the error calculation. The metric is also calculated on small windows of the image. We sampled 50 images from the prior of each generative model for every test caption and calculated SSI, which is reported in Table~\ref{tab:results}.
 
