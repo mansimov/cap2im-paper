@@ -1,24 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{smolensky_rbm}
-Paul Smolensky.
-\newblock Information processing in dynamical systems: foundations of harmony
-  theory.
-\newblock {\em Parallel Distributed Processing: Explorations in the
-  Microstructure of Cognition}, 1986.
-
-\bibitem{russ_dbm}
-Ruslan Salakhutdinov et~al.
-\newblock Deep boltzmann machines.
-\newblock In {\em Proceedings of the Twelfth International Conference on
-  Artificial Intelligence and Statistics, {AISTATS} 2009, Clearwater Beach,
-  Florida, USA, April 16-18, 2009}, pages 448--455, 2009.
-
-\bibitem{hinton_dbn}
-Geoffrey~E. Hinton, et~al.
-\newblock A fast learning algorithm for deep belief nets.
-\newblock {\em Neural Computation}, 18(7):1527--1554, 2006.
-
 \bibitem{kingma_vae}
 Diederik~P. Kingma et~al.
 \newblock Auto-encoding variational bayes.
@@ -29,24 +10,18 @@ Karol Gregor, et~al.
 \newblock {DRAW:} {A} recurrent neural network for image generation.
 \newblock {\em CoRR}, abs/1502.04623, 2015.
 
-\bibitem{karpathy_captions}
-Andrej Karpathy et~al.
-\newblock Deep visual-semantic alignments for generating image descriptions.
-\newblock {\em CoRR}, abs/1412.2306, 2014.
+\bibitem{goodfellow_gan}
+Ian~J. Goodfellow, et~al.
+\newblock Generative adversarial nets.
+\newblock In {\em Advances in Neural Information Processing Systems 27: Annual
+  Conference on Neural Information Processing Systems 2014, December 8-13 2014,
+  Montreal, Quebec, Canada}, pages 2672--2680, 2014.
 
-\bibitem{xu_captions}
-Kelvin Xu, et~al.
-\newblock Show, attend and tell: Neural image caption generation with visual
-  attention.
-\newblock In {\em Proceedings of the 32nd International Conference on Machine
-  Learning, {ICML} 2015, Lille, France, 6-11 July 2015}, pages 2048--2057,
-  2015.
-
-\bibitem{kiros_captions}
-Ryan Kiros, et~al.
-\newblock Unifying visual-semantic embeddings with multimodal neural language
-  models.
-\newblock {\em CoRR}, abs/1411.2539, 2014.
+\bibitem{denton_lapgan}
+Emily~L. Denton, et~al.
+\newblock Deep generative image models using a laplacian pyramid of adversarial
+  networks.
+\newblock {\em CoRR}, abs/1506.05751, 2015.
 
 \bibitem{ilya_mt}
 Ilya Sutskever, et~al.
@@ -76,12 +51,6 @@ D.~Bahdanau, et~al.
 \newblock Neural machine translation by jointly learning to align and
   translate.
 \newblock {\em ICLR}, 2015.
-
-\bibitem{denton_lapgan}
-Emily~L. Denton, et~al.
-\newblock Deep generative image models using a laplacian pyramid of adversarial
-  networks.
-\newblock {\em CoRR}, abs/1506.05751, 2015.
 
 \bibitem{mscoco}
 T.Y. Lin, et~al.
