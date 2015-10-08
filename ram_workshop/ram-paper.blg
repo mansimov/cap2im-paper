@@ -6,11 +6,12 @@ Database file #1: ram-paper.bib
 A bad cross reference---entry "goodfellow_gan"
 refers to entry "DBLP:conf/nips/2014", which doesn't exist
 Warning--I didn't find a database entry for ""
+Warning--I didn't find a database entry for "skip-thought"
 Warning--I didn't find a database entry for "DBLP:conf/nips/2014"
 Warning--empty publisher in ilya_mt
 You've used 10 entries,
             1814 wiz_defined-function locations,
-            494 strings with 5422 characters,
+            495 strings with 5434 characters,
 and the built_in function-call counts, 2373 in all, are:
 = -- 225
 > -- 90
