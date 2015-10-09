@@ -93,7 +93,7 @@ University of Toronto\\
 \vspace*{-0.4cm}
 \begin{abstract}
 \vspace*{-0.15cm}
-Images rarely appear in isolation as they are often accompanied by textual description that could be used to simplify image generation. In this work, we introduce a model that iteratively draws patches on a canvas, while attending to the relevant words in the description. After training on COCO, we then illustrate how our model generalizes to captions describing novel scenarios that are not seen in the dataset.
+Images rarely appear in isolation as they are often accompanied by textual description that could be used to simplify image generation. In this work, we introduce a model that iteratively draws patches on a canvas, while attending to the relevant words in the description. After training on COCO, we illustrate how our model generalizes to captions describing novel scenarios that are not seen in the dataset.
 \end{abstract} 
 
 \vspace{-0.1in}
@@ -146,10 +146,10 @@ To generate images conditioned on the caption information, we extended the DRAW 
 \begin{align}
 \vspace{-0.1in}
 \label{eq:x_hat}
-\lat_t &\sim \prior(\Lat_t|\Lat_{1:t-1}) = \mathcal{N}(\mu_{t}(\hdec_{t-1}), \sigma_{t}(\hdec_{t-1}))\\
-\hdec_t &= \decoder(\hdec_{t-1}, z_t, s_{t-1})\\
+\lat_t &\sim \prior(\Lat_t|\Lat_{1:t-1}) = \mathcal{N}(\mu_{t}(\hdec_{t-1}), \sigma_{t}(\hdec_{t-1})),\\
+\hdec_t &= \decoder(\hdec_{t-1}, z_t, s_{t-1}), \\
 s_{t} = align(\hdec_{t-1}, & \hlangall); \quad \quad
-canv_t = \canv_{t-1} + \writeop(\hdec_t)
+canv_t = \canv_{t-1} + \writeop(\hdec_t0, 
 \label{eq:write}
 %\canv_t &= \canv_{t-1} + \writeop(\hdec_t)
 \end{align}
