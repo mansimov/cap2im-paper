@@ -13,6 +13,7 @@ Emily~Denton et~al.
 \bibitem{ilya_mt}
 Ilya~Sutskever et~al.
 \newblock Sequence to sequence learning with neural networks.
+\newblock {\em NIPS 2014}.
 
 \bibitem{bachman_sdm}
 Philip Bachman et~al.
