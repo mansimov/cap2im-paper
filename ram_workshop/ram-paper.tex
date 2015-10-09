@@ -178,7 +178,7 @@ Setting $\alpha_{1...N}$ to $\frac{1}{N}$ turns the encoder into the vanilla mod
 \vspace{-0.3in}
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figures/alignDraw-cropped.pdf}\quad
+\includegraphics[width=0.8\textwidth]{figures/alignDrawNew.pdf}\quad
 %
 \end{center}
 \vspace{-0.2in}
@@ -380,7 +380,7 @@ To compare performances of different generative models, we report results on two
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
-\subfloat[Align DRAW]{\includegraphics[width=0.23\textwidth]{figures/new/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp-small.png}}\quad
+\subfloat[alignDRAW]{\includegraphics[width=0.23\textwidth]{figures/new/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp-small.png}}\quad
 %
 \subfloat[LAPGAN]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan-small.png}}\quad
 %
@@ -416,11 +416,11 @@ In addition we calculate Structural Similarity Index (SSI), which incorporates l
 \hline
 LAPGAN & - & - & - & - & - & 0.08 \\ % - & - & - & - & - & 0.08
 \hline
-F.-conn. VAE (L2 cost) & 1.0 & 5.6 & 10.4 & 51.1 & 51 & 0.156 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
+Fully-conn. VAE (L2 cost) & 1.0 & 5.6 & 10.4 & 51.1 & 51 & 0.156 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
 Conv. VAE (L2 cost) & 1.0 & 5.9 & 10.9 & 50.8 & 50 & \textbf{0.164} \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
-Skipthought DRAW & 2.0 & 11.2 & 18.9 & 63.3 & 36 & 0.157 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
-Noalign DRAW & 2.8 & \textbf{14.1} & \textbf{23.1} & 68.0 & \textbf{31} & 0.155 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
-Align DRAW & \textbf{3.0} & 14.0 & 22.9 & \textbf{68.5} & \textbf{31} & 0.156 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
+skipthoughtDRAW & 2.0 & 11.2 & 18.9 & 63.3 & 36 & 0.157 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
+noalignDRAW & 2.8 & \textbf{14.1} & \textbf{23.1} & 68.0 & \textbf{31} & 0.155 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
+alignDRAW & \textbf{3.0} & 14.0 & 22.9 & \textbf{68.5} & \textbf{31} & 0.156 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
 \end{tabulary}
 \end{center}
 \vspace{-0.1cm}
