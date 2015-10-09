@@ -1,50 +1,23 @@
-\begin{thebibliography}{10}
-
-\bibitem{kingma_vae}
-Diederik~P. Kingma et~al.
-\newblock Auto-encoding variational bayes.
-\newblock {\em CoRR}, abs/1312.6114, 2013.
+\begin{thebibliography}{1}
 
 \bibitem{gregor_draw}
-Karol Gregor, et~al.
+Karol~Gregor et. al.
 \newblock {DRAW:} {A} recurrent neural network for image generation.
-\newblock {\em CoRR}, abs/1502.04623, 2015.
-
-\bibitem{goodfellow_gan}
-Ian~J. Goodfellow, et~al.
-\newblock Generative adversarial nets.
-\newblock In {\em Advances in Neural Information Processing Systems 27: Annual
-  Conference on Neural Information Processing Systems 2014, December 8-13 2014,
-  Montreal, Quebec, Canada}, pages 2672--2680, 2014.
+\newblock {\em ICML 2015}.
 
 \bibitem{denton_lapgan}
-Emily~L. Denton, et~al.
-\newblock Deep generative image models using a laplacian pyramid of adversarial
-  networks.
-\newblock {\em CoRR}, abs/1506.05751, 2015.
+Emily~Denton et~al.
+\newblock Deep generative image models using a laplacian pyramid of adv. nets.
+\newblock {\em NIPS 2015}.
 
 \bibitem{ilya_mt}
-Ilya Sutskever, et~al.
+Ilya~Sutskever et~al.
 \newblock Sequence to sequence learning with neural networks.
-\newblock In {\em Advances in Neural Information Processing Systems 27}, pages
-  3104--3112. 2014.
-
-\bibitem{cho_mt}
-Kyunghyun Cho, et~al.
-\newblock Learning phrase representations using {RNN} encoder-decoder for
-  statistical machine translation.
-\newblock In {\em Proceedings of the 2014 Conference on Empirical Methods in
-  Natural Language Processing, {EMNLP} 2014}, pages 1724--1734, 2014.
-
-\bibitem{nitish_video}
-Nitish Srivastava, et~al.
-\newblock Unsupervised learning of video representations using {LSTM}s.
-\newblock {\em ICML}, 2015.
 
 \bibitem{bachman_sdm}
 Philip Bachman et~al.
 \newblock Data generation as sequential decision making.
-\newblock {\em CoRR}, abs/1506.03504, 2015.
+\newblock {\em NIPS 2015}.
 
 \bibitem{bahdanau_mt}
 D.~Bahdanau, et~al.
@@ -52,9 +25,9 @@ D.~Bahdanau, et~al.
   translate.
 \newblock {\em ICLR}, 2015.
 
-\bibitem{mscoco}
-T.Y. Lin, et~al.
-\newblock Microsoft {COCO}: Common objects in context.
-\newblock In {\em ECCV}, 2014.
+\bibitem{skip-thought}
+Ryan~Kiros et~al.
+\newblock Skip-thought vectors.
+\newblock {\em NIPS 2015}.
 
 \end{thebibliography}
