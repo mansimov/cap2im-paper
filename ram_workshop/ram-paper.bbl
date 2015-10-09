@@ -25,6 +25,11 @@ D.~Bahdanau, et~al.
   translate.
 \newblock {\em ICLR}, 2015.
 
+\bibitem{skip-thought}
+R.~Kiros et~al.
+\newblock Skip-thought vectors.
+\newblock {\em NIPS 2015}.
+
 \bibitem{kiros_captions}
 R.~Kiros, et~al.
 \newblock Unifying visual-semantic embeddings with neural language models.

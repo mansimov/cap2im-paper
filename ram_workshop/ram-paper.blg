@@ -9,45 +9,46 @@ Warning--empty booktitle in ilya_mt
 Warning--empty publisher in ilya_mt
 Warning--empty year in ilya_mt
 Warning--empty year in bachman_sdm
-You've used 6 entries,
+Warning--empty year in skip-thought
+You've used 7 entries,
             1814 wiz_defined-function locations,
-            470 strings with 4152 characters,
-and the built_in function-call counts, 900 in all, are:
-= -- 67
-> -- 39
+            473 strings with 4199 characters,
+and the built_in function-call counts, 1030 in all, are:
+= -- 77
+> -- 43
 < -- 0
-+ -- 18
-- -- 9
-* -- 37
-:= -- 163
-add.period$ -- 17
-call.type$ -- 6
-change.case$ -- 6
++ -- 20
+- -- 10
+* -- 42
+:= -- 186
+add.period$ -- 20
+call.type$ -- 7
+change.case$ -- 7
 chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 52
-empty$ -- 94
-format.name$ -- 9
-if$ -- 191
+cite$ -- 14
+duplicate$ -- 60
+empty$ -- 108
+format.name$ -- 10
+if$ -- 218
 int.to.chr$ -- 0
-int.to.str$ -- 6
-missing$ -- 6
-newline$ -- 32
-num.names$ -- 6
-pop$ -- 28
+int.to.str$ -- 7
+missing$ -- 7
+newline$ -- 37
+num.names$ -- 7
+pop$ -- 32
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 21
+skip$ -- 24
 stack$ -- 0
 substring$ -- 0
-swap$ -- 5
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 6
-while$ -- 6
-width$ -- 7
-write$ -- 56
-(There were 6 warnings)
+warning$ -- 7
+while$ -- 7
+width$ -- 8
+write$ -- 65
+(There were 7 warnings)
