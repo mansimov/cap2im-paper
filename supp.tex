@@ -1,0 +1,48 @@
+\section{Training Details}
+\label{sec:training_details}
+
+\subsection{Hyperparameters}
+
+Each parameter in alignDRAW was initialized by sampling from the Gaussian distribution of mean $0$ and standard deviation of $0.01$. All models were trained with \textit{RMSProp} with initial learning rate of $0.001$. The norm of the gradients was rescaled to $10.0$ during training. For all tasks we used $128$ units in language model and $512$ units in alignment multi-layer perceptron.
+
+% \begin{table}[!h]
+% \begin{center}
+% \begin{tabulary}{\linewidth}{c | c c c}
+% \hline
+% \multicolumn{4}{c}{\textbf{Language Model}} \\
+% \hline
+% Task & Vocab size & LSTM \#$h$ & Align \#$h$\\
+% \hline
+% MNIST With Captions & 22 & 128 & 512  \\
+% Microsoft COCO & 25323 & 128 & 512
+% \end{tabulary}
+% \end{center}
+% \end{table}
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabulary}{\linewidth}{c | c c c c c c}
+\hline
+\multicolumn{7}{c}{\textbf{Image Model}} \\
+\hline
+Task & \#glimpses & Inference \#$h$ & Generative \#$h$ & \#$z$ & Read Size & Write Size\\
+\hline
+MNIST Captions & 32 & 550 & 550 & 275 & 9 & 9\\
+MS COCO & 32 & 300 & 300 & 150 & 8 & 8\\
+\end{tabulary}
+\end{center}
+\end{table}
+
+\subsection{Evaluation}
+\begin{table}[!h]
+\begin{center}
+\begin{tabulary}{\linewidth}{c | c c c c}
+\hline
+Model & Train NLL & Valid NLL & Test NLL & Test NLL (after sharpening)\\
+\hline
+skipthoughtDRAW & 1794.29 & 1797.41 & 1791.37 & 2045.84 \\
+noalignDRAW & 1792.14 & 1796.94 & 1791.15 & 2051.07 \\
+alignDRAW & 1792.15 & 1797.24 & 1791.53 & 2042.31
+\end{tabulary}
+\end{center}
+\end{table}
