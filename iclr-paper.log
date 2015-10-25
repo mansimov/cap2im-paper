@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  8 OCT 2015 11:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  23 OCT 2015 11:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**iclr-paper
+**iclr-paper.tex
 (./iclr-paper.tex
 LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
@@ -642,91 +642,65 @@ File: figures/new/a-vintage-photo-of-a-dog-sharp.png Graphic file (type png)
 Package pdftex.def Info: figures/new/a-vintage-photo-of-a-dog-sharp.png used on
  input line 415.
 (pdftex.def)             Requested size: 91.41985pt x 45.02748pt.
+ [5 <./figures/new/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png (PNG c
+opy)> <./figures/new/a-red-school-bus-parked-in-a-parking-lot-sharp.png (PNG co
+py)> <./figures/new/a-green-school-bus-parked-in-a-parking-lot-sharp.png (PNG c
+opy)> <./figures/new/a-blue-school-bus-parked-in-a-parking-lot-sharp.png (PNG c
+opy)> <./figures/new/a-very-large-commercial-plane-flying-in-blue-skies-closest
+.png (PNG copy)> <./figures/new/a-very-large-commercial-plane-flying-in-rainy-s
+kies-closest.png (PNG copy)> <./figures/new/a-herd-of-elephants-walking-across-
+a-dry-grass-field-closest.png (PNG copy)> <./figures/new/a-herd-of-elephants-wa
+lking-across-a-green-grass-field-closest.png (PNG copy)> <./figures/new/a-very-
+large-commercial-plane-flying-in-blue-skies-sharp.png (PNG copy)> <./figures/ne
+w/a-very-large-commercial-plane-flying-in-rainy-skies-sharp.png (PNG copy)> <./
+figures/new/a-herd-of-elephants-walking-across-a-dry-grass-field-sharp.png (PNG
+ copy)> <./figures/new/a-herd-of-elephants-walking-across-a-green-grass-field-s
+harp.png (PNG copy)> <./figures/new/the-decadent-chocolate-dessert-is-on-the-ta
+ble-sharp.png (PNG copy)> <./figures/new/a-bowl-of-bananas-is-on-the-table-shar
+p.png (PNG copy)> <./figures/new/a-vintage-photo-of-a-cat-sharp.png (PNG copy)>
+ <./figures/new/a-vintage-photo-of-a-dog-sharp.png (PNG copy)>]
+<figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sharp.png, id=226, 134.
+5025pt x 66.2475pt>
+File: figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sharp.png Graphic 
+file (type png)
 
+<use figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sharp.png>
+Package pdftex.def Info: figures/new/a-rider-on-a-blue-motorcycle-in-the-desert
+-sharp.png used on input line 430.
+(pdftex.def)             Requested size: 91.41985pt x 45.02748pt.
 
-LaTeX Warning: Reference `fig:attentimages1' on page 5 undefined on input line 
-424.
+<figures/new/a-rider-on-a-blue-motorcycle-in-the-forest-sharp.png, id=227, 134.
+5025pt x 66.2475pt>
+File: figures/new/a-rider-on-a-blue-motorcycle-in-the-forest-sharp.png Graphic 
+file (type png)
 
-[5 <./figures/new/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png (PNG co
-py)> <./figures/new/a-red-school-bus-parked-in-a-parking-lot-sharp.png (PNG cop
-y)> <./figures/new/a-green-school-bus-parked-in-a-parking-lot-sharp.png (PNG co
-py)> <./figures/new/a-blue-school-bus-parked-in-a-parking-lot-sharp.png (PNG co
-py)> <./figures/new/a-very-large-commercial-plane-flying-in-blue-skies-closest.
-png (PNG copy)> <./figures/new/a-very-large-commercial-plane-flying-in-rainy-sk
-ies-closest.png (PNG copy)> <./figures/new/a-herd-of-elephants-walking-across-a
--dry-grass-field-closest.png (PNG copy)> <./figures/new/a-herd-of-elephants-wal
-king-across-a-green-grass-field-closest.png (PNG copy)> <./figures/new/a-very-l
-arge-commercial-plane-flying-in-blue-skies-sharp.png (PNG copy)> <./figures/new
-/a-very-large-commercial-plane-flying-in-rainy-skies-sharp.png (PNG copy)> <./f
-igures/new/a-herd-of-elephants-walking-across-a-dry-grass-field-sharp.png (PNG 
-copy)> <./figures/new/a-herd-of-elephants-walking-across-a-green-grass-field-sh
-arp.png (PNG copy)> <./figures/new/the-decadent-chocolate-dessert-is-on-the-tab
-le-sharp.png (PNG copy)> <./figures/new/a-bowl-of-bananas-is-on-the-table-sharp
-.png (PNG copy)> <./figures/new/a-vintage-photo-of-a-cat-sharp.png (PNG copy)> 
-<./figures/new/a-vintage-photo-of-a-dog-sharp.png (PNG copy)>]
+<use figures/new/a-rider-on-a-blue-motorcycle-in-the-forest-sharp.png>
+Package pdftex.def Info: figures/new/a-rider-on-a-blue-motorcycle-in-the-forest
+-sharp.png used on input line 433.
+(pdftex.def)             Requested size: 91.41985pt x 45.02748pt.
 
-LaTeX Warning: File `figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sha
-rp.png' not found on input line 430.
+<figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-beach-sharp.png, id=2
+28, 134.5025pt x 66.2475pt>
+File: figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-beach-sharp.png 
+Graphic file (type png)
 
+<use figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-beach-sharp.png>
+Package pdftex.def Info: figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-t
+he-beach-sharp.png used on input line 436.
+(pdftex.def)             Requested size: 91.41985pt x 45.02748pt.
 
-! Package pdftex.def Error: File `figures/new/a-rider-on-a-blue-motorcycle-in-t
-he-desert-sharp.png' not found.
+<figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-sun-sharp.png, id=229
+, 134.5025pt x 66.2475pt>
+File: figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-sun-sharp.png Gr
+aphic file (type png)
 
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.430 ...blue-motorcycle-in-the-desert-sharp.png}}
-                                                  \quad
-? 
-
-LaTeX Warning: File `figures/new/a-rider-on-a-blue-motorcycle-in-the-forest-sha
-rp.png' not found on input line 433.
-
-
-! Package pdftex.def Error: File `figures/new/a-rider-on-a-blue-motorcycle-in-t
-he-forest-sharp.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.433 ...blue-motorcycle-in-the-forest-sharp.png}}
-                                                  \quad
-? 
-
-LaTeX Warning: File `figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-b
-each-sharp.png' not found on input line 436.
-
-
-! Package pdftex.def Error: File `figures/new/a-surfer-,-a-woman-,-and-a-child-
-walk-on-the-beach-sharp.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.436 ...and-a-child-walk-on-the-beach-sharp.png}}
-                                                  \quad
-? 
-
-LaTeX Warning: File `figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-s
-un-sharp.png' not found on input line 439.
-
-
-! Package pdftex.def Error: File `figures/new/a-surfer-,-a-woman-,-and-a-child-
-walk-on-the-sun-sharp.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.439 ...,-and-a-child-walk-on-the-sun-sharp.png}}
-                                                  \quad
-? 
+<use figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-sun-sharp.png>
+Package pdftex.def Info: figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-t
+he-sun-sharp.png used on input line 439.
+(pdftex.def)             Requested size: 91.41985pt x 45.02748pt.
 
 <figures/new/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp.png, id=2
-25, 134.5025pt x 134.5025pt>
+30, 134.5025pt x 134.5025pt>
 File: figures/new/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp.png 
 Graphic file (type png)
 
@@ -735,7 +709,7 @@ Package pdftex.def Info: figures/new/a-group-of-people-walk-on-a-beach-with-sur
 f-boards-sharp.png used on input line 454.
 (pdftex.def)             Requested size: 91.41985pt x 91.41942pt.
 
-<figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png, id=226,
+<figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png, id=231,
  128.48pt x 128.48pt>
 File: figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan.png Gra
 phic file (type png)
@@ -746,7 +720,7 @@ ards-lapgan.png used on input line 456.
 (pdftex.def)             Requested size: 91.41985pt x 91.42139pt.
 
 <figures/a-group-of-people-walk-on-a-beach-with-surf-boards-convdeconvvae.png, 
-id=227, 134.5025pt x 134.5025pt>
+id=232, 134.5025pt x 134.5025pt>
 File: figures/a-group-of-people-walk-on-a-beach-with-surf-boards-convdeconvvae.
 png Graphic file (type png)
 
@@ -755,7 +729,7 @@ ng>
 Package pdftex.def Info: figures/a-group-of-people-walk-on-a-beach-with-surf-bo
 ards-convdeconvvae.png used on input line 458.
 (pdftex.def)             Requested size: 91.41985pt x 91.41942pt.
- <to-do.png, id=228, 49.48369pt x 50.84407pt>
+ <to-do.png, id=233, 49.48369pt x 50.84407pt>
 File: to-do.png Graphic file (type png)
  <use to-do.png>
 Package pdftex.def Info: to-do.png used on input line 460.
@@ -764,36 +738,33 @@ Package pdftex.def Info: to-do.png used on input line 460.
 
 Package tabulary Warning: No suitable columns! on input line 492.
 
-(./iclr-paper.bbl [6] [7 <./figures/new/a-group-of-people-walk-on-a-beach-with-
-surf-boards-sharp.png (PNG copy)> <./figures/a-group-of-people-walk-on-a-beach-
-with-surf-boards-lapgan.png (PNG copy)> <./figures/a-group-of-people-walk-on-a-
-beach-with-surf-boards-convdeconvvae.png (PNG copy)> <./to-do.png>])
+(./iclr-paper.bbl [6 <./figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-
+sharp.png (PNG copy)> <./figures/new/a-rider-on-a-blue-motorcycle-in-the-forest
+-sharp.png (PNG copy)> <./figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-
+the-beach-sharp.png (PNG copy)> <./figures/new/a-surfer-,-a-woman-,-and-a-child
+-walk-on-the-sun-sharp.png (PNG copy)>] [7 <./figures/new/a-group-of-people-wal
+k-on-a-beach-with-surf-boards-sharp.png (PNG copy)> <./figures/a-group-of-peopl
+e-walk-on-a-beach-with-surf-boards-lapgan.png (PNG copy)> <./figures/a-group-of
+-people-walk-on-a-beach-with-surf-boards-convdeconvvae.png (PNG copy)> <./to-do
+.png>])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 522.
  [8]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 522.
-
-(./iclr-paper.aux)
+ (./iclr-paper.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 522.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 522.
 Package rerunfilecheck Info: File `iclr-paper.out' has not changed.
 (rerunfilecheck)             Checksum: 3323C6E12B1F613C6B7DDD57A1C29030;813.
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 522.
  ) 
 Here is how much of TeX's memory you used:
- 8626 strings out of 493117
- 131738 string characters out of 6135433
- 230057 words of memory out of 5000000
- 11836 multiletter control sequences out of 15000+600000
+ 8642 strings out of 493117
+ 132910 string characters out of 6135433
+ 230165 words of memory out of 5000000
+ 11852 multiletter control sequences out of 15000+600000
  31441 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,15n,47p,1288b,584s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,15n,47p,1292b,582s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texl
@@ -814,10 +785,10 @@ exmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dis
 t/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/ty
 pe1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/ti
 mes/utmri8a.pfb>
-Output written on iclr-paper.pdf (8 pages, 642661 bytes).
+Output written on iclr-paper.pdf (8 pages, 704483 bytes).
 PDF statistics:
- 355 PDF objects out of 1000 (max. 8388607)
- 300 compressed objects within 3 object streams
+ 361 PDF objects out of 1000 (max. 8388607)
+ 301 compressed objects within 4 object streams
  86 named destinations out of 1000 (max. 500000)
- 202 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 222 words of extra memory for PDF output out of 10000 (max. 10000000)
 

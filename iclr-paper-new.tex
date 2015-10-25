@@ -122,6 +122,15 @@ Recently, \cite{denton_lapgan} have scaled those models by training conditional 
 
 While all of the previous work has been focused on unconditional models or models conditioned on labels, to the best of our knowledge this paper is the first to introduce a generative model of images conditioned on captions.
 
+\section{Model}
+Our proposed model 
+defines a generative process of images conditioned on a caption. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on a canvas $c_t$ over time $t=1,...,T$. Our model can be viewed as utilizing the sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video}.
+%Our proposed model can be viewed as a part of sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video} where captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$ and $\oimage$ be the image corresponding to that caption.
+
+\subsection{Language Model: the Bidirectional Attention RNN}
+\label{sec:lang}
+Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{N}$, and $\oimage$ be the output image. We obtain the caption sentence representation by first transforming each word $y_{1},...,y_{N}$ to a vector representation using the Bidirectional RNN. In a Bidirectional RNN, the two LSTMs process the input sequence from both forward and backward directions. The Forward LSTM computes the sequence of forward hidden states $[\overrightarrow{h}^{lang}_{1}, \overrightarrow{h}^{lang}_{2}, ..., \overrightarrow{h}^{lang}_{N}]$ , whereas the Backward LSTM computes the sequence of backward hidden states $[\overleftarrow{h}^{lang}_{1}, \overleftarrow{h}^{lang}_{2}, ..., \overleftarrow{h}^{lang}_{N}]$. These hidden states are then concatenated together into the sequence $[\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, where $\hlang_{n} = [\overrightarrow{h}^{lang}_{n}, \overleftarrow{h}^{lang}_{n}], 1\leq n\leq N$.
+
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
@@ -133,19 +142,32 @@ While all of the previous work has been focused on unconditional models or model
 \vspace{-0.3cm}
 \end{figure}
 
-\section{Model}
-Our proposed model 
-defines a generative process of images conditioned on a caption. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on a canvas $c_t$ over time $t=1,...,T$. Our model can be viewed as utilizing the sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video}.
-%Our proposed model can be viewed as a part of sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video} where captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$ and $\oimage$ be the image corresponding to that caption.
 
-\subsection{Language Model: the Bidirectional Attention RNN}
-\label{sec:lang}
-The input caption sentences are fed into a deterministic Bidirectional LSTM\cite{} that encodes the variable size sentences into the vector representation $s$. Bidirectional LSTM consists of one Forward LSTM and Backward LSTM which combine information from past and future respectively. The Forward LSTM computes the sequence of forward hidden states $[\overrightarrow{h}^{lang}_{1}, \overrightarrow{h}^{lang}_{2}, ..., \overrightarrow{h}^{lang}_{N}]$ , whereas the Backward LSTM computes the sequence of backward hidden states $[\overleftarrow{h}^{lang}_{1}, \overleftarrow{h}^{lang}_{2}, ..., \overleftarrow{h}^{lang}_{N}]$. Then these hidden states are concatenated together into the sequence $[\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, where $\hlang_{n} = [\overrightarrow{h}^{lang}_{n}, \overleftarrow{h}^{lang}_{n}], 1\leq n\leq N$.
 
 \subsection{Image Model: the Conditional DRAW Network}
 
-The DRAW network \cite{gregor_draw} is a sequential probabilistic model generating images by accumulating the output at each iterative step. While the original DRAW network assumes the latent variables are independent, it has been shown in \citep{bachman_sdm} that model performance is improved by including dependencies between latent variables. 
+To generate images conditioned on the caption information, we extended the DRAW network \citep{gregor_draw} to include caption representation $\hlangall$ at each step, shown in Figure~\ref{fig:figmodel}. The conditional DRAW network is a stochastic recurrent neural network that consists of a set of latent variables $\Lat_t$ and accumulates the output at each iterative step..
 
+Unlike the original DRAW network where latent variables are independent unit Gaussians $\mathcal{N}(0, I)$, the latent variables in the proposed alignDRAW model have their mean and variance depend on the previous recurrent hidden states $\hdec_{t-1}$ as in \cite{bachman_sdm}, except for $\lat_1 \sim \prior(\Lat_1) = \mathcal{N}(0, I)$. It has been shown in \citep{bachman_sdm} that model performance is improved by including dependencies between latent variables. Formally, the image is generated by iteratively computing the following equations for $t=1,...,T$ (see Figure~\ref{fig:figmodel}):
+\begin{align}
+\label{eq:x_hat}
+\lat_t &\sim \prior(\Lat_t|\Lat_{1:t-1}) = \mathcal{N}(\mu_{t}(\hdec_{t-1}), \sigma_{t}(\hdec_{t-1})),\\
+\hdec_t &= \decoder(\hdec_{t-1}, z_t, s_{t-1}), \\
+s_{t} &= align(\hdec_{t-1}, \hlangall), \\
+\canv_t &= \canv_{t-1} + \writeop(\hdec_t), 
+\label{eq:write}
+%\canv_t &= \canv_{t-1} + \writeop(\hdec_t)
+\end{align}
+where $\writeop$ and $\readop$ are the same attention operators as in \citep{gregor_draw}.
+The $align$ function is used to compute the alignment between the input caption and intermediate image generative steps \citep{bahdanau_mt}. Given the caption representation from the language model, $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, the $align$ operator outputs a dynamic sentence representation $s_t$ at each step through a weighted sum using alignment probabilities $\alpha_{1...N}$:
+%\begin{align}
+%\vspace{-0.1in}
+$s_t=align(\hdec_{t-1}, \hlangall) = \alpha_{1}\hlang_{1} + \alpha_{2}\hlang_{2} + ... + \alpha_{N}\hlang_{N}.$
+%\end{align}
+The corresponding alignment probabilities $\alpha_{1...N}$ at each step are obtained using the caption representation $\hlangall$ and the hidden state of the generative model $\hdec_{t}$, as in \citep{bahdanau_mt}. The final canvas $\canv_T$ is transformed using a sigmoid function to produce an Bernoulli data likelihood over pixels given the latent variables and the input caption.
+
+
+\comm{
 We extended the architecture of the DRAW network to include an additional input caption from the language model described in Sec. (\ref{sec:lang}). Similarly to the original DRAW network, the conditional DRAW network is a stochastic recurrent neural network that consists of an Inference LSTM that infers the distribution of latent variables of image $x$ given caption $y$ and then a Generative LSTM that uses the inferred latent variables in order to reconstruct the image $x$ given caption $y$, where $\icaption$ is the input caption consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$. The $align$ function is used to compute the alignment between the input caption and intermediate image generative steps as in \cite{bahdanau_mt}:
 
 Formally, the image is generated by iteratively computing the following equations for $t=1,...,T$
@@ -162,7 +184,8 @@ s_{t} &= align(\hdec_{t-1}, \hlangall) \\
 \canv_t &= \canv_{t-1} + \writeop(\hdec_t)
 \end{align}
 
-where $\readop$ and $\writeop$ are the same attention operators as in \citep{gregor_draw}.
+where $\writeop$ is the same attention operators as in \citep{gregor_draw}.
+%where $\readop$ and $\writeop$ are the same attention operators as in \citep{gregor_draw}.
 % which apply a grid of Gaussian filters by specifying coordinates of the location and scale in order to yield a desirable image patch.
 Given the caption representation from the language model, $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, the $align$ operator computes the final sentence representation $s_t$ through a weighted sum using alignment probabilities $\alpha_{1...N}$:
 \begin{align}
@@ -177,19 +200,34 @@ e_{tj} &= v^{T}tanh(U\hlang_{j} + W\hdec_{t} + b)\\
 
 Here $\hlang_{0}$ is initialized to the learned bias.
 Setting $\alpha_{1...N}$ to $\frac{1}{N}$ turns the encoder into the vanilla model introduced in \citep{cho_mt} without the attention. 
+}
+
 
 \subsection{Learning}
 
-The model is learned by the modified version of Stochastic Gradient Variation Bayes (SGVB) algorithm introduced by \cite{kingma_vae}. The model is trained to maximize a lower bound of the marginal likelihood $\loss$ of the correct image $x$ given the input caption $y$. The $\loss$ is decomposed into the latent loss $\lloss$ and the reconstruction loss $\rloss$. 
+%The model is learned by the modified version of Stochastic Gradient Variation Bayes (SGVB) algorithm introduced by \cite{kingma_vae}. 
+The model is trained to maximize a variational lower bound $\loss$ on the marginal likelihood of the correct image $\oimage$ given the input caption $\icaption$, where $\loss = \sum_{\Lat}Q(\Lat\given\oimage,\icaption)\left(\log P(\oimage\given\icaption, \Lat_{1:T}) + \kldiv\left(Q(\Lat\given\oimage,\icaption)\klBars P(\Lat)\right)\right) \le \log P(\oimage\given\icaption)$ The posterior inference over the latent variables $\Lat_{1:T}$ is approximated using a inference recurrent neural net. Similarly to the DRAW network, the inference RNN produces an approximate posterior $Q(\Lat_{1:T}\given\oimage,\icaption)$ via a $\readop$ operator over the training image at each step. 
+\begin{align}
+\label{eq:x_hat}
+\hat{\oimage}_t &= \oimage-\sigmoid(\canv_{t-1})\\
+\label{eq:read}
+r_t &= \readop(\oimage_t, \hat{\oimage}_t, \hdec_{t-1})\\
+\henc_t &= \encoder(\henc_{t-1}, [r_t, \hdec_{t-1}])\\
+\post(\Lat_t|\oimage,\icaption,\Lat_{1:t-1}) &= \mathcal{N}\left(\mu_t(\henc_t), \sigma_t(\henc_t)\right)
+\end{align}
 
-The reconstruction loss $\rloss$ equals to $\frac{1}{L}\sum_{l=1}^{L}(log\,p(x_{t}|y,z)$ where $L$ is the number of samples used during training, which was set to $1$ in our experiments.
+%The $\loss$ is decomposed into the latent loss $\lloss$ and the reconstruction loss $\rloss$. 
 
-The latent loss $\lloss$ is a negative sum of Kullback--Leibler divergence terms between distribution $\post(\Lat_t|\henc_t)$ and some prior distribution ${\prior(\Lat_t)}$ over time $t=1,...,T$, which can be seen as a regularization term. Since the patches drawn on canvas over time are not independent of each other, naturally the sufficient statistics of the prior distribution at time $t$ should be dependent on the sufficient statistics of the prior distribution at time $t-1$. Therefore, instead of setting $\prior(\Lat_1), ..., \prior(\Lat_T)$ to be independent unit gaussian distributions, the mean and variance of $\prior(\Lat_t)$ depends on the $\hdec_{t-1}$, which forms a Markov chain $\prior(\Lat_1), \prior(\Lat_2\given\Lat_1), ..., \prior(\Lat_T\given\Lat_{T-1})$ as in \citep{bachman_sdm}, where 
+%The reconstruction loss $\rloss$ equals to $\frac{1}{L}\sum_{l=1}^{L}(log\,p(x_{t}|y,z)$ where $L$ is the number of samples used during training, which was set to $1$ in our experiments.
+
+%The latent loss $\lloss$ is a negative sum of Kullback--Leibler divergence terms between distribution $\post(\Lat_t|\henc_t)$ and some prior distribution ${\prior(\Lat_t)}$ over time $t=1,...,T$, which can be seen as a regularization term. 
+Since the prior distribution at time $t$ is dependent on the sufficient statistics of the prior distribution at time $t-1$. Namely, the mean and variance of $\prior(\Lat_t)$ depends on the $\hdec_{t-1}$. 
 \begin{align}
 \mu_{t}^{prior} &= tanh(W_{\mu}\hdec_{t-1})\\
 \sigma_{t}^{prior} &= exp(tanh(W_{\sigma}\hdec_{t-1})) 
 \end{align}
-Overall, the loss function $\loss$ is calculated as follows:
+
+The terms in the variational lower bound are rearranged using the law of total expectation. Therefore, the loss function $\loss$ is calculated as follows:
 \begin{align}
 \loss =  &\expectation_{Q(\Lat_{1:t}\given\icaption,\oimage)}\left[ - \log p(\oimage\given\icaption,\Lat_{1:T}) + \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\Lat_{t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\Lat_{t-1},\icaption)\right) \right] \nonumber \\& + \kldiv\left(\post(\Lat_1\given\icaption,\oimage)\klBars\prior(\Lat_1\given\icaption)\right).
 \end{align}
@@ -394,7 +432,7 @@ We compared the performance of the proposed model to the DRAW model conditioned 
 
 In Figure~\ref{fig:diffmodels}, we generated several samples from the prior of each of the current state-of-the-art generative models, conditioned on the caption ``A group of people walk on a beach with surf boards". While all of the samples look sharp, the images generated by LAPGAN look more noisy and it is harder to make out definite objects, whereas the images generated by variational models trained with L2 cost function have a watercolor effect on the images.
 
-As for the quantitative comparison of different models, we first compare the performances of the model trained with variational methods. We rank the images in the test set conditioned on the captions based on the the variational lower bound of likelihood and then report the Precision-Recall metric as an evaluation of the quality of the generative model (see Table~\ref{tab:results}.). Unsurprisingly, the quality of image retrieval using generative models is worse than that of discriminative models that were specifically built for retrieval. To deal with the large computational complexity involved in looping through each test image, we create a shortlist of one hundred images including the correct one, based on the images having the closest distance in the convolutional feature-space of a VGG-like model trained on the CIFAR dataset. Since there are ``easy'' images for which the model assigns high likelihood independent of the query caption, we look at the ratio of likelihood of image conditioned on the sentence to likelihood of image conditioned on the mean sentence representation in the training set\cite{kiros_captions}. We found that the reconstruction error $\rloss$ increased for sharpened images, and that sharpening considerably hurt the retrieval results. Since sharpening changes the statistics of images, computing reconstruction error for each pixel is not necessarily a good metric.
+As for the quantitative comparison of different models, we first compare the performances of the model trained with variational methods. We rank the images in the test set conditioned on the captions based on the the variational lower bound of likelihood and then report the Precision-Recall metric as an evaluation of the quality of the generative model (see Table~\ref{tab:results}.). Unsurprisingly, the quality of image retrieval using generative models is worse than that of discriminative models that were specifically built for retrieval. To deal with the large computational complexity involved in looping through each test image, we create a shortlist of one hundred images including the correct one, based on the images having the closest distance in the convolutional feature-space of a VGG-like model trained on the CIFAR dataset. Since there are ``easy'' images for which the model assigns high likelihood independent of the query caption, we look at the ratio of likelihood of image conditioned on the sentence to likelihood of image conditioned on the mean sentence representation in the training set \cite{kiros_captions}. We found that the reconstruction error $\rloss$ increased for sharpened images, and that sharpening considerably hurt the retrieval results. Since sharpening changes the statistics of images, computing reconstruction error for each pixel is not necessarily a good metric.
 
 Instead of calculating error per pixel, we turn to a smarter metric, the Structural Similarity Index (SSI), which incorporates luminance and contrast masking into the error calculation. Due to strong inter-dependencies of closer pixels, the metric is calculated on small windows of the image. Due to independence property of test captions, we sampled fifty images from the prior of each generative model for every caption in the test set in order to calculate SSI. The results are reported in Table~\ref{tab:results}.
 
