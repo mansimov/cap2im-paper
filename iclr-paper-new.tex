@@ -463,11 +463,11 @@ Instead of calculating error per pixel, we turn to a smarter metric, the Structu
 \hline
 LAPGAN & - & - & - & - & - & 0.08 \\ % - & - & - & - & - & 0.08
 \hline
-Fully-Conn VAE & 1.0 & 5.6 & 10.4 & 51.1 & 51 & 0.156 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
-Conv-Deconv VAE & 1.0 & 5.9 & 10.9 & 50.8 & 50 & 0.164 \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
-skipthoughtDRAW & 2.6 & 12.6 & 21.3 & 66.9 & 33 & 0.157 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
-noalignDRAW & 3.2 & 16.3 & 26.0 & 72.5 & 27 & 0.155 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
-alignDRAW & 3.6 & 16.1 & 26.0 & 72.8 & 28 & 0.156 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
+Fully-Conn VAE & 1.0 & 6.6 & 12.0 & 53.4 & 47 & 0.156 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
+Conv-Deconv VAE & 1.0 & 6.5 & 12.0 & 52.9 & 48 & 0.164 \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
+skipthoughtDRAW & 2.0 & 11.2 & 18.9 & 63.3 & 36 & 0.157 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
+noalignDRAW & 2.8 & 14.1 & 23.1 & 68.0 & 31 & 0.155 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
+alignDRAW & 3.0 & 14.0 & 22.9 & 68.5 & 31 & 0.156 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
 \end{tabulary}
 \end{center}
 \caption{Results of different models.}
@@ -499,7 +499,7 @@ alignDRAW & 3.6 & 16.1 & 26.0 & 72.8 & 28 & 0.156 \\ % 0.924 & 6.216 & 11.184 & 
 
 \section{Discussion}
 
-We showed that our proposed model managed to generate reasonably looking images corresponding to respective captions as well as managed to generalize to completely novel scenarios which are very unlikely to occur in real life. Sequential generation of images over some number of steps has played an important part in this process. However, the tendency of the conditional DRAW models to underfit on the training data has resulted in the blurry samples. As a result, the samples were sharpened by the GAN trained on the residuals of the images. Unfortunately, this is not a quite satisfying solution due to the fact that the whole model wasn't trained in the end-to-end fashion. We think that further extention of the capabilities of the sequential generation of images might help the variational models better fit the data and escape the curse of blurriness.
+We showed that our proposed model managed to generate reasonably looking images corresponding to respective captions as well as managed to generalize to completely novel scenarios which are very unlikely to occur in real life. Sequential generation of images over the number of steps using attention mechanism has played an important part in this process. However, the tendency of the conditional DRAW models to underfit on the training data has resulted in the blurry samples. As a result, the samples were sharpened by the GAN trained on the residuals of the images. Unfortunately, this is not a quite satisfying solution due to the fact that the whole model wasn't trained in the end-to-end fashion. We think that further extention of the capabilities of the sequential generation of images might help the variational models better fit the data and escape the curse of blurriness.
 
 \section{Acknowledgements}
 We would like to thank developers of Theano \citep{theano} for a powerful software and authors of \citep{denton_lapgan} for open sourcing their code. We would also like to thank Ryan Kiros and Nitish Srivastava for helpful discussions. We will be releasing our code with pretrained models as soon as we clean it.
