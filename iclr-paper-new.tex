@@ -454,26 +454,26 @@ As for the quantitative comparison of different models, we first compare the per
 Since there are ``easy'' images for which the model assigns high likelihood independent of the query caption, we look at the ratio of the likelihood of the image conditioned on the sentence to the likelihood of the image conditioned on the mean sentence representation in the training set \citep{kiros_captions}. 
 We found that the reconstruction error $\rloss$ increased for sharpened images, and that sharpening considerably hurt the retrieval results. Since sharpening changes the statistics of images, computing reconstruction error for each pixel is not necessarily a good metric.
 
-Instead of calculating error per pixel, we turn to a smarter metric, the Structural Similarity Index (SSI) \citep{wang_ssi}, which incorporates luminance and contrast masking into the error calculation. Strong inter-dependencies of closer pixels are also taken into account and the metric is calculated on small windows of the images. Due to independence property of test captions, we sampled fifty images from the prior of each generative model for every caption in the test set in order to calculate SSI. The results are reported on Table~\ref{tab:results}.
+Instead of calculating error per pixel, we turn to a smarter metric, the Structural Similarity Index (SSI) \citep{wang_ssi}, which incorporates luminance and contrast masking into the error calculation. Strong inter-dependencies of closer pixels are also taken into account and the metric is calculated on small windows of the images. Due to independence property of test captions, we sampled fifty images from the prior of each generative model for every caption in the test set in order to calculate SSI. As you can see on Table~\ref{tab:results}, SSI scores achieved by variational models were higher compared to SSI score achieved by LAPGAN. As for another metric of image similarity, we calculated euclidian distance between generated images and real images in the feature space of VGG-like model trained on CIFAR dataset. This is not necessarily a good metric, since the statistics of generated images were vastly different from statistics of training images. Nevertheless, the results are reported on Table~\ref{tab:results}.
 
 \begin{table}[!t]
 \begin{center}
-\begin{tabulary}{\linewidth}{c || c c c c c || c}
+\begin{tabulary}{\linewidth}{c || c c c c c || c c}
 \hline
-\multicolumn{7}{c}{\textbf{Microsoft COCO (before sharpening)}} \\
+\multicolumn{8}{c}{\textbf{Microsoft COCO (before sharpening)}} \\
 \hline
-& \multicolumn{5}{c||}{Image Search} & Image Similarity \\
+& \multicolumn{5}{c||}{Image Search} & \multicolumn{2}{c}{Image Similarity} \\
 %\cline{2-6}
-\textbf{Model} & \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@50} & \textbf{Med r} & \textbf{SSI} \\
+\textbf{Model} & \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@50} & \textbf{Med r} & \textbf{SSI} & \textbf{Feature Distance} \\
 \hline
 \hline
-LAPGAN & - & - & - & - & - & 0.08 \\ % - & - & - & - & - & 0.08
+LAPGAN & - & - & - & - & - & 0.08 & 6.89 \\ % - & - & - & - & - & 0.08
 \hline
-Fully-Conn VAE & 1.0 & 6.6 & 12.0 & 53.4 & 47 & 0.156 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
-Conv-Deconv VAE & 1.0 & 6.5 & 12.0 & 52.9 & 48 & 0.164 \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
-skipthoughtDRAW & 2.0 & 11.2 & 18.9 & 63.3 & 36 & 0.157 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
-noalignDRAW & 2.8 & 14.1 & 23.1 & 68.0 & 31 & 0.155 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
-alignDRAW & 3.0 & 14.0 & 22.9 & 68.5 & 31 & 0.156 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
+Fully-Conn VAE & 1.0 & 6.6 & 12.0 & 53.4 & 47 & 0.156 & 6.11 \\ % 0.688 & 4.58 & 8.74 & 46.832 & 54 & -1
+Conv-Deconv VAE & 1.0 & 6.5 & 12.0 & 52.9 & 48 & 0.164 & 6.32 \\ % 0.672 & 4.448 & 8.476 & 46.596 & 54 & 0.131
+skipthoughtDRAW & 2.0 & 11.2 & 18.9 & 63.3 & 36 & 0.157 & 6.93 \\ % 0.988 & 6.18 & 11.48 & 52.512 & 48 & 0.118
+noalignDRAW & 2.8 & 14.1 & 23.1 & 68.0 & 31 & 0.155 & 7.01 \\ % 1.0 & 6.124 & 11.18 & 52.112 & 48 & 0.114
+alignDRAW & 3.0 & 14.0 & 22.9 & 68.5 & 31 & 0.156 & 6.99 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
 \end{tabulary}
 \end{center}
 \caption{Results of different models.}
@@ -511,7 +511,6 @@ As a result, the samples were sharpened by a LAPGAN trained on the residuals of 
 \section{Acknowledgements}
 We would like to thank developers of Theano \citep{theano} for a powerful software and authors of \citep{denton_lapgan} for open sourcing their code. We would also like to thank Ryan Kiros and Nitish Srivastava for helpful discussions. We will be releasing our code with pretrained models as soon as we clean it.
 
-\newpage
 \bibliography{iclr-paper}
 \bibliographystyle{iclr-style/iclr2016_conference}
 
