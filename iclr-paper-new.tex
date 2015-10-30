@@ -240,15 +240,15 @@ r_t &= \readop(\oimage_t, \hat{\oimage}_t, \hdec_{t-1})\\
 %\sigma_{t}^{prior} &= exp(tanh(W_{\sigma}\hdec_{t-1})) 
 %\end{align}
 
-$\sigmoid$ operator is a logistic sigmoid function $\sigmoid=\frac{1}{1+exp(-x)}$ and $\henc_0$ is initialized to the learned bias. 
+where $\hat{\oimage}$ is the \textit{error} image, $\sigmoid$ operator is a logistic sigmoid function $\sigmoid=\frac{1}{1+exp(-x)}$ and $\henc_0$ is initialized to the learned bias. 
 
 The terms in the variational lower bound are rearranged using the law of total expectation. Therefore, the loss function $\loss$ is calculated as follows:
 \begin{align}
-\loss =  &\expectation_{Q(\Lat_{1:T}\given\icaption,\oimage)}\left[ - \log p(\oimage\given\icaption,\Lat_{1:T}) + \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\Lat_{t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\Lat_{t-1},\icaption)\right) \right] \nonumber \\& + \kldiv\left(\post(\Lat_1\given\icaption,\oimage)\klBars\prior(\Lat_1\given\icaption)\right).
+\loss =  &\expectation_{Q(\Lat_{1:T}\given\icaption,\oimage)}\left[ - \log p(\oimage\given\icaption,\Lat_{1:T}) + \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\Lat_{t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\Lat_{t-1},\icaption)\right) \right] \nonumber \\& + \kldiv\left(\post(\Lat_1\given\oimage)\klBars\prior(\Lat_1)\right).
 \end{align}
 The expectation can be approximated by $\numSamples$ Monte Carlo samples $\LatSample_{1:T}$ from $\post(\Lat_{1:T}\given\icaption, \oimage)$:
 \begin{align}
-\loss \approx  &\frac{1}{\numSamples}\sum_{\sampleIdx=1}^\numSamples\left[ - \log p(\oimage\given\icaption,\LatSample^\sampleIdx_{1:T}) + \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\LatSample^\sampleIdx_{t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\LatSample^\sampleIdx_{t-1},\icaption)\right) \right] \nonumber \\& + \kldiv\left(\post(\Lat_1\given\icaption,\oimage)\klBars\prior(\Lat_1\given\icaption)\right).
+\loss \approx  &\frac{1}{\numSamples}\sum_{\sampleIdx=1}^\numSamples\left[ - \log p(\oimage\given\icaption,\LatSample^\sampleIdx_{1:T}) + \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\LatSample^\sampleIdx_{t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\LatSample^\sampleIdx_{t-1},\icaption)\right) \right] \nonumber \\& + \kldiv\left(\post(\Lat_1\given\oimage)\klBars\prior(\Lat_1)\right).
 \end{align}
 We used only one sample during training for all our experiments.
 \comm{
