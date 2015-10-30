@@ -311,20 +311,9 @@ Similarly, when generating one digit the model attended to the digit in the capt
 
 \subsection{Microsoft COCO}
 
-Microsoft COCO \citep{mscoco} is a very large dataset of roughly 83k images, each annotated with 5 captions. The rich collection of images with a wide variety of styles, backgrounds and objects makes the task of learning a good generative model 
-%conditioned on a caption 
-very challenging. For consistency with related work on caption generation, we used only the first five captions when training and evaluating our model. 
-The images were resized to $32 \times 32$ dimension for consistency with other tiny image datasets \citep{krizhevsky_cifar}. In the following subsections, we analyzed both the qualitative and quantitative aspects of our model as well as compared its performance with that of other, related generative models\footnote{To see more generated images, go to \url{http://www.cs.toronto.edu/~emansim/cap2im.html}}.
-
-\subsubsection{Analysis of Generated Images}
-
-The main goal of this work is to learn a model that can understand the semantic meaning expressed in the textual descriptions of images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To examine the understanding of our model, we wrote a set of captions inspired by the COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
-
-First, we wanted to see whether the model understood one of the most basic properties of any object, the color. In Figure~\ref{fig:genimages1}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all mentioned school buses are specifically colored yellow. Despite that, the model managed to generate images of an object that is visually reminiscent of a school bus that is painted with the specified color.
-
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
-\vspace{-0.1cm}
+\vspace{-0.3cm}
 \begin{center}
 \subfloat[A \underline{yellow} school bus parked in a parking lot.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
@@ -337,16 +326,39 @@ First, we wanted to see whether the model understood one of the most basic prope
 %
 \subfloat[A \underline{blue} school bus parked in a parking lot.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-blue-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
+\\
+%
+\subfloat[\underline{The decadent chocolate} \underline{desert} is on the table.
+]{\includegraphics[width=0.23\textwidth]{figures/new/the-decadent-chocolate-dessert-is-on-the-table-sharp.png}}\quad
+%
+\subfloat[\underline{A bowl of bananas} is on the table.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-bowl-of-bananas-is-on-the-table-sharp.png}}\quad
+%
+\subfloat[A vintage photo of a \underline{cat}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-cat-sharp.png}}\quad
+%
+\subfloat[A vintage photo of a \underline{dog}.
+]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-dog-sharp.png}}\quad
 %
 \end{center}
-\caption{Examples of changing the color while keeping the caption fixed.}
-\label{fig:genimages1}
-\vspace{-0.1cm}
+\caption{\textbf{Bottom}: Examples of changing the object while keeping the caption fixed. \textbf{Top}: Examples of changing the color while keeping the caption fixed.}
+\label{fig:genimages3}
+\vspace{-0.3cm}
 \end{figure}
+
+Microsoft COCO \citep{mscoco} is a very large dataset of roughly 83k images, each annotated with 5 captions. The rich collection of images with a wide variety of styles, backgrounds and objects makes the task of learning a good generative model 
+%conditioned on a caption 
+very challenging. For consistency with related work on caption generation, we used only the first five captions when training and evaluating our model. 
+The images were resized to $32 \times 32$ dimension for consistency with other tiny image datasets \citep{krizhevsky_cifar}. In the following subsections, we analyzed both the qualitative and quantitative aspects of our model as well as compared its performance with that of other, related generative models\footnote{To see more generated images, go to \url{http://www.cs.toronto.edu/~emansim/cap2im.html}}.
+
+\subsubsection{Analysis of Generated Images}
+The main goal of this work is to learn a model that can understand the semantic meaning expressed in the textual descriptions of images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To examine the understanding of our model, we wrote a set of captions inspired by the COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
+
+First, we wanted to see whether the model understood one of the most basic properties of any object, the color. In Figure~\ref{fig:genimages3}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all mentioned school buses are specifically colored yellow. Despite that, the model managed to generate images of an object that is visually reminiscent of a school bus that is painted with the specified color.
 
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
-\vspace{-0.1cm}
+%\vspace{-0.5cm}
 \begin{center}
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-very-large-commercial-plane-flying-in-blue-skies-closest.png}}\quad
 %
@@ -372,34 +384,26 @@ First, we wanted to see whether the model understood one of the most basic prope
 \end{center}
 \caption{\textbf{Bottom}: Examples of changing the background while keeping the caption fixed. \textbf{Top}: The respective nearest training images based on pixel-wise L2 distance. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.}
 \label{fig:genimages2}
-\vspace{-0.1cm}
+\vspace{-0.3cm}
 \end{figure}
+
+Apart from changing the colors of objects, we were curious whether changing the background of the scene described in a caption would result in the appropriate changes in the generated samples. The task of changing the background of an image is somewhat harder than just changing the color of an object because the model will have to make alterations over a wider visual area. Nevertheless, as shown in Figure~\ref{fig:genimages2} changing the skies from blue to rainy in a caption as well as changing the grass type from dry to green in another caption resulted in the appropriate changes in the generated image.
+
+Despite a large number of ways of changing colors and backgrounds in descriptions, in general we found that the model made appropriate changes as long as some similar pattern was present in the training set. However, the model struggled when the visual difference between objects was very small, such as when the objects have the same general shape and color. In Figure~\ref{fig:genimages3}, we demonstrate that when we swap two objects that are both visually similar, for example cats and dogs, it is difficult to discriminate solely from the generated samples whether it is an image of a cat or dog, even though we might notice an animal-like shape. This highlights a limitation of the model in that it has difficulty modelling the fine-grained details of objects.
+
+As a test of model generalization, we tried generating images corresponding to captions that describe scenarios that are highly unlikely to occur in real life. These captions describe a common object doing unusual things 
+or set in a strange location.
+%that are impossible in the real world. 
+%considering the physics of real world. 
+Even though some of these scenarios may never happen in real life, it is very easy for humans to imagine the corresponding scene. Nevertheless, as you can see in Figure~\ref{fig:genimages4}, the model managed to generate reasonable images.  
+
+\subsubsection{Analysis of Attention}
+
+After flipping sets of words in the captions, we were curious to see which words the model attended to when generating images. It turned out that during the generation step, the model mostly focused on the specific words (or nearby words) that carried the main semantic meaning expressed in the sentences. The attention values of words in sentences helped us interpret the reasons why the model made the changes it did when we flipped certain words. For example, in Figure~\ref{fig:diffmodels} we can see that when we flipped the word ``desert'' to ``forest'', the attention over words in the sentence did not change drastically. This suggests that, in their respective sentences, the model looked at ``desert'' and ``forest'' with relatively equal probability, and thus made the correct changes. In contrast, when we swap words ``beach'' and ``sun'', we can see a drastic change between sentences in the probability distribution over words. By noting that the model completely ignores the word ``sun'' in the second sentence, we can therefore gain a more thorough understanding of why we see no visual differences between the images generated by each caption.
 
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
-\vspace{-0.1cm}
-\begin{center}
-\subfloat[\underline{The decadent chocolate} \underline{desert} is on the table.
-]{\includegraphics[width=0.23\textwidth]{figures/new/the-decadent-chocolate-dessert-is-on-the-table-sharp.png}}\quad
-%
-\subfloat[\underline{A bowl of bananas} is on the table.
-]{\includegraphics[width=0.23\textwidth]{figures/new/a-bowl-of-bananas-is-on-the-table-sharp.png}}\quad
-%
-\subfloat[A vintage photo of a \underline{cat}.
-]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-cat-sharp.png}}\quad
-%
-\subfloat[A vintage photo of a \underline{dog}.
-]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-dog-sharp.png}}\quad
-%
-\end{center}
-\caption{Examples of changing the object while keeping the caption fixed.}
-\label{fig:genimages3}
-\vspace{-0.1cm}
-\end{figure}
-
-\begin{figure}[!t]
-\captionsetup[subfigure]{labelformat=empty}
-\vspace{-0.1cm}
+\vspace{-0.3cm}
 \begin{center}
 \subfloat[\hlcthree{A} rider \hlcone{on} a blue \hlcone{motorcycle} in the \underline{\hlctwo{desert}}.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sharp.png}}\quad
@@ -412,17 +416,8 @@ First, we wanted to see whether the model understood one of the most basic prope
 %
 \subfloat[\hlcthree{A} \hlcone{surfer}, a woman, and a child walk on the \underline{\hlczero{sun}}.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-sun-sharp.png}}\quad
+\\
 %
-\end{center}
-\caption{Examples of most attended words while changing the background in the caption.}
-\label{fig:attentimages1}
-\vspace{-0.1cm}
-\end{figure} 
-
-\begin{figure}[!h]
-\captionsetup[subfigure]{labelformat=empty}
-\vspace{-0.1cm}
-\begin{center}
 \subfloat[alignDRAW]{\includegraphics[width=0.23\textwidth]{figures/new/a-group-of-people-walk-on-a-beach-with-surf-boards-sharp-small.png}}\quad
 %
 \subfloat[LAPGAN]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-lapgan-small.png}}\quad
@@ -432,24 +427,10 @@ First, we wanted to see whether the model understood one of the most basic prope
 \subfloat[Fully-Conn VAE]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-fcvae-small.png}}\quad
 %
 \end{center}
-\caption{Four different models displaying results from sampling caption \textit{A group of people walk on a beach with surf boards.}}
+\caption{\textbf{Bottom}: Four different models displaying results from sampling caption \textit{A group of people walk on a beach with surf boards.} \textbf{Top}: Examples of most attended words while changing the background in the caption.}
 \label{fig:diffmodels}
-\vspace{-0.1cm}
+\vspace{-0.3cm}
 \end{figure}
-
-Apart from changing the colors of objects, we were curious whether changing the background of the scene described in a caption would result in the appropriate changes in the generated samples. The task of changing the background of an image is somewhat harder than just changing the color of an object because the model will have to make alterations over a wider visual area. Nevertheless, as shown in Figure~\ref{fig:genimages2} changing the skies from blue to rainy in a caption as well as changing the grass type from dry to green in another caption resulted in the appropriate changes in the generated image.
-
-Despite a large number of ways of changing colors and backgrounds in descriptions, in general we found that the model made appropriate changes as long as some similar pattern was present in the training set. However, the model struggled when the visual difference between objects was very small, such as when the objects have the same general shape and color. In Figure~\ref{fig:genimages3}, we demonstrate that when we swap two objects that are both visually similar, for example cats and dogs, it is difficult to discriminate solely from the generated samples whether it is an image of a cat or dog, even though we might notice an animal-like shape. This highlights a limitation of the model in that it has difficulty modelling the fine-grained details of objects. 
-
-As a test of model generalization, we tried generating images corresponding to captions that describe scenarios that are highly unlikely to occur in real life. These captions describe a common object doing unusual things 
-or set in a strange location.
-%that are impossible in the real world. 
-%considering the physics of real world. 
-Even though some of these scenarios may never happen in real life, it is very easy for humans to imagine the corresponding scene. Nevertheless, as you can see in Figure~\ref{fig:genimages4}, the model managed to generate reasonable images.  
-
-\subsubsection{Analysis of Attention}
-
-After flipping sets of words in the captions, we were curious to see which words the model attended to when generating images. It turned out that during the generation step, the model mostly focused on the specific words (or nearby words) that carried the main semantic meaning expressed in the sentences. The attention values of words in sentences helped us interpret the reasons why the model made the changes it did when we flipped certain words. For example, in Figure~\ref{fig:attentimages1} we can see that when we flipped the word ``desert'' to ``forest'', the attention over words in the sentence did not change drastically. This suggests that, in their respective sentences, the model looked at ``desert'' and ``forest'' with relatively equal probability, and thus made the correct changes. In contrast, when we swap words ``beach'' and ``sun'', we can see a drastic change between sentences in the probability distribution over words. By noting that the model completely ignores the word ``sun'' in the second sentence, we can therefore gain a more thorough understanding of why we see no visual differences between the images generated by each caption.
 
 We also tried to analyze the way the model generated images. Unfortunately, we found that there was no significant connection between the patches drawn on canvas and the most attended words at particular timesteps.
 
