@@ -3,7 +3,7 @@
 
 \subsection{Hyperparameters}
 
-Each parameter in alignDRAW was initialized by sampling from the Gaussian distribution of mean $0$ and standard deviation of $0.01$. The model was trained using \textit{RMSProp} with initial learning rate of $0.001$. The norm of the gradients was clipped to $10.0$ during training to deal with exploding gradients. For all tasks we used $128$ units in the language model and $512$ units in the $tanh$ perceptron in the alignment function. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
+Each parameter in alignDRAW was initialized by sampling from the Gaussian distribution of mean $0$ and standard deviation of $0.01$. The model was trained using \textit{RMSprop} with initial learning rate of $0.001$. The norm of the gradients was clipped to $10.0$ during training to deal with exploding gradients. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units, and vector $v$ in \textit{align} perceptron had $512$ units. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
 
 \begin{table}[!h]
 \begin{center}
@@ -22,7 +22,7 @@ MNIST Captions & 32 & 300 & 300 & 150 & 8 & 8\\
 %\vspace{-0.3cm}
 \end{table}
 
-The LAPGAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of CIFAR dataset.  that can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
+The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
 
 \subsection{Evaluation}
 
