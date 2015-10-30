@@ -173,7 +173,7 @@ Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ...
 
 To generate images conditioned on the caption information, we extended the DRAW network \citep{gregor_draw} to include caption representation $\hlangall$ at each step, shown in Figure~\ref{fig:figmodel}. The conditional DRAW network is a stochastic recurrent neural network that consists of a set of latent variables $\Lat_t$ where the output is accumulated over all timesteps.
 
-Unlike the original DRAW network where latent variables are independent unit Gaussians $\mathcal{N}(0, I)$, the latent variables in the proposed alignDRAW model have their mean and variance depend on the previous recurrent hidden states $\hdec_{t-1}$, except for $\lat_1 \sim \prior(\Lat_1) = \mathcal{N}(0, I)$.  Namely, the mean and variance of prior distribution $\prior(\Lat_t)$ is parameterized by: 
+Unlike the original DRAW network where latent variables are independent unit Gaussians $\mathcal{N}(0, I)$, the latent variables in the proposed alignDRAW model have their mean and variance depend on the previous recurrent hidden states $\hdec_{t-1}$, except for $\lat_1 \sim \prior(\Lat_1) = \mathcal{N}(0, I)$.  Namely, the mean and variance of prior distribution $\prior(\Lat_t)$ are parameterized by: 
 \begin{align}
 \mu_{t}(\hdec_{t-1}) &= tanh(W_{\mu}\hdec_{t-1}),\\
 \sigma_{t}(\hdec_{t-1}) &= {exp}\big(tanh(W_{\sigma}\hdec_{t-1})\big),
