@@ -15,6 +15,11 @@
 \usepackage[bottom]{footmisc}
 
 \captionsetup{font=small}
+\newcommand{\Figref}[1]{Fig.~\ref{#1}}
+\newcommand{\Secref}[1]{Sec.~\ref{#1}}
+\newcommand{\Eqref}[1]{Eq.~\ref{#1}} % The '~' stops breaking and gives correct spacing
+\newcommand{\Eqrefs}[2]{Eqs.~\ref{#1},~\ref{#2}}
+\def\beqa#1\eeqa{\begin{eqnarray}#1\end{eqnarray}}
 
 \newcommand{\comm}[1]{}
 \newcommand{\given}{\,|\,}
@@ -149,14 +154,25 @@ While all of the previous work has been focused on unconditional models or model
 
 \section{Model}
 Our proposed model 
-defines a generative process of images conditioned on captions. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on a canvas $c_t$ over time $t=1,...,T$. Our model can be viewed as a part of the sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video}.
+defines a generative process of images conditioned on captions. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on a canvas $c_t$ over time $t=1,...,T$. Our model can be viewed as a part of the sequence-to-sequence framework \citep{ilya_mt,cho_mt,nitish_video}.
 %Our proposed model can be viewed as a part of sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video} where captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$ and $\oimage$ be the image corresponding to that caption.
 
 \subsection{Language Model: the Bidirectional Attention RNN}
 \label{sec:lang}
-Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{N}$, and $\oimage$ be the output image. We obtain the caption sentence representation by first transforming each word $y_{1},...,y_{N}$ to a vector representation using the Bidirectional RNN. In a Bidirectional RNN, the two LSTMs process the input sequence from both forward and backward directions. The Forward LSTM computes the sequence of forward hidden states $[\overrightarrow{h}^{lang}_{1}, \overrightarrow{h}^{lang}_{2}, ..., \overrightarrow{h}^{lang}_{N}]$ , whereas the Backward LSTM computes the sequence of backward hidden states $[\overleftarrow{h}^{lang}_{1}, \overleftarrow{h}^{lang}_{2}, ..., \overleftarrow{h}^{lang}_{N}]$. These hidden states are then concatenated together into the sequence $[\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, where $\hlang_{n} = [\overrightarrow{h}^{lang}_{n}, \overleftarrow{h}^{lang}_{n}], 1\leq n\leq N$.
+Let $\icaption$ be the input caption, represented as a sequence
+of 1-of-K encoded words 
+${\bf y} = \{y_{1}, y_{2}, ..., y_{N}\}$, 
+where $K$ is the size of he vocabulary and $N$ is the length of the sequence.
+%and $\oimage$ be the output image. 
+We obtain the caption sentence representation by first 
+transforming each word $y_{n}$ to an $m$-dimensional 
+vector representation $\hlang_{n}$, $n=1,..,N$ using the Bidirectional RNN. In a Bidirectional RNN, the two LSTMs process the input sequence from both forward and backward directions. The Forward LSTM computes the sequence of forward hidden states $[\overrightarrow{h}^{lang}_{1}, \overrightarrow{h}^{lang}_{2}, ..., \overrightarrow{h}^{lang}_{N}]$ , whereas the Backward LSTM computes the sequence of backward hidden states $[\overleftarrow{h}^{lang}_{1}, \overleftarrow{h}^{lang}_{2}, ..., \overleftarrow{h}^{lang}_{N}]$. 
+These hidden states are then concatenated together 
+into the sequence $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, 
+with $\hlang_{n} = [\overrightarrow{h}^{lang}_{n}, \overleftarrow{h}^{lang}_{n}], 1\leq n\leq N$.
 
-\begin{figure}[!t]
+
+\begin{figure}[t!]
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
 \includegraphics[width=0.99\textwidth]{figures/alignDrawAnnotated.pdf}\quad
@@ -171,14 +187,23 @@ Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ...
 
 \subsection{Image Model: the Conditional DRAW Network}
 
-To generate images conditioned on the caption information, we extended the DRAW network \citep{gregor_draw} to include caption representation $\hlangall$ at each step, shown in Figure~\ref{fig:figmodel}. The conditional DRAW network is a stochastic recurrent neural network that consists of a set of latent variables $\Lat_t$ where the output is accumulated over all timesteps.
+To generate an image $\oimage$ conditioned on the caption information $\bf{y}$, 
+we extended the DRAW network~\citep{gregor_draw} to include caption representation $\hlangall$ at each step, as shown in \Figref{fig:figmodel}. 
+The conditional DRAW network is a stochastic recurrent neural network that consists of a 
+sequence of latent variables $\Lat_t \in \mathbb{R}^D$, $t=1,..,T$, where the output is accumulated over all timesteps.
 
-Unlike the original DRAW network where latent variables are independent unit Gaussians $\mathcal{N}(0, I)$, the latent variables in the proposed alignDRAW model have their mean and variance depend on the previous recurrent hidden states $\hdec_{t-1}$, except for $\lat_1 \sim \prior(\Lat_1) = \mathcal{N}(0, I)$.  Namely, the mean and variance of prior distribution $\prior(\Lat_t)$ are parameterized by: 
-\begin{align}
-\mu_{t}(\hdec_{t-1}) &= tanh(W_{\mu}\hdec_{t-1}),\\
-\sigma_{t}(\hdec_{t-1}) &= \exp\big(tanh(W_{\sigma}\hdec_{t-1})\big),
-\end{align}
-where $W_{\mu}, W_{\sigma}$ are learnt model parameters. It has been shown in \citep{bachman_sdm} that model performance is improved by including dependencies between latent variables. An image is generated by iteratively computing the following equations for $t=1,...,T$ (see Figure~\ref{fig:figmodel}):
+Unlike the original DRAW network where latent variables are independent 
+spherical Gaussians $\mathcal{N}(0, I)$, the latent variables in the proposed alignDRAW model have their mean and variance depend on the previous recurrent hidden states $\hdec_{t-1}$, except for $\lat_1 \sim \prior(\Lat_1) = \mathcal{N}(0, I)$.  
+%Namely, the mean and variance of prior distribution $\prior(\Lat_t)$ are parameterized by: 
+%\begin{align}
+%\mu_{t}(\hdec_{t-1}) &= tanh(W_{\mu}\hdec_{t-1}),\\
+%\sigma_{t}(\hdec_{t-1}) &= \exp\big(tanh(W_{\sigma}\hdec_{t-1})\big),
+%\end{align}
+%where $W_{\mu}, W_{\sigma}$ are learnt model parameters. 
+Similar to \cite{bachman_sdm}, we have observed that 
+the model performance is improved by including dependencies between latent variables. 
+
+An image is generated by iteratively computing the following equations for $t=1,...,T$ (see Figure~\ref{fig:figmodel}):
 \begin{align}
 \label{eq:x_hat}
 \lat_t &\sim \prior(\Lat_t|\Lat_{1:t-1}) = \mathcal{N}\bigg(\mu_{t}(\hdec_{t-1}), \sigma_{t}(\hdec_{t-1})\bigg),\\
