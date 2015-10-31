@@ -155,6 +155,7 @@ Recently, \cite{denton_lapgan} have scaled those models by training conditional 
 While all of the previous work has been focused on unconditional models or models conditioned on labels, to the best of our knowledge this paper is the first to introduce a generative model of images conditioned on captions.
 
 \section{Model}
+\label{sec:model}
 Our proposed model 
 defines a generative process of images conditioned on captions. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on a canvas $c_t$ over time $t=1,...,T$. Our model can be viewed as a part of the sequence-to-sequence framework \citep{ilya_mt,cho_mt,nitish_video}.
 %Our proposed model can be viewed as a part of sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video} where captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$ and $\oimage$ be the image corresponding to that caption.
@@ -180,7 +181,7 @@ with $\hlang_{i} = [\overrightarrow{h}^{lang}_{i}, \overleftarrow{h}^{lang}_{i}]
 \includegraphics[width=0.99\textwidth]{figures/alignDrawAnnotated.pdf}\quad
 %
 \end{center}
-\caption{The image of the proposed model}
+\caption{The diagram shows our model learns to draw images by learning an alignment of input captions and generating canvas. The details are explained in Section \ref{sec:model}.}
 \label{fig:figmodel}
 \vspace{-0.3cm}
 \end{figure}
