@@ -1,3 +1,24 @@
+
+\section{MNIST With Captions}
+
+\begin{figure}[!t]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\includegraphics[width=0.99\textwidth]{figures/new/mnist/test3.pdf}\quad
+%
+\end{center}
+\caption{Examples of generating $60 \times 60$ MNIST images corresponding to respective captions. The captions on the \textbf{left column} were part of the training set. The digits described in the captions on the \textbf{right column} were hidden during training for the respective configurations.}
+\label{fig:figmnist}
+\vspace{-0.3cm}
+\end{figure}
+
+As an additional experiment, we trained our proposed model on the MNIST dataset with artificial captions. Either one or two digits from the MNIST training dataset were placed on a $60 \times 60$ blank image. One digit was placed in one of the four (top-left, top-right, bottom-left or bottom-right) corners of the image. Two digits were either placed horizontally or vertically in nonoverlapping fashion.
+While many generative models were trained on the binarized version of the MNIST dataset, we trained directly on pixel intensities with a binary cross-entropy cost function.
+
+The generated images together with the attention alignments are displayed in Figure~\ref{fig:figmnist}. The model correctly displayed the specified digits at the described positions and even managed to generalize reasonably to the configurations that were never present during training.
+In the case of generating two digits, the model attended to the digit in the caption it was drawing at that particular time-step while completely ignoring the other digit.
+Similarly, when generating one digit the model attended to the digit in the caption during the whole generation process. However in both cases, the model placed small attention values on the words describing the position of digits in the images.
+
 \section{Training Details}
 \label{sec:training_details}
 
