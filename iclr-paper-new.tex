@@ -142,7 +142,7 @@ seen in the dataset, such as ``A stop sign is flying in blue skies'' (see \Figre
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-person-skiing-on-sand-clad-vast-desert-sharp.png}}\quad
 %
 \end{center}
-\caption{\small Examples of novel scene compositions.}
+\caption{\small Examples of novel scene compositions. Best viewed in colour.}
 \label{fig:genimages4}
 \vspace{-0.3cm}
 \end{figure}
@@ -271,8 +271,9 @@ combines it with the input from both the latent sample $z_t$ and the sentence re
 %$[v_1, v_2]$ denotes the concatenation of $v_1$ and $v_2$ into the single vector.
 
 The output of the $\decoder$ function $\hdec_t$ is then passed through the $\writeop$ operator 
-which is added to a cumulative canvas matrix $c_t \in \real^{h \times w}$, with $c_0=0$ (\Eqref{eq:writeop}). 
-The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ whose filter locations and scales are computed from the generative LSTM hidden state $\hdec_t$ (same as defined in \cite{gregor_draw}). The Gaussian filter banks apply to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas $c_t$:
+which is added to a cumulative canvas matrix $c_t \in \real^{h \times w}$ (\Eqref{eq:writeop}). 
+The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ whose filter locations and scales are computed from the generative LSTM hidden state $\hdec_t$ (same as defined in \cite{gregor_draw}). 
+The Gaussian filter banks are then applied to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas:
 \beqa
 \label{eq:write}
 \Delta \canv_{t} = \canv_{t} - \canv_{t-1} = \writeop(\hdec_t) = \gFilterx(\hdec_t) \WriteFunc(\hdec_t) \gFiltery(\hdec_t)^\top. 
@@ -391,7 +392,9 @@ estimate the variational lower bound accordingly.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-dog-sharp.png}}\quad
 %
 \end{center}
-\caption{\small \textbf{Bottom}: Examples of changing the object while keeping the caption fixed. \textbf{Top}: Examples of changing the color while keeping the caption fixed.}
+\caption{\small
+ \textbf{Top}: Examples of changing the color while keeping the caption fixed.
+ \textbf{Bottom}: Examples of changing the object while keeping the caption fixed. }
 \label{fig:genimages3}
 %\vspace{-0.3cm}
 \end{figure}
