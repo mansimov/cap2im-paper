@@ -163,10 +163,10 @@ Recently, \cite{denton_lapgan} have scaled those models by training conditional 
 While all of the previous work has been focused on unconditional models or models conditioned on labels, %to the best of our knowledge 
 in this paper we develop a generative model of images conditioned on captions.
 
-\section{Model}
+\section{AlignDRAW Model}
 \label{sec:model}
 Our proposed model 
-defines a generative process of images conditioned on captions. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on a canvas $c_t$ over time $t=1,...,T$. Our model can be viewed as a part of the sequence-to-sequence framework \citep{ilya_mt,cho_mt,nitish_video}.
+defines a generative process of images conditioned on captions. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on a canvas $c_t$ over time $t=1,...,T$. The model can be viewed as a part of the sequence-to-sequence framework \citep{ilya_mt,cho_mt,nitish_video}.
 %Our proposed model can be viewed as a part of sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video} where captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$ and $\oimage$ be the image corresponding to that caption.
 
 \subsection{Language Model: the Bidirectional Attention RNN}
@@ -321,7 +321,7 @@ Hence, the approximate posterior $Q$ will depend on the input image $\oimage$,
 the corresponding caption $\icaption$, and the latent history $\Lat_{1:t-1}$, except  
 for the first step $Q(Z_1 | \oimage)$, which depends only on $\oimage$.  
 
-The terms in the variational lower bound are rearranged using the law of total expectation. Therefore, the objective function $\loss$ is calculated as follows:
+The terms in the variational lower bound can be rearranged using the law of total expectation. Therefore, the variational bound $\loss$ is calculated as follows:
 \begin{align}
 \label{eq:loss}
 \loss =  &\expectation_{Q(\Lat_{1:T}\given\icaption,\oimage)}\left[ \log p(\oimage\given\icaption,\Lat_{1:T}) - \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\Lat_{1:t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\Lat_{1:t-1},\icaption)\right) \right] \nonumber \\& - \kldiv\left(\post(\Lat_1\given\oimage)\klBars\prior(\Lat_1)\right).
@@ -331,8 +331,12 @@ The expectation can be approximated by $\numSamples$ Monte Carlo samples $\LatSa
 \label{eq:loss_mc}
 \loss \approx  &\frac{1}{\numSamples}\sum_{\sampleIdx=1}^\numSamples\left[ \log p(\oimage\given\icaption,\LatSample^\sampleIdx_{1:T}) - \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\LatSample^\sampleIdx_{1:t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\LatSample^\sampleIdx_{1:t-1},\icaption)\right) \right] \nonumber \\& - \kldiv\left(\post(\Lat_1\given\oimage)\klBars\prior(\Lat_1)\right).
 \end{align}
+The model can be trained using stochastic gradient descent. 
 In all of our experiments, we used only a single sample 
-from $\post(\Lat_{1:T}\given\icaption, \oimage)$ during training.
+from $\post(\Lat_{1:T}\given\icaption, \oimage)$ for parameter learning.
+Training details, hyperparameter settings,
+and the overall model architecture are specified in Appendix. 
+We will also release our code with pretrained models.
 
 \comm{
 \begin{align}
