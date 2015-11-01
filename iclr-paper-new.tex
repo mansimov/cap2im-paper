@@ -290,7 +290,7 @@ on the marginal likelihood of the correct image $\oimage$ given the input captio
 \eeqa
 %The posterior inference over the latent variables $\Lat_{1:T}$ is approximated using the inference RNN. 
 Similar to the DRAW model, the inference recurrent network 
-produces an approximate posterior $Q(\Lat_{1:T}\given\oimage,\icaption)$ via a $\readop$ operator, which reads a patch from image using two array of 1D Gaussian filters (inverse of $\writeop$ from section \ref{sec:image_model}), over the training image at each step. Specifically, 
+produces an approximate posterior $Q(\Lat_{1:T}\given\oimage,\icaption)$ via a $\readop$ operator, which reads a patch from image using two arrays of 1D Gaussian filters (inverse of $\writeop$ from section \ref{sec:image_model}), over the training image at each step. Specifically, 
 \begin{align}
 \label{eq:x_hat}
 \hat{\oimage}_t &= \oimage-\sigmoid(\canv_{t-1}),\\
