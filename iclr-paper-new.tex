@@ -270,7 +270,7 @@ which is added to a cumulative canvas matrix $c_t \in \real^{h \times w}$, with 
 The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ with locations and scales predicted from the generative LSTM hidden state $\hdec_t$ (same as defined in \cite{gregor_draw}). The Gaussian filter banks apply to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas $c_t$:
 \beqa
 \label{eq:write}
-\Delta \canv_{t-1} = \canv_{t} - \canv_{t-1} = \writeop(\hdec_t) = \gFilterx(\hdec_t) \WriteFunc(\hdec_t) \gFiltery(\hdec_t)^\top. 
+\Delta \canv_{t} = \canv_{t} - \canv_{t-1} = \writeop(\hdec_t) = \gFilterx(\hdec_t) \WriteFunc(\hdec_t) \gFiltery(\hdec_t)^\top. 
 \eeqa
 
 Finally, each pixel $\canv_{T,i}$ from the final canvas $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli 
