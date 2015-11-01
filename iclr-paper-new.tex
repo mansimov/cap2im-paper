@@ -54,7 +54,7 @@
 \newcommand{\hlc}[2][yellow]{{\sethlcolor{#1}\hl{#2}}}
 \newcommand{\gFilterx}{F_x}
 \newcommand{\gFiltery}{F_y}
-\newcommand{\WriteFunc}{W}
+\newcommand{\WriteFunc}{K}
 \newcommand{\real}{\mathbb{R}}
 
 
@@ -196,17 +196,20 @@ with $\hlang_{i} = [\overrightarrow{h}^{lang}_{i}, \overleftarrow{h}^{lang}_{i}]
 
 
 \subsection{Image Model: the Conditional DRAW Network}
-
-To generate an image $\oimage$ conditioned on the caption information $\bf{y}$, 
-we extended the DRAW network~\citep{gregor_draw} to include caption representation $\hlangall$ at each step, as shown in \Figref{fig:figmodel}. 
-The conditional DRAW network is a stochastic recurrent neural network (LSTM) that consists of a 
-sequence of latent variables $\Lat_t \in \mathbb{R}^D$, $t=1,..,T$, where the output is accumulated over all $T$ time-steps.
+\label{sec:image_model}
+To generate an image $\oimage$ conditioned on the caption information $\bf{y}$,
+we extended the DRAW network~\citep{gregor_draw} to include caption
+representation $\hlangall$ at each step, as shown in \Figref{fig:figmodel}.
+The conditional DRAW network is a stochastic recurrent neural network (LSTM)
+that consists of a sequence of latent variables $\Lat_t \in \mathbb{R}^D$,
+$t=1,..,T$, where the output is accumulated over all $T$ time-steps. For
+simplicity in notation, the images $\oimage\in\real^{h\times w}$ are assumed to have size $h$-by-$w$ and only one color channel.
 
 Unlike the original DRAW network where latent variables are independent 
-spherical Gaussians $\mathcal{N}(0, I)$, the latent variables in the proposed alignDRAW model have their mean and variance depend on the previous recurrent hidden states $\hdec_{t-1}$, except for $\lat_1 \sim \prior(\Lat_1) = \mathcal{N}(0, I)$.  
+spherical Gaussians $\mathcal{N}(0, I)$, the latent variables in the proposed alignDRAW model have their mean and variance depend on the previous hidden states of the generative LSTM $\hdec_{t-1}$, except for $\prior(\Lat_1) = \mathcal{N}(0, I)$.  
 Namely, the mean and variance of the prior distribution over $\Lat_t$ are parameterized by: 
 \begin{align}
-\lat_t \sim \prior(\Lat_t|\Lat_{1:t-1}) &= \mathcal{N}\bigg(\mu(\hdec_{t-1}), \sigma(\hdec_{t-1})\bigg), \nonumber \\
+\prior(\Lat_t|\Lat_{1:t-1}) &= \mathcal{N}\bigg(\mu(\hdec_{t-1}), \sigma(\hdec_{t-1})\bigg), \nonumber \\
 \mu(\hdec_{t-1}) &= \tanh(W_{\mu}\hdec_{t-1}),\nonumber \\
 \sigma(\hdec_{t-1}) &= \exp\big(\tanh(W_{\sigma}\hdec_{t-1})\big), \nonumber 
 \end{align}
@@ -251,23 +254,21 @@ The $\decoder$ function of \Eqref{eq:decoder}
 is defined by the LSTM network with \textit{forget} gates 
 \citep{gers_forget} at a single time-step. To generate the next 
 hidden state $\hdec_t$, 
-the decoder $\decoder$ takes the previous hidden state $\hdec_{t-1}$ and
+the $\decoder$ takes the previous hidden state $\hdec_{t-1}$ and
 combines it with the input from both the latent sample $z_t$ and 
 sentence representation $s_t$, where
 $[v_1, v_2]$ denotes the concatenation of $v_1$ and $v_2$ into the single vector.
 The initial state of the generative LSTM is set to $\hdec_0 = \tanh(b)$, 
 with learned bias $b$. 
 
-The output of the decoder $\hdec_t$ is then passed through the $\writeop$ operator 
-which is added to a cumulative canvas matrix $c_t$, with $c_0=0$ (\Eqref{eq:writeop}). 
-\FIXME{Jimmy, could you put more about the write operator}. 
-The $\writeop$ operator
-applies an array of Gaussian filters on the patch, placing 
-it on the canvas $c_t$ with smoothly varying location and zoom (same as 
-defined in \citep{gregor_draw}). 
-
-The $\writeop$ operator predicts two arrays of Gaussian filters using a parametric mapping $\gFilterx:\real$ applies an array of Gaussian filters on the patch that places it on the canvas $c_t$ with smoothly varying location and zoom (same as in \citep{gregor_draw}), with 
-$c_0=0$. 
+The output of the $\decoder$ function $\hdec_t$ is then passed through the $\writeop$ operator 
+which is added to a cumulative canvas matrix $c_t \in \real^{h \times w}$, with $c_0=0$ (\Eqref{eq:writeop}). 
+%\FIXME{Jimmy, could you put more about the write operator}. 
+%The $\writeop$ operator
+%applies an array of Gaussian filters on the patch, placing 
+%it on the canvas $c_t$ with smoothly varying location and zoom (same as 
+%defined in \citep{gregor_draw}). 
+The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ with smoothly varying locations and scales predicted from the generative LSTM hidden state $\hdec_t$ (same as to \citep{gregor_draw}). The Gaussian filter banks apply to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas $c_t$. 
 \beqa
 \label{eq:write}
 \Delta \canv_{t-1} = \canv_{t} - \canv_{t-1} = \writeop(\hdec_t) = \gFilterx(\hdec_t) \WriteFunc(\hdec_t) \gFiltery(\hdec_t)^\top, 
@@ -275,22 +276,22 @@ $c_0=0$.
 
 Finally, each pixel $\canv_{T,i}$ from the final canvas $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli 
 distribution with the mean vector $\sigmoid(\canv_{T})$ over the image pixels 
-$\oimage$ given the latent variables $\Lat_{1:T}$ and the input caption $\icaption$,
+$\oimage$ given the latent variables $\Lat_{1:T}$ and the input caption $\icaption$.
 
 
 
 \subsection{Learning}
-
+\label{sec:learning}
 %The model is learned by the modified version of Stochastic Gradient Variation Bayes (SGVB) algorithm introduced by \cite{kingma_vae}. 
 The model is trained to maximize a variational lower bound $\loss$ 
 on the marginal likelihood of the correct image $\oimage$ given the input caption $\icaption$:
 \beqa
-\loss = \sum_{\Lat}Q(\Lat\given\oimage,\icaption)\left(\log P(\oimage\given\icaption, \Lat) - \kldiv\left(Q(\Lat\given\oimage,\icaption)\klBars 
-  P(\Lat)\right)\right) \le \log P(\oimage\given\icaption).
+\loss = \sum_{\Lat}Q(\Lat\given\oimage,\icaption)\bigg(\log P(\oimage\given\icaption, \Lat) - \kldiv\left(Q(\Lat\given\oimage,\icaption)\klBars 
+  P(\Lat)\right)\bigg) \le \log P(\oimage\given\icaption).
 \eeqa
 %The posterior inference over the latent variables $\Lat_{1:T}$ is approximated using the inference RNN. 
 Similar to the DRAW model, the inference recurrent network 
-produces an approximate posterior $Q(\Lat_{1:T}\given\oimage,\icaption)$ via a $\readop$ operator, which reads a patch from image using an array of Gaussian filters (inverse of $\writeop$), over the training image at each step. Specifically, 
+produces an approximate posterior $Q(\Lat_{1:T}\given\oimage,\icaption)$ via a $\readop$ operator, which reads a patch from image using two array of 1D Gaussian filters (inverse of $\writeop$ from section \ref{sec:image_model}), over the training image at each step. Specifically, 
 \begin{align}
 \label{eq:x_hat}
 \hat{\oimage}_t &= \oimage-\sigmoid(\canv_{t-1}),\\
@@ -483,7 +484,6 @@ Quantitatively evaluating generative models remains a challenging task in of its
 %\vspace{-0.3cm}
 \end{figure}
 
-<<<<<<< HEAD
 We also tried to analyze the way the model generated images. Unfortunately, we found that there was no significant connection between the patches drawn on canvas and the most attended words at particular time-steps.
 
 \subsubsection{Comparison With Other Models}
