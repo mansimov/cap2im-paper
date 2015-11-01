@@ -260,9 +260,11 @@ is defined by the LSTM network with \textit{forget} gates
 \citep{gers_forget} at a single time-step. To generate the next 
 hidden state $\hdec_t$, 
 the $\decoder$ takes the previous hidden state $\hdec_{t-1}$ and
-combines it with the input from both the latent sample $z_t$ and 
-sentence representation $s_t$, where
-$[v_1, v_2]$ denotes the concatenation of $v_1$ and $v_2$ into the single vector.
+the concatenation of the latent sample $z_t$ with sentence representation $s_t$ 
+as the input to the LSTM network.
+%combines it with the input from both the latent sample $z_t$ and 
+%sentence representation $s_t$, where
+%$[v_1, v_2]$ denotes the concatenation of $v_1$ and $v_2$ into the single vector.
 
 The output of the $\decoder$ function $\hdec_t$ is then passed through the $\writeop$ operator 
 which is added to a cumulative canvas matrix $c_t \in \real^{h \times w}$, with $c_0=0$ (\Eqref{eq:writeop}). 
