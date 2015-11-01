@@ -104,7 +104,7 @@ Motivated by the recent progress in generative models, we introduce a model that
 \end{abstract}
 
 \section{Introduction}
-%\vspace{-0.2cm}
+\vspace{-0.1in}
 Statistical natural image modelling remains a fundamental problem in computer vision and image understanding. 
 The challenging nature of this task has motivated recent approaches to exploit the inference and generative capabilities of deep neural networks.
 Previously studied deep generative models of images often defined distributions that were restricted to being either unconditioned or conditioned on classification labels. In real world applications, however, images rarely appear in isolation as they are often accompanied by unstructured textual descriptions, such as on web pages and in books. 
@@ -123,11 +123,9 @@ In this paper, we illustrate how sequential deep learning techniques can be used
 illustrate how our method, learned on Microsoft COCO~\citep{mscoco}, generalizes to captions describing novel scenes that are not 
 seen in the dataset, such as ``A stop sign is flying in blue skies'' (see \Figref{fig:genimages4}). 
 
-\section{Related Work}
-
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
-\vspace{-0.3cm}
+\vspace{-0.3in}
 \begin{center}
 \subfloat[A stop sign is flying in blue skies.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-stop-sign-is-flying-in-blue-skies-sharp.png}}\quad
@@ -144,9 +142,11 @@ seen in the dataset, such as ``A stop sign is flying in blue skies'' (see \Figre
 \end{center}
 \caption{\small Examples of novel scene compositions. Best viewed in colour.}
 \label{fig:genimages4}
-\vspace{-0.3cm}
+\vspace{-0.2in}
 \end{figure}
 
+\section{Related Work}
+\vspace{-0.1in}
 Deep Neural Networks have achieved significant success in various tasks such as image recognition \citep{krizhevsky_imagenet}, speech transcription \citep{graves_speech}, and machine 
 translation~\citep{bahdanau_mt}. 
 While most of the recent success has been achieved by discriminative models, generative models have not yet enjoyed the same level of success. Most of the previous work in generative models has focused on variants of Boltzmann Machines \citep{smolensky_rbm}, \citep{russ_dbm} and Deep Belief Networks \citep{hinton_dbn}. While these models are very powerful, each iteration of training requires a computationally costly step of MCMC to approximate an intractable normalization constant, making it difficult to scale them to large datasets.
@@ -164,12 +164,14 @@ While all of the previous work has been focused on unconditional models or model
 in this paper we develop a generative model of images conditioned on captions.
 
 \section{The AlignDRAW Model}
+\vspace{-0.1in}
 \label{sec:model}
 Our proposed model 
 defines a generative process of images conditioned on captions. In particular, captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on a canvas $c_t$ over time $t=1,...,T$. The model can be viewed as a part of the sequence-to-sequence framework \citep{ilya_mt,cho_mt,nitish_video}.
 %Our proposed model can be viewed as a part of sequence-to-sequence framework \citep{ilya_mt}, \citep{cho_mt}, \citep{nitish_video} where captions are represented as a sequence of consecutive words and images are represented as a sequence of patches drawn on canvas over time $t=1,...,T$. Let $\icaption$ be the input caption, consisting of $N$ words $y_{1}, y_{2}, ..., y_{n}$ and $\oimage$ be the image corresponding to that caption.
 
 \subsection{Language Model: the Bidirectional Attention RNN}
+\vspace{-0.05in}
 \label{sec:lang}
 Let $\icaption$ be the input caption, represented as a sequence
 of 1-of-K encoded words 
@@ -186,11 +188,13 @@ with $\hlang_{i} = [\overrightarrow{h}^{lang}_{i}, \overleftarrow{h}^{lang}_{i}]
 
 
 \begin{figure}[t!]
+\vspace{-0.3in}
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
 \includegraphics[width=0.99\textwidth]{figures/alignDrawAnnotated.pdf}\quad
 %
 \end{center}
+\vspace{-0.1in}
 \caption{\small AlignDRAW model for generating images by learning an alignment between the input captions
 and generating canvas. The caption is encoded using 
 the Bidirectional RNN (left). The generative RNN takes a latent sequence $z_{1:T}$ sampled from the 
@@ -198,12 +202,13 @@ prior along with dynamic caption representation $s_{1:T}$ to generate the canvas
 used to generate the final image $\oimage$ (right).
 The inference RNN is used to compute approximate posterior $Q$ over the latent sequence.} 
 \label{fig:figmodel}
-\vspace{-0.3cm}
+\vspace{-0.2in}
 \end{figure}
 
 
 
 \subsection{Image Model: the Conditional DRAW Network}
+\vspace{-0.05in}
 \label{sec:image_model}
 To generate an image $\oimage$ conditioned on the caption information $\bf{y}$,
 we extended the DRAW network~\citep{gregor_draw} to include caption
@@ -283,9 +288,10 @@ Finally, each entry $\canv_{T,i}$ from the final canvas matrix $\canv_T$ is tran
 distribution with the mean vector $\sigmoid(\canv_{T})$ over the 
 $h\times w$ image pixels~$\oimage$ given the latent variables 
 $\Lat_{1:T}$ and the input caption $\icaption$.\footnote{We also experimented with a conditional Gaussian observation model, but
-it worked much worse compared to the Benoulli model.}
+it worked worse compared to the Benoulli model.}
 
 \subsection{Learning}
+\vspace{-0.05in}
 \label{sec:learning}
 %The model is learned by the modified version of Stochastic Gradient Variation Bayes (SGVB) algorithm introduced by \cite{kingma_vae}. 
 The model is trained to maximize a variational lower bound $\loss$ 
@@ -351,7 +357,7 @@ We will also release our code with pretrained models.
 }
 
 \subsection{Generating Images from Captions}
-
+\vspace{-0.05in}
 During the image generation step, we discard the inference network and instead sample from the prior distribution. 
 Due to the blurriness of samples generated by the DRAW model, we perform an additional post processing step where we use an 
 adversarial network trained on residuals of a Laplacian pyramid conditioned on the skipthought representation \citep{kiros_skipthought} of the captions 
@@ -359,12 +365,9 @@ to sharpen the generated images, similar to \citep{denton_lapgan}. By fixing the
 estimate the variational lower bound accordingly. 
 %Additionally, we noticed that sampling from the mean of the uniform distribution generated samples with less noise than if we had otherwise sampled from the uniform distribution itself.  
 
-\section{Experiments}
-\subsection{Microsoft COCO}
-
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
-\vspace{-0.3cm}
+\vspace{-0.2in}
 \begin{center}
 \subfloat[A \underline{yellow} school bus parked in a parking lot.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-yellow-school-bus-parked-in-a-parking-lot-sharp.png}}\quad
@@ -396,15 +399,20 @@ estimate the variational lower bound accordingly.
  \textbf{Top}: Examples of changing the color while keeping the caption fixed.
  \textbf{Bottom}: Examples of changing the object while keeping the caption fixed. }
 \label{fig:genimages3}
-%\vspace{-0.3cm}
+\vspace{-0.1in}
 \end{figure}
 
+\section{Experiments}
+\vspace{-0.05in}
+\subsection{Microsoft COCO}
+\vspace{-0.05in}
 Microsoft COCO \citep{mscoco} is a very large dataset of roughly 83k images, each annotated with 5 captions. The rich collection of images with a wide variety of styles, backgrounds and objects makes the task of learning a good generative model 
 %conditioned on a caption 
 very challenging. For consistency with related work on caption generation, we used only the first five captions when training and evaluating our model. 
 The images were resized to $32 \times 32$ dimension for consistency with other tiny image datasets \citep{krizhevsky_cifar}. In the following subsections, we analyzed both the qualitative and quantitative aspects of our model as well as compared its performance with that of other, related generative models\footnote{To see more generated images, go to \url{http://www.cs.toronto.edu/~emansim/cap2im.html}}.
 
 \subsubsection{Analysis of Generated Images}
+\vspace{-0.05in}
 The main goal of this work is to learn a model that can understand the semantic meaning expressed in the textual descriptions of images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To examine the understanding of our model, we wrote a set of captions inspired by the COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
 
 First, we explored whether the model understood one of the most basic properties of any object, the color. In \Figref{fig:genimages3}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all mentioned school buses are specifically colored yellow. Despite that, the model managed to generate images of an object that is visually reminiscent of a school bus that is painted with the specified color.
@@ -419,7 +427,7 @@ Even though some of these scenarios may never occur in real life, it is very eas
 
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
-%\vspace{-0.5cm}
+\vspace{-0.2in}
 \begin{center}
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-very-large-commercial-plane-flying-in-blue-skies-closest.png}}\quad
 %
@@ -445,15 +453,16 @@ Even though some of these scenarios may never occur in real life, it is very eas
 \end{center}
 \caption{\textbf{Bottom}: Examples of changing the background while keeping the caption fixed. \textbf{Top}: The respective nearest training images based on pixel-wise L2 distance. The nearest images from the training set also indicate that the model was not simply copying the patterns it observed during the learning phase.}
 \label{fig:genimages2}
-%\vspace{-0.3cm}
+\vspace{-0.1in}
 \end{figure}
 
 \subsubsection{Analysis of Attention}
-After flipping sets of words in the captions, we further explored which words the model attended to when generating images. It turned out that during the generation step, the model mostly focused on the specific words (or nearby words) that carried the main semantic meaning expressed in the sentences. The attention values of words in sentences helped us interpret the reasons why the model made the changes it did when we flipped certain words. For example, in \Figref{fig:diffmodels} we can see that when we flipped the word ``desert'' to ``forest'', the attention over words in the sentence did not change drastically. This suggests that, in their respective sentences, the model looked at ``desert'' and ``forest'' with relatively equal probability, and thus made the correct changes. In contrast, when we swap words ``beach'' and ``sun'', we can see a drastic change between sentences in the probability distribution over words. By noting that the model completely ignores the word ``sun'' in the second sentence, we can therefore gain a more thorough understanding of why we see no visual differences between the images generated by each caption.
+\vspace{-0.05in}
+After flipping sets of words in the captions, we further explored which words the model attended to when generating images. It turned out that during the generation step, the model mostly focused on the specific words (or nearby words) that carried the main semantic meaning expressed in the sentences. The attention values of words in sentences helped us interpret the reasons why the model made the changes it did when we flipped certain words. For example, in \Figref{fig:diffmodels}, top row, we can see that when we flipped the word ``desert'' to ``forest'', the attention over words in the sentence did not change drastically. This suggests that, in their respective sentences, the model looked at ``desert'' and ``forest'' with relatively equal probability, and thus made the correct changes. In contrast, when we swap words ``beach'' and ``sun'', we can see a drastic change between sentences in the probability distribution over words. By noting that the model completely ignores the word ``sun'' in the second sentence, we can therefore gain a more thorough understanding of why we see no visual differences between the images generated by each caption.
 
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
-%\vspace{-0.3cm}
+\vspace{-0.2in}
 \begin{center}
 \subfloat[\hlcthree{A} rider \hlcone{on} a blue \hlcone{motorcycle} in the \underline{\hlctwo{desert}}.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-sharp.png}}\quad
@@ -477,14 +486,16 @@ After flipping sets of words in the captions, we further explored which words th
 \subfloat[Fully-Conn VAE]{\includegraphics[width=0.23\textwidth]{figures/a-group-of-people-walk-on-a-beach-with-surf-boards-fcvae-small.png}}\quad
 %
 \end{center}
-\caption{\textbf{Bottom}: Four different models displaying results from sampling caption \textit{A group of people walk on a beach with surf boards.} \textbf{Top}: Examples of most attended words while changing the background in the caption.}
+\caption{ \textbf{Top}: Examples of most attended words while changing the background in the caption. 
+\textbf{Bottom}: Four different models displaying results from sampling caption \textit{A group of people walk on a beach with surf boards.}}
 \label{fig:diffmodels}
-%\vspace{-0.3cm}
+\vspace{-0.1in}
 \end{figure}
 
 We also tried to analyze the way the model generated images. Unfortunately, we found that there was no significant connection between the patches drawn on canvas and the most attended words at particular time-steps.
 
 \subsubsection{Comparison With Other Models}
+\vspace{-0.05in}
 Quantitatively evaluating generative models remains a challenging task in of itself as each method of evaluation suffers from its own specific drawbacks. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparison between performances of different generative models, we report results on two different metrics as well as a qualitative comparison of different generative models.
 
 We compared the performance of the proposed model to the DRAW model conditioned on captions without $align$ function (noalignDRAW) as well as the DRAW model conditioned on skipthought vectors \citep{kiros_skipthought} (skipthoughtDRAW). All of the conditional DRAW models were trained with binary cross-entropy cost function. We also compared our model with Fully-Connected (Fully-Conn) and Convolutional-Deconvolutional (Conv-Deconv) Variational Autoencoders which were trained with the least squares cost function. The LAPGAN model of~\cite{denton_lapgan} was trained on a two level Laplacian Pyramid with a GAN as a top layer generator and all stages were conditioned on the same skipthought vector.
@@ -516,11 +527,11 @@ alignDRAW & 3.0 & 14.0 & 22.9 & 68.5 & 31 & 0.156 \\ %& 6.99 \\ % 0.924 & 6.216 
     good). 
 }
 \label{tab:results}
-%\vspace{-0.3cm}
+\vspace{-0.1in}
 \end{table}
 
 
-In \Figref{fig:diffmodels}, we generated several samples from the prior of each of the current state-of-the-art generative models, conditioned on the caption ``A group of people walk on a beach with surf boards". While all of the samples look sharp, the images generated by LAPGAN look more noisy and it is harder to make out definite objects, whereas the images generated by variational models trained with least squares cost function have a watercolor effect on the images. We also found that the quality of generated samples was very similar among different variants of conditional DRAW models.
+In \Figref{fig:diffmodels}, bottom row, we generated several samples from the prior of each of the current state-of-the-art generative models, conditioned on the caption ``A group of people walk on a beach with surf boards". While all of the samples look sharp, the images generated by LAPGAN look more noisy and it is harder to make out definite objects, whereas the images generated by variational models trained with least squares cost function have a watercolor effect on the images. We also found that the quality of generated samples was very similar among different variants of conditional DRAW models.
 
 As for the quantitative comparison of different models, we first compare the performances of the model trained with variational methods. We rank the images in the test set conditioned on the captions based on the variational lower bound of the log-probabilities 
 and then report the Precision-Recall metric as an evaluation of the quality of the generative model (see Table~\ref{tab:results}.). Unsurprisingly, generative models did not perform well on the image retrieval task. To deal with the large computational complexity involved in looping through each test image, we create a shortlist of one hundred images including the correct one, based on the images having the closest distance in the convolutional feature-space of a VGG-like model \citep{simonyan_convnet} trained on the CIFAR dataset\footnote{The architecture of the model is described here \url{http://torch.ch/blog/2015/07/30/cifar.html}. The shortlist of test images used for evaluation can be downloaded here \url{http://www.cs.toronto.edu/~emansim/cap2im/test-nns.pkl}.} \citep{krizhevsky_cifar}. 
@@ -533,7 +544,7 @@ Instead of calculating error per pixel, we turn to a smarter metric, the Structu
 %As for another metric of image similarity, we calculated euclidian distance between generated images and real images in the feature space of VGG-like model trained on CIFAR dataset. This is not necessarily a good metric, since the statistics of generated images were vastly different from statistics of training images. Nevertheless, the results are reported on Table~\ref{tab:results}.
 
 \section{Discussion}
-
+\vspace{-0.1in}
 In this paper, we demonstrated that the alignDRAW model, a combination of a recurrent variational autoencoder with an alignment model over words, succeeded in generating images that correspond to a given input caption. By extensively using attentional mechanisms, our model gained several advantages. Namely, the use of the visual attention mechanism allowed us to decompose the problem of image generation into a series of steps instead of a single forward pass, while the attention over words provided us an insight whenever our model failed to generate a relevant image. Additionally, our model generated images corresponding to captions which generalized beyond the training set, such as sentences describing novel scenarios which are highly unlikely to occur in real life.
 
 Because the alignDRAW model tends to output slightly blurry samples, likely due to underfitting on the training data, we augmented the model with a sharpening post-processing step in which GAN generated edges which were added to the alignDRAW samples. Unfortunately, this is not an ideal solution due to the fact that the whole model was not trained in an end-to-end fashion. Therefore a direction of future work would be to find methods that can bypass the separate post-processing step and output sharp images directly in an end-to-end manner. 
