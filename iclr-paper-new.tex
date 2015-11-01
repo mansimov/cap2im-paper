@@ -191,7 +191,12 @@ with $\hlang_{i} = [\overrightarrow{h}^{lang}_{i}, \overleftarrow{h}^{lang}_{i}]
 \includegraphics[width=0.99\textwidth]{figures/alignDrawAnnotated.pdf}\quad
 %
 \end{center}
-\caption{The diagram shows our model learns to draw images by learning an alignment of input captions and generating canvas. The details are explained in Section \ref{sec:model}.}
+\caption{AlignDRAW model for generating images by learning an alignment between the input captions
+and generating canvas. The caption is encoded using 
+the Bidirectional RNN (left). The generative RNN takes a latent sequence $z_{1:T}$ sampled from the 
+prior along with dynamic caption representation $s_{1:T}$ to generate the canvas matrix $c_T$, which is then
+used to generate the final image $\oimage$ (right).
+The inference RNN is used to compute approximate posterior $Q$ over the latent sequence.} 
 \label{fig:figmodel}
 \vspace{-0.3cm}
 \end{figure}
