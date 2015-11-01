@@ -249,15 +249,16 @@ s_t=align(\hdec_{t-1}, \hlangall) =
 \alpha_{1}^{t}\hlang_{1} + \alpha_{2}^{t}\hlang_{2} + ... + \alpha_{N}^{t}\hlang_{N}.
 \nonumber 
 \eeqa
-The corresponding alignment probabilities $\alpha_{1...N}^{t}$ are obtained using the caption representation $\hlangall$ and the hidden state of the generative model $\hdec_{t-1}$, by first calculating energies using a $\tanh$ perceptron scaled by vector $\vv$
-and then normalizing them: %, as in \citep{bahdanau_mt}:
+The corresponding alignment probability $\alpha_{k}^{t}$ for the $k^{th}$ word in the caption is obtained using the caption representation $\hlangall$ and the current hidden state of the generative model $\hdec_{t-1}$: 
+%first calculating energies using a $\tanh$ perceptron scaled by vector $\vv$
+%and then normalizing them: %, as in \citep{bahdanau_mt}:
 \beqa
-\alpha_{k}^{t}=\frac{\exp(\vv^{\top}\tanh(U\hlang_{k} + W\hdec_{t-1} + b)}{\sum_{j=1}^{N}
-\exp(\vv^{\top}\tanh(U\hlang_{j} + W\hdec_{t-1} + b)},
+%\alpha_{k}^{t}=\frac{\exp({\hlang_k}^{\top}\tanh(U\hlang_{k} + W\hdec_{t-1} + b))}{\sum_{j=1}^{N}
+\alpha_{k}^{t} \propto \exp\left({\hlang_k}^{\top}\tanh(U\hlang_{k} + W\hdec_{t-1} + b)\right),
 \nonumber 
 \eeqa
-where $U \in \mathbb{R}^{d \times m}$, $W \in \mathbb{R}^{d \times n}$ and 
-$b \in \mathbb{R}^{d \times 1} $ are the learned model parameters of the alignment model. 
+where $U \in \mathbb{R}^{m \times m}$, $W \in \mathbb{R}^{m \times n}$ and 
+$b \in \mathbb{R}^{m} $ are the learned model parameters of the alignment model. 
 
 The $\decoder$ function of \Eqref{eq:decoder} 
 is defined by the LSTM network with \textit{forget} gates 
@@ -270,11 +271,6 @@ $[v_1, v_2]$ denotes the concatenation of $v_1$ and $v_2$ into the single vector
 
 The output of the $\decoder$ function $\hdec_t$ is then passed through the $\writeop$ operator 
 which is added to a cumulative canvas matrix $c_t \in \real^{h \times w}$, with $c_0=0$ (\Eqref{eq:writeop}). 
-%\FIXME{Jimmy, could you put more about the write operator}. 
-%The $\writeop$ operator
-%applies an array of Gaussian filters on the patch, placing 
-%it on the canvas $c_t$ with smoothly varying location and zoom (same as 
-%defined in \citep{gregor_draw}). 
 The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ with locations and scales predicted from the generative LSTM hidden state $\hdec_t$ (same as defined in \cite{gregor_draw}). The Gaussian filter banks apply to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas $c_t$:
 \beqa
 \label{eq:write}
@@ -293,6 +289,7 @@ it worked much worse compared to the Benoulli model.}
 The model is trained to maximize a variational lower bound $\loss$ 
 on the marginal likelihood of the correct image $\oimage$ given the input caption $\icaption$:
 \beqa
+\label{eq:varbound}
 \loss = \sum_{\Lat}Q(\Lat\given\oimage,\icaption) \log P(\oimage\given\icaption, \Lat) - \kldiv\left(Q(\Lat\given\oimage,\icaption)\klBars 
   P(\Lat \given\icaption)\right) \le \log P(\oimage\given\icaption).
 \eeqa
@@ -326,7 +323,7 @@ Hence, the approximate posterior $Q$ will depend on the input image $\oimage$,
 the corresponding caption $\icaption$, and the latent history $\Lat_{1:t-1}$, except  
 for the first step $Q(Z_1 | \oimage)$, which depends only on $\oimage$.  
 
-The terms in the variational lower bound can be rearranged using the law of total expectation. Therefore, the variational bound $\loss$ is calculated as follows:
+The terms in the variational lower bound Eq. \ref{eq:varbound} can be rearranged using the law of total expectation. Therefore, the variational bound $\loss$ is calculated as follows:
 \begin{align}
 \label{eq:loss}
 \loss =  &\expectation_{Q(\Lat_{1:T}\given\icaption,\oimage)}\left[ \log p(\oimage\given\icaption,\Lat_{1:T}) - \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\Lat_{1:t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\Lat_{1:t-1},\icaption)\right) \right] \nonumber \\& - \kldiv\left(\post(\Lat_1\given\oimage)\klBars\prior(\Lat_1)\right).
