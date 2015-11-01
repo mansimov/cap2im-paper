@@ -273,11 +273,11 @@ The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilte
 \Delta \canv_{t} = \canv_{t} - \canv_{t-1} = \writeop(\hdec_t) = \gFilterx(\hdec_t) \WriteFunc(\hdec_t) \gFiltery(\hdec_t)^\top. 
 \eeqa
 
-Finally, each pixel $\canv_{T,i}$ from the final canvas $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli 
-distribution with the mean vector $\sigmoid(\canv_{T})$ over the image pixels 
-$\oimage$ given the latent variables $\Lat_{1:T}$ and the input caption $\icaption$.
-
-
+Finally, each entry $\canv_{T,i}$ from the final canvas matrix $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli 
+distribution with the mean vector $\sigmoid(\canv_{T})$ over the 
+$h\times w$ image pixels~$\oimage$ given the latent variables 
+$\Lat_{1:T}$ and the input caption $\icaption$.\footnote{We also experimented with a conditional Gaussian observation model, but
+it worked much worse compared to the Benoulli model.}
 
 \subsection{Learning}
 \label{sec:learning}
@@ -545,10 +545,12 @@ alignDRAW & 3.0 & 14.0 & 22.9 & 68.5 & 31 & 0.156 \\ %& 6.99 \\ % 0.924 & 6.216 
 %\vspace{-0.3cm}
 \end{table}
 
-\subsection*{Acknowledgements}
+{\small
+{\bf Acknowledgements:}
 This work was supported by Samsung and IARPA, Raytheon BBN Contract No. D11PC20071.
 We would like to thank developers of Theano \citep{theano}, the authors of \citep{denton_lapgan} for open sourcing their code, and Ryan Kiros and Nitish Srivastava for helpful discussions. 
 %We will be releasing our code with pretrained models.
+}
 
 \bibliography{iclr-paper}
 \bibliographystyle{iclr-style/iclr2016_conference}
