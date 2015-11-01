@@ -272,7 +272,7 @@ combines it with the input from both the latent sample $z_t$ and the sentence re
 
 The output of the $\decoder$ function $\hdec_t$ is then passed through the $\writeop$ operator 
 which is added to a cumulative canvas matrix $c_t \in \real^{h \times w}$, with $c_0=0$ (\Eqref{eq:writeop}). 
-The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ with locations and scales predicted from the generative LSTM hidden state $\hdec_t$ (same as defined in \cite{gregor_draw}). The Gaussian filter banks apply to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas $c_t$:
+The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ whose filter locations and scales are computed from the generative LSTM hidden state $\hdec_t$ (same as defined in \cite{gregor_draw}). The Gaussian filter banks apply to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas $c_t$:
 \beqa
 \label{eq:write}
 \Delta \canv_{t} = \canv_{t} - \canv_{t-1} = \writeop(\hdec_t) = \gFilterx(\hdec_t) \WriteFunc(\hdec_t) \gFiltery(\hdec_t)^\top. 
