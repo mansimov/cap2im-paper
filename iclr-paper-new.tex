@@ -288,8 +288,8 @@ it worked much worse compared to the Benoulli model.}
 The model is trained to maximize a variational lower bound $\loss$ 
 on the marginal likelihood of the correct image $\oimage$ given the input caption $\icaption$:
 \beqa
-\loss = \sum_{\Lat}Q(\Lat\given\oimage,\icaption)\bigg(\log P(\oimage\given\icaption, \Lat) - \kldiv\left(Q(\Lat\given\oimage,\icaption)\klBars 
-  P(\Lat)\right)\bigg) \le \log P(\oimage\given\icaption).
+\loss = \sum_{\Lat}Q(\Lat\given\oimage,\icaption) \log P(\oimage\given\icaption, \Lat) - \kldiv\left(Q(\Lat\given\oimage,\icaption)\klBars 
+  P(\Lat \given\icaption)\right) \le \log P(\oimage\given\icaption).
 \eeqa
 %The posterior inference over the latent variables $\Lat_{1:T}$ is approximated using the inference RNN. 
 Similar to the DRAW model, the inference recurrent network 
