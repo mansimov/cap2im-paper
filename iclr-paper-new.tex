@@ -51,6 +51,11 @@
 \newcommand{\lloss}{\mathcal{L}^{z}}
 \newcommand{\rloss}{\mathcal{L}^{x}}
 \newcommand{\hlc}[2][yellow]{{\sethlcolor{#1}\hl{#2}}}
+\newcommand{\gFilterx}{F_x}
+\newcommand{\gFiltery}{F_y}
+\newcommand{\WriteFunc}{W}
+\newcommand{\real}{\mathbb{R}}
+
 
 \definecolor{0}{RGB}{247,251,255}
 \definecolor{1}{RGB}{222,235,247}
@@ -247,8 +252,13 @@ where $U,W,b$ are the learned model parameters.
 
 %is a standard \textit{Long Short-Term Memory} architecture \citep{hochreiter_lstm} with \textit{forget} gates \citep{gers_forget}, $[v_1, v_2]$ is the concatenation of the vectors $v_1$ and $v_2$ into the single vector, and $\canv_0$, $\hdec_0$ are initialized to the the learned biases. 
 
-The $\writeop$ operator applies an array of Gaussian filters on the patch that places it on the canvas $c_t$ with smoothly varying location and zoom (same as in \citep{gregor_draw}), with 
+The $\writeop$ operator predicts two arrays of Gaussian filters using a parametric mapping $\gFilterx:\real$ applies an array of Gaussian filters on the patch that places it on the canvas $c_t$ with smoothly varying location and zoom (same as in \citep{gregor_draw}), with 
 $c_0=0$. 
+\beqa
+\label{eq:write}
+\Delta \canv_{t-1} = \canv_{t} - \canv_{t-1} = \writeop(\hdec_t) = \gFilterx(\hdec_t) \WriteFunc(\hdec_t) \gFiltery(\hdec_t)^\top, 
+\eeqa
+
 Finally, the $i^{th}$ pixel $\canv_{T,i}$ from the final canvas $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli data likelihood over the image pixels $\oimage$ given the latent variables $\Lat$ and the input caption $\icaption$,
 
 
