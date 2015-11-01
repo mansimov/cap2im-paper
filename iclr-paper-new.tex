@@ -251,10 +251,10 @@ combines it with the input from both the latent sample $z_t$ and
 sentence representation $s_t$, where
 $[v_1, v_2]$ denotes the concatenation of $v_1$ and $v_2$ into the single vector.
 The initial state of the generative LSTM is set to $\hdec_0 = \tanh(b)$, 
-with learned bias $b$. 
+with learned bias $b$. \FIXME{(Elman), actually I checked my code and I found that I didn't tanh the learned bias. Luckly, the values of the bias are very close to zeros (0.0017). Next time should be more careful}.
 
 The output of the decoder $\hdec_t$ is then passed through the $\writeop$ operator 
-which is added to a cumulative canvas matrix $c_t$, with $c_0=0$ (\Eqref{eq:writeop}). 
+which is added to a cumulative canvas matrix $c_t$, with $c_0=0$ \FIXME{(Elman) $c_0$ is also initialized to learned bias also very close to zeros} (\Eqref{eq:writeop}). 
 \FIXME{Jimmy, could you put more about the write operator}. 
 The $\writeop$ operator
 applies an array of Gaussian filters on the patch, placing 
