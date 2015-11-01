@@ -30,9 +30,9 @@ In both cases, the model placed small attention values on the words describing t
 \subsection*{Hyperparameters}
 
 Each parameter in alignDRAW was initialized by sampling from the Gaussian distribution with 
-mean $0$ and standard deviation $0.01$. The model was trained using \textit{RMSprop} with initial learning rate of $0.001$. The norm of the gradients was clipped to $10.0$ during training to deal with exploding gradients. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units, and vector $v$ in \textit{align} perceptron had $512$ units. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
+mean $0$ and standard deviation $0.01$. The model was trained using \textit{RMSprop} with initial learning rate of $0.001$. The norm of the gradients was clipped to $10.0$ during training to deal with exploding gradients. We used the vocabulary size of $K = 25323$ and $K = 22$ for Microsoft COCO and MNIST with Captions respectively. All capital letters in the words were changed to small letters to reduce the long tail. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units. The parameters in \textit{align} operator had dimensionality of $l = 512$, $\vv \in \mathbb{R}^{512}$, $U \in \mathbb{R}^{512 \times 128}$, $W \in \mathbb{R}^{512 \times n^{gen}}$ and $b \in \mathbb{R}^{512}$. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
 
-\begin{table}[!h]
+\begin{table}[!t]
 \begin{center}
 \begin{tabulary}{\linewidth}{c | c c c c c c}
 \hline
