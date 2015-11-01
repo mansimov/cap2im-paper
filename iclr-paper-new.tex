@@ -284,6 +284,7 @@ it worked much worse compared to the Benoulli model.}
 The model is trained to maximize a variational lower bound $\loss$ 
 on the marginal likelihood of the correct image $\oimage$ given the input caption $\icaption$:
 \beqa
+\label{eq:varbound}
 \loss = \sum_{\Lat}Q(\Lat\given\oimage,\icaption) \log P(\oimage\given\icaption, \Lat) - \kldiv\left(Q(\Lat\given\oimage,\icaption)\klBars 
   P(\Lat \given\icaption)\right) \le \log P(\oimage\given\icaption).
 \eeqa
@@ -317,7 +318,7 @@ Hence, the approximate posterior $Q$ will depend on the input image $\oimage$,
 the corresponding caption $\icaption$, and the latent history $\Lat_{1:t-1}$, except  
 for the first step $Q(Z_1 | \oimage)$, which depends only on $\oimage$.  
 
-The terms in the variational lower bound can be rearranged using the law of total expectation. Therefore, the variational bound $\loss$ is calculated as follows:
+The terms in the variational lower bound Eq. \ref{eq:varbound} can be rearranged using the law of total expectation. Therefore, the variational bound $\loss$ is calculated as follows:
 \begin{align}
 \label{eq:loss}
 \loss =  &\expectation_{Q(\Lat_{1:T}\given\icaption,\oimage)}\left[ \log p(\oimage\given\icaption,\Lat_{1:T}) - \sum_{t=2}^T\kldiv\left(\post(\Lat_t\given\Lat_{1:t-1},\icaption,\oimage)\klBars\prior(\Lat_t\given\Lat_{1:t-1},\icaption)\right) \right] \nonumber \\& - \kldiv\left(\post(\Lat_1\given\oimage)\klBars\prior(\Lat_1)\right).
