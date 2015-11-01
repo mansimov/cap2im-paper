@@ -267,7 +267,7 @@ which is added to a cumulative canvas matrix $c_t \in \real^{h \times w}$, with 
 %applies an array of Gaussian filters on the patch, placing 
 %it on the canvas $c_t$ with smoothly varying location and zoom (same as 
 %defined in \citep{gregor_draw}). 
-The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ with smoothly varying locations and scales predicted from the generative LSTM hidden state $\hdec_t$ (same as defined in \citep{gregor_draw}). The Gaussian filter banks apply to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas $c_t$:
+The $\writeop$ operator produces two arrays of 1D Gaussian filter banks $\gFilterx(\hdec_t)\in\real^{h\times p}$ and $\gFiltery(\hdec_t)\in\real^{w\times p}$ with smoothly varying locations and scales predicted from the generative LSTM hidden state $\hdec_t$ (same as defined in \cite{gregor_draw}). The Gaussian filter banks apply to the generated $p$-by-$p$ image patch $\WriteFunc(\hdec_t) \in \real^{p\times p}$, placing it onto the canvas $c_t$:
 \beqa
 \label{eq:write}
 \Delta \canv_{t-1} = \canv_{t} - \canv_{t-1} = \writeop(\hdec_t) = \gFilterx(\hdec_t) \WriteFunc(\hdec_t) \gFiltery(\hdec_t)^\top. 
