@@ -142,7 +142,7 @@ seen in the dataset, such as ``A stop sign is flying in blue skies'' (see \Figre
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-person-skiing-on-sand-clad-vast-desert-sharp.png}}\quad
 %
 \end{center}
-\caption{Examples of novel scene compositions.}
+\caption{\small Examples of novel scene compositions.}
 \label{fig:genimages4}
 \vspace{-0.3cm}
 \end{figure}
@@ -191,7 +191,7 @@ with $\hlang_{i} = [\overrightarrow{h}^{lang}_{i}, \overleftarrow{h}^{lang}_{i}]
 \includegraphics[width=0.99\textwidth]{figures/alignDrawAnnotated.pdf}\quad
 %
 \end{center}
-\caption{AlignDRAW model for generating images by learning an alignment between the input captions
+\caption{\small AlignDRAW model for generating images by learning an alignment between the input captions
 and generating canvas. The caption is encoded using 
 the Bidirectional RNN (left). The generative RNN takes a latent sequence $z_{1:T}$ sampled from the 
 prior along with dynamic caption representation $s_{1:T}$ to generate the canvas matrix $c_T$, which is then
@@ -390,7 +390,7 @@ estimate the variational lower bound accordingly.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-dog-sharp.png}}\quad
 %
 \end{center}
-\caption{\textbf{Bottom}: Examples of changing the object while keeping the caption fixed. \textbf{Top}: Examples of changing the color while keeping the caption fixed.}
+\caption{\small \textbf{Bottom}: Examples of changing the object while keeping the caption fixed. \textbf{Top}: Examples of changing the color while keeping the caption fixed.}
 \label{fig:genimages3}
 %\vspace{-0.3cm}
 \end{figure}
@@ -511,7 +511,8 @@ noalignDRAW & 2.8 & 14.1 & 23.1 & 68.0 & 31 & 0.155 \\ %& 7.01 \\ % 1.0 & 6.124 
 alignDRAW & 3.0 & 14.0 & 22.9 & 68.5 & 31 & 0.156 \\ %& 6.99 \\ % 0.924 & 6.216 & 11.184 & 52.492 & 48 & 0.115
 \end{tabulary}
 \end{center}
-\caption{Results of different models.}
+\caption{Retrieval results of different models. \bf{ R$\at$K} is Recall@K (high is good). Med r is the median rank (low is good).
+Best results overall are bold while best results without OxfordNet features are underlined}
 \label{tab:results}
 %\vspace{-0.3cm}
 \end{table}
