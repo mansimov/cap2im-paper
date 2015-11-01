@@ -193,7 +193,7 @@ with $\hlang_{i} = [\overrightarrow{h}^{lang}_{i}, \overleftarrow{h}^{lang}_{i}]
 To generate an image $\oimage$ conditioned on the caption information $\bf{y}$, 
 we extended the DRAW network~\citep{gregor_draw} to include caption representation $\hlangall$ at each step, as shown in \Figref{fig:figmodel}. 
 The conditional DRAW network is a stochastic recurrent neural network (LSTM) that consists of a 
-sequence of latent variables $\Lat_t \in \mathbb{R}^D$, $t=1,..,T$, where the output is accumulated over all $T$ timesteps.
+sequence of latent variables $\Lat_t \in \mathbb{R}^D$, $t=1,..,T$, where the output is accumulated over all $T$ time-steps.
 
 Unlike the original DRAW network where latent variables are independent 
 spherical Gaussians $\mathcal{N}(0, I)$, the latent variables in the proposed alignDRAW model have their mean and variance depend on the previous recurrent hidden states $\hdec_{t-1}$, except for $\lat_1 \sim \prior(\Lat_1) = \mathcal{N}(0, I)$.  
@@ -204,7 +204,7 @@ Namely, the mean and variance of the prior distribution over $\Lat_t$ are parame
 \sigma_{t}(\hdec_{t-1}) &= \exp\big(\tanh(W_{\sigma}\hdec_{t-1})\big),
 \end{align}
 where $W_{\mu} \in \mathbb{R}^{D \times n}$, $W_{\sigma} \in \mathbb{R}^{D \times n}$ are 
-the learnt model parameters, where $n$ is the dimensionality of $\hdec_{t}$,
+the learned model parameters, and $n$ is the dimensionality of $\hdec_{t}$,
 the hidden state of the generative LSTM. 
 Similar to \cite{bachman_sdm}, we have observed that 
 the model performance is improved by including dependencies between latent variables. 
@@ -214,42 +214,51 @@ equations for $t=1,...,T$ (see Figure~\ref{fig:figmodel}):
 \begin{align}
 \label{eq:x_hat}
 \lat_t &\sim \prior(\Lat_t|\Lat_{1:t-1}) = \mathcal{N}\bigg(\mu_{t}(\hdec_{t-1}), \sigma_{t}(\hdec_{t-1})\bigg),\\
-s_{t} &= \aalign(\hdec_{t-1}, \hlangall), \\
+s_{t} &= align(\hdec_{t-1}, \hlangall), \\
+\label{eq:decoder}
 \hdec_t &= \decoder(\hdec_{t-1}, [z_t, s_{t}]), \\
+\label{eq:writeop}
 \canv_t &= \canv_{t-1} + \writeop(\hdec_t), \\
-\tilde{\oimage} &\sim P(\oimage\given\icaption, \Lat_{1:T}) = \prod_i P(x_i\given\icaption, \Lat_{1:T}) = \prod_i \sigmoid(\canv_{T,i}),
+\tilde{\oimage} &\sim P(\oimage\given\icaption, \Lat_{1:T}) = \prod_i P(x_i\given\icaption, \Lat_{1:T}) = \prod_i \textrm{Bern}(\sigmoid(\canv_{T,i})). 
 \label{eq:write}
 %\canv_t &= \canv_{t-1} + \writeop(\hdec_t)
 \end{align}
-where $\decoder$
-is the function defined by the LSTM network with \textit{forget} gates 
-\citep{gers_forget} at a single time-step. To generate the next 
-hidden state $\hdec_t$, 
-the decoder $\decoder$ takes its previous hidden state $\hdec_{t-1}$ and
-combines it with the input from both the sampled latent variable $z_t$ and 
-caption representation $s_t$ at time-step $t$, where
-$[v_1, v_2]$ denotes the concatenation of the vectors $v_1$ and $v_2$ into the single vector.
-The initial state of the generative LSTM is set to $\hdec_0 = \tanh(b)$, with learnt bias $b$. 
-
-The $align$ function is used to compute the alignment between the input caption and intermediate image generative steps \citep{bahdanau_mt}. 
-Given the caption representation from the language model, $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, the $align$ operator outputs a dynamic sentence representation $s_t$ at each step through a weighted sum using alignment probabilities 
+The $align$ function is used to compute the alignment between the input caption and intermediate image generative steps~\citep{bahdanau_mt}.
+Given the caption representation from the language model, $\hlangall = [\hlang_{1}, \hlang_{2}, ..., \hlang_{N}]$, the $align$ operator outputs a dynamic sentence representation $s_t$ at each step through a weighted sum using alignment probabilities
 $\alpha_{1...N}^{t}$:
 \beqa
-s_t=\aalign(\hdec_{t-1}, \hlangall) = \alpha_{1}^{t}\hlang_{1} + \alpha_{2}^{t}\hlang_{2} + ... + \alpha_{N}^{t}\hlang_{N}.
+s_t=align(\hdec_{t-1}, \hlangall) = \alpha_{1}^{t}\hlang_{1} + \alpha_{2}^{t}\hlang_{2} + ... + \alpha_{N}^{t}\hlang_{N}.
 \eeqa
-The corresponding alignment probabilities $\alpha_{1...N}^{t}$ at each step are obtained using the caption representation $\hlangall$ and the hidden state of the generative model $\hdec_{t}$, by first calculating energies using a $\tanh$ perceptron scaled by vector $\vv$ 
+The corresponding alignment probabilities $\alpha_{1...N}^{t}$ are obtained using the caption representation $\hlangall$ and the hidden state of the generative model $\hdec_{t-1}$, by first calculating energies using a $\tanh$ perceptron scaled by vector $\vv$
 and then normalizing them: %, as in \citep{bahdanau_mt}:
 \beqa
-\alpha_{k}^{t}=\frac{\exp(\vv^{\top}\tanh(U\hlang_{k} + W\hdec_{t} + b)}{\sum_{j=1}^{N}
-\exp(\vv^{\top}\tanh(U\hlang_{j} + W\hdec_{t} + b)}, 
+\alpha_{k}^{t}=\frac{\exp(\vv^{\top}\tanh(U\hlang_{k} + W\hdec_{t-1} + b)}{\sum_{j=1}^{N}
+\exp(\vv^{\top}\tanh(U\hlang_{j} + W\hdec_{t-1} + b)},
 \eeqa
-where $U,W,b$ are the learned model parameters. 
+where $U \in \mathbb{R}^{d \times m}$, $W \in \mathbb{R}^{d \times n}$ and 
+$b \in \mathbb{R}^{d \times 1} $ are the learned model parameters of the alignment model. 
 
-%is a standard \textit{Long Short-Term Memory} architecture \citep{hochreiter_lstm} with \textit{forget} gates \citep{gers_forget}, $[v_1, v_2]$ is the concatenation of the vectors $v_1$ and $v_2$ into the single vector, and $\canv_0$, $\hdec_0$ are initialized to the the learned biases. 
+The $\decoder$ function of \Eqref{eq:decoder} 
+is defined by the LSTM network with \textit{forget} gates 
+\citep{gers_forget} at a single time-step. To generate the next 
+hidden state $\hdec_t$, 
+the decoder $\decoder$ takes the previous hidden state $\hdec_{t-1}$ and
+combines it with the input from both the latent sample $z_t$ and 
+sentence representation $s_t$, where
+$[v_1, v_2]$ denotes the concatenation of $v_1$ and $v_2$ into the single vector.
+The initial state of the generative LSTM is set to $\hdec_0 = \tanh(b)$, 
+with learned bias $b$. 
 
-The $\writeop$ operator applies an array of Gaussian filters on the patch that places it on the canvas $c_t$ with smoothly varying location and zoom (same as in \citep{gregor_draw}), with 
-$c_0=0$. 
-Finally, the $i^{th}$ pixel $\canv_{T,i}$ from the final canvas $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli data likelihood over the image pixels $\oimage$ given the latent variables $\Lat$ and the input caption $\icaption$,
+The output of the decoder $\hdec_t$ is then passed through the $\writeop$ operator 
+which is added to a cumulative canvas matrix $c_t$, with $c_0=0$ (\Eqref{eq:writeop}). 
+The $\writeop$ operator
+applies an array of Gaussian filters on the patch, placing 
+it on the canvas $c_t$ with smoothly varying location and zoom (same as 
+defined in \citep{gregor_draw}). 
+
+Finally, each pixel $\canv_{T,i}$ from the final canvas $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli 
+distribution with the mean vector $\sigmoid(\canv_{T})$ over the image pixels 
+$\oimage$ given the latent variables $\Lat_{1:T}$ and the input caption $\icaption$,
 
 
 
@@ -324,7 +333,7 @@ As a first experiment, we trained our proposed model on the MNIST dataset with a
 While many generative models were trained on the binarized version of the MNIST dataset, we trained directly on pixel intensities with a binary cross-entropy cost function.
 
 The generated images together with the attention alignments are displayed in Figure~\ref{fig:figmnist}. The model correctly displayed the specified digits at the described positions and even managed to generalize reasonably to the configurations that were never present during training. 
-In the case of generating two digits, the model attended to the digit in the caption it was drawing at that particular timestep while completely ignoring the other digit. 
+In the case of generating two digits, the model attended to the digit in the caption it was drawing at that particular time-step while completely ignoring the other digit. 
 Similarly, when generating one digit the model attended to the digit in the caption during the whole generation process. However in both cases, the model placed small attention values on the words describing the position of digits in the images.
 
 \subsection{Microsoft COCO}
@@ -450,7 +459,7 @@ After flipping sets of words in the captions, we were curious to see which words
 \vspace{-0.3cm}
 \end{figure}
 
-We also tried to analyze the way the model generated images. Unfortunately, we found that there was no significant connection between the patches drawn on canvas and the most attended words at particular timesteps.
+We also tried to analyze the way the model generated images. Unfortunately, we found that there was no significant connection between the patches drawn on canvas and the most attended words at particular time-steps.
 
 \subsubsection{Comparison With Other Models}
 Quantitatively evaluating generative models remains a challenging task in of itself as each method of evaluation suffers from its own specific drawbacks. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparison between performances of different generative models, we report results on two different metrics as well as a qualitative comparison of different generative models.
