@@ -1,5 +1,5 @@
 
-\section{MNIST With Captions}
+\section*{Appendix A: MNIST With Captions}
 
 \begin{figure}[!t]
 \captionsetup[subfigure]{labelformat=empty}
@@ -12,19 +12,25 @@
 \vspace{-0.3cm}
 \end{figure}
 
-As an additional experiment, we trained our proposed model on the MNIST dataset with artificial captions. Either one or two digits from the MNIST training dataset were placed on a $60 \times 60$ blank image. One digit was placed in one of the four (top-left, top-right, bottom-left or bottom-right) corners of the image. Two digits were either placed horizontally or vertically in nonoverlapping fashion.
-While many generative models were trained on the binarized version of the MNIST dataset, we trained directly on pixel intensities with a binary cross-entropy cost function.
+As an additional experiment, we trained our model on the MNIST dataset with artificial captions. Either one or two digits from the MNIST training dataset were placed on a $60 \times 60$ blank image. One digit was placed in one of the four (top-left, top-right, bottom-left or bottom-right) corners of the image. Two digits were either placed horizontally or vertically in nonoverlapping fashion. The corresponding artificial captions specified the 
+identity of each digit along with their relative positions, e.g. ``The digit two is on the top  
+of the digit zero'', or ``The digit seven is at the bottom left of the image''.  
 
-The generated images together with the attention alignments are displayed in Figure~\ref{fig:figmnist}. The model correctly displayed the specified digits at the described positions and even managed to generalize reasonably to the configurations that were never present during training.
-In the case of generating two digits, the model attended to the digit in the caption it was drawing at that particular time-step while completely ignoring the other digit.
-Similarly, when generating one digit the model attended to the digit in the caption during the whole generation process. However in both cases, the model placed small attention values on the words describing the position of digits in the images.
+The generated images together with the attention alignments are displayed in Figure~\ref{fig:figmnist}. The model correctly displayed the specified digits at the described positions and even managed to generalize 
+reasonably well to the configurations that were never present during training.
+In the case of generating two digits, the model would dynamically attend 
+to the digit in the caption it was drawing at that particular time-step. 
+Similarly, in the setting where the caption specified only a single digit, the model would correctly 
+attend to the digit in the caption during the whole generation process. 
+In both cases, the model placed small attention values on the words describing the position of digits in the images.
 
-\section{Training Details}
+\section*{Appendix B: Training Details}
 \label{sec:training_details}
 
-\subsection{Hyperparameters}
+\subsection*{Hyperparameters}
 
-Each parameter in alignDRAW was initialized by sampling from the Gaussian distribution of mean $0$ and standard deviation of $0.01$. The model was trained using \textit{RMSprop} with initial learning rate of $0.001$. The norm of the gradients was clipped to $10.0$ during training to deal with exploding gradients. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units, and vector $v$ in \textit{align} perceptron had $512$ units. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
+Each parameter in alignDRAW was initialized by sampling from the Gaussian distribution with 
+mean $0$ and standard deviation $0.01$. The model was trained using \textit{RMSprop} with initial learning rate of $0.001$. The norm of the gradients was clipped to $10.0$ during training to deal with exploding gradients. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units, and vector $v$ in \textit{align} perceptron had $512$ units. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
 
 \begin{table}[!h]
 \begin{center}
@@ -45,9 +51,12 @@ MNIST Captions & 32 & 300 & 300 & 150 & 8 & 8\\
 
 The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
 
-\subsection{Evaluation}
+\subsection*{Evaluation}
 
-On Table~\ref{tab:nll}, you can see that the alignDRAW model didn't overfit on the training data as well as managed to achieve a better lower bound of log likelihood on the test data. Also notice that, the results worsened dramatically after sharpening test images.
+Table~\ref{tab:nll} shows the estimated variational lower bound on the average train/validation/test 
+log-probabilities.
+Note that the alignDRAW model does not suffer much from overfitting. 
+The results worsened dramatically after sharpening test images.
 
 \begin{table}[!h]
 \begin{center}
@@ -59,7 +68,7 @@ skipthoughtDRAW & -1794.29 & -1797.41 & -1791.37 & -2045.84 \\
 noalignDRAW & -1792.14 & -1796.94 & -1791.15 & -2051.07 \\
 alignDRAW & -1792.15 & -1797.24 & -1791.53 & -2042.31
 \end{tabulary}
-\caption{The lower bound of log likelihood of conditional DRAW models on the Microsoft COCO.}
+\caption{The lower bound on the average test log-probabilities of conditional DRAW models, trained on the Microsoft COCO dataset.}
 \label{tab:nll}
 \end{center}
 \end{table}
