@@ -260,7 +260,8 @@ The corresponding alignment probability $\alpha_{k}^{t}$ for the $k^{th}$ word i
 %and then normalizing them: %, as in \citep{bahdanau_mt}:
 \beqa
 %\alpha_{k}^{t}=\frac{\exp({\hlang_k}^{\top}\tanh(U\hlang_{k} + W\hdec_{t-1} + b))}{\sum_{j=1}^{N}
-\alpha_{k}^{t} \propto \exp\left(\vv^{\top}\tanh(U\hlang_{k} + W\hdec_{t-1} + b)\right),
+\alpha_{k}^{t} = \frac{\exp\left(\vv^{\top}\tanh(U\hlang_{k} + W\hdec_{t-1} + b)\right)}
+  {\sum_{i=1}^N \exp\left(\vv^{\top}\tanh(U\hlang_{i} + W\hdec_{t-1} + b)\right)},
 \nonumber 
 \eeqa
 where $\vv \in \mathbb{R}^{l}$, $U \in \mathbb{R}^{l \times m}$, $W \in \mathbb{R}^{l \times n}$ and 
