@@ -1,4 +1,5 @@
 
+
 \section*{Appendix A: MNIST With Captions}
 
 \begin{figure}[!t]
@@ -29,8 +30,8 @@ In both cases, the model placed small attention values on the words describing t
 
 \subsection*{Hyperparameters}
 
-Each parameter in alignDRAW was initialized by sampling from the Gaussian distribution with 
-mean $0$ and standard deviation $0.01$. The model was trained using \textit{RMSprop} with initial learning rate of $0.001$. The norm of the gradients was clipped to $10.0$ during training to deal with exploding gradients. We used the vocabulary size of $K = 25323$ and $K = 22$ for Microsoft COCO and MNIST with Captions respectively. All capital letters in the words were changed to small letters to reduce the long tail. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units. The parameters in \textit{align} operator had dimensionality of $l = 512$, $\vv \in \mathbb{R}^{512}$, $U \in \mathbb{R}^{512 \times 128}$, $W \in \mathbb{R}^{512 \times n^{gen}}$ and $b \in \mathbb{R}^{512}$. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
+Each parameter in alignDRAW was initialized by sampling from a Gaussian distribution with 
+mean $0$ and standard deviation $0.01$. The model was trained using \textit{RMSprop} with an initial learning rate of $0.001$. The norm of the gradients was clipped at a maximum of $10.0$ during training to deal with exploding gradients. We used a vocabulary size of $K = 25323$ and $K = 22$ for Microsoft COCO and MNIST with Captions respectively. All capital letters in the words were converted to small letters as a preprocessing step. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units. The parameters in the \textit{align} operator had a dimensionality of $l = 512$, $\vv \in \mathbb{R}^{512}$, $U \in \mathbb{R}^{512 \times 128}$, $W \in \mathbb{R}^{512 \times n^{gen}}$ and $b \in \mathbb{R}^{512}$. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
 
 \begin{table}[!t]
 \begin{center}
@@ -49,7 +50,8 @@ MNIST Captions & 32 & 300 & 300 & 150 & 8 & 8\\
 %\vspace{-0.3cm}
 \end{table}
 
-The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
+The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of the CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs. 
+For the LAPGAN model, we used a data augmentation step where we took 5 crops (top-left, top-right, bottom-left, bottom-right, center) of a downsampled COCO image and assigned each crop one of the 5 captions that described the uncropped image.
 
 \subsection*{Evaluation}
 
