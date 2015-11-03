@@ -164,7 +164,7 @@ Recently, \cite{denton_lapgan} have scaled those models by training conditional 
 While all of the previous work has been focused on unconditional models or models conditioned on labels, %to the best of our knowledge 
 in this paper we develop a generative model of images conditioned on captions.
 
-\section{The AlignDRAW Model}
+\section{Model}
 \vspace{-0.1in}
 \label{sec:model}
 Our proposed model 
@@ -347,7 +347,7 @@ The model can be trained using stochastic gradient descent.
 In all of our experiments, we used only a single sample 
 from $\post(\Lat_{1:T}\given\icaption, \oimage)$ for parameter learning.
 Training details, hyperparameter settings,
-and the overall model architecture are specified in Appendix~\ref{sec:training_details}. 
+and the overall model architecture are specified in Appendix. 
 We will also release our code with pretrained models.
 
 \comm{
