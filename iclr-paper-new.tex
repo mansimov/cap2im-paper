@@ -287,7 +287,7 @@ The Gaussian filter banks are then applied to the generated $p$-by-$p$ image pat
 \eeqa
 
 Finally, each entry $\canv_{T,i}$ from the final canvas matrix $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli 
-distribution with the mean vector $\sigmoid(\canv_{T})$ over the 
+distribution with mean vector $\sigmoid(\canv_{T})$ over the 
 $h\times w$ image pixels~$\oimage$ given the latent variables 
 $\Lat_{1:T}$ and the input caption $\icaption$.\footnote{We also experimented with a conditional Gaussian observation model, but
 it worked worse compared to the Bernoulli model.}
