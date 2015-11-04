@@ -29,7 +29,8 @@
 \newcommand{\klBars}{\,\|\,}
 \newcommand{\sigmoid}{\boldsymbol{\sigma}}
 \newcommand{\hlang}{h^{lang}}
-\newcommand{\hlangall}{\boldsymbol{h^{lang}}}
+%\newcommand{\hlangall}{\boldsymbol{h^{lang}}}
+\newcommand{\hlangall}{h^{lang}}
 \newcommand{\hdec}{h^{gen}}
 \newcommand{\aalign}{{\mathit{align}}}
 \newcommand{\henc}{h^{infer}}
@@ -39,7 +40,8 @@
 \newcommand{\decoder}{\mathit{LSTM}^{gen}}
 \newcommand{\canv}{c}
 \newcommand{\lat}{z}
-\newcommand{\vv}{{\bf v}}
+%\newcommand{\vv}{{\bf v}}
+\newcommand{\vv}{v}
 \newcommand{\Lat}{Z}
 \newcommand{\numSamples}{L}
 \newcommand{\sampleIdx}{l}
@@ -196,7 +198,7 @@ with $\hlang_{i} = [\overrightarrow{h}^{lang}_{i}, \overleftarrow{h}^{lang}_{i}]
 %
 \end{center}
 \vspace{-0.1in}
-\caption{\small AlignDRAW model for generating images by learning an alignment between the input captions
+\caption{\small alignDRAW model for generating images by learning an alignment between the input captions
 and generating canvas. The caption is encoded using 
 the Bidirectional RNN (left). The generative RNN takes a latent sequence $z_{1:T}$ sampled from the 
 prior along with dynamic caption representation $s_{1:T}$ to generate the canvas matrix $c_T$, which is then
@@ -244,7 +246,8 @@ s_{t} &= align(\hdec_{t-1}, \hlangall), \\
 \hdec_t &= \decoder(\hdec_{t-1}, [z_t, s_{t}]), \\
 \label{eq:writeop}
 \canv_t &= \canv_{t-1} + \writeop(\hdec_t), \\
-\tilde{\oimage} &\sim P(\oimage\given\icaption, \Lat_{1:T}) = \prod_i P(x_i\given\icaption, \Lat_{1:T}) = \prod_i \textrm{Bern}(\sigmoid(\canv_{T,i})). 
+\tilde{\oimage} &\sim P(\oimage\given\icaption, \Lat_{1:T}) = \sigmoid(\canv_{T}). 
+%\tilde{\oimage} &\sim P(\oimage\given\icaption, \Lat_{1:T}) = \prod_i P(x_i\given\icaption, \Lat_{1:T}) = \prod_i \textrm{Bern}(\sigmoid(\canv_{T,i})). 
 \label{eq:write}
 \end{align}
 The $align$ function is used to compute the alignment between the input caption and intermediate image generative steps \citep{bahdanau_mt}. 
