@@ -1,4 +1,5 @@
 
+
 \section*{Appendix A: MNIST With Captions}
 
 \begin{figure}[!t]
@@ -29,8 +30,8 @@ In both cases, the model placed small attention values on the words describing t
 
 \subsection*{Hyperparameters}
 
-Each parameter in alignDRAW was initialized by sampling from the Gaussian distribution with 
-mean $0$ and standard deviation $0.01$. The model was trained using \textit{RMSprop} with initial learning rate of $0.001$. The norm of the gradients was clipped to $10.0$ during training to deal with exploding gradients. We used the vocabulary size of $K = 25323$ and $K = 22$ for Microsoft COCO and MNIST with Captions respectively. All capital letters in the words were changed to small letters to reduce the long tail. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units. The parameters in \textit{align} operator had dimensionality of $l = 512$, $\vv \in \mathbb{R}^{512}$, $U \in \mathbb{R}^{512 \times 128}$, $W \in \mathbb{R}^{512 \times n^{gen}}$ and $b \in \mathbb{R}^{512}$. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
+Each parameter in alignDRAW was initialized by sampling from a Gaussian distribution with 
+mean $0$ and standard deviation $0.01$. The model was trained using \textit{RMSprop} with an initial learning rate of $0.001$. The norm of the gradients was clipped at a maximum of $10.0$ during training to deal with exploding gradients. We used a vocabulary size of $K = 25323$ and $K = 22$ for Microsoft COCO and MNIST with Captions respectively. All capital letters in the words were converted to small letters as a preprocessing step. For all tasks, $\overrightarrow{h}^{lang}_{n}$ and $\overleftarrow{h}^{lang}_{n}$ in the language model had $128$ units. The parameters in the \textit{align} operator had a dimensionality of $l = 512$, $\vv \in \mathbb{R}^{512}$, $U \in \mathbb{R}^{512 \times 128}$, $W \in \mathbb{R}^{512 \times n^{gen}}$ and $b \in \mathbb{R}^{512}$. For the Microsoft COCO task, the alignDRAW model was trained for $18$ epochs and the learning rate was reduced by the factor of $0.1$ after $11$ epochs. The architectural configurations of alignDRAW models are shown on Table~\ref{tab:drawhyper}.
 
 \begin{table}[!t]
 \begin{center}
@@ -49,7 +50,7 @@ MNIST Captions & 32 & 300 & 300 & 150 & 8 & 8\\
 %\vspace{-0.3cm}
 \end{table}
 
-The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
+The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of the CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
 
 \subsection*{Evaluation}
 
@@ -79,7 +80,7 @@ alignDRAW & -1792.15 & -1797.24 & -1791.53 & -2042.31
 
 \begin{figure}[!h]
 \captionsetup[subfigure]{labelformat=empty}
-\vspace{-0.27in}
+\vspace{-0.15in}
 \begin{center}
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-stop-sign-is-flying-in-blue-skies-blurry.png}}\quad
 %
@@ -101,8 +102,8 @@ alignDRAW & -1792.15 & -1797.24 & -1791.53 & -2042.31
 %
 \subfloat[%A person skiing on sand clad vast desert.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-person-skiing-on-sand-clad-vast-desert-sharp.png}}\\
+\vspace{-0.25cm}
 %
-
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-yellow-school-bus-parked-in-a-parking-lot-blurry.png}}\quad
 %
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-red-school-bus-parked-in-a-parking-lot-blurry.png}}\quad
@@ -123,8 +124,8 @@ alignDRAW & -1792.15 & -1797.24 & -1791.53 & -2042.31
 %
 \subfloat[%A blue school bus parked in a parking lot.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-blue-school-bus-parked-in-a-parking-lot-sharp.png}}\\
+\vspace{-0.25cm}
 %
-
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/the-decadent-chocolate-dessert-is-on-the-table-blurry.png}}\quad
 %
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-bowl-of-bananas-is-on-the-table-blurry.png}}\quad
@@ -145,8 +146,8 @@ alignDRAW & -1792.15 & -1797.24 & -1791.53 & -2042.31
 %
 \subfloat[%A vintage photo of a dog.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-vintage-photo-of-a-dog-sharp.png}}\\
+\vspace{-0.25cm}
 %
-
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-very-large-commercial-plane-flying-in-blue-skies-blurry.png}}\quad
 %
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-very-large-commercial-plane-flying-in-rainy-skies-blurry.png}}\quad
@@ -167,8 +168,8 @@ alignDRAW & -1792.15 & -1797.24 & -1791.53 & -2042.31
 %
 \subfloat[%A herd of elephants walking across a green grass field.
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-herd-of-elephants-walking-across-a-green-grass-field-sharp.png}}\\
+\vspace{-0.25cm}
 %
-
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-desert-blurry.png}}\quad
 %
 \subfloat[]{\includegraphics[width=0.23\textwidth]{figures/new/a-rider-on-a-blue-motorcycle-in-the-forest-blurry.png}}\quad
@@ -191,6 +192,6 @@ alignDRAW & -1792.15 & -1797.24 & -1791.53 & -2042.31
 ]{\includegraphics[width=0.23\textwidth]{figures/new/a-surfer-,-a-woman-,-and-a-child-walk-on-the-sun-sharp.png}}\\
 \end{center}
 %
-%\caption{\small Effect of sharpening generated images shown in the publication \textbf{Bottom}: Sharpened Images. \textbf{Top}: Original Images}
+\caption{\small Effect of sharpening images previously shown in the publication.}
 %\vspace{-0.1in}
 \end{figure}

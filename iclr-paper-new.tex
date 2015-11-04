@@ -164,7 +164,7 @@ Recently, \cite{denton_lapgan} have scaled those models by training conditional 
 While all of the previous work has been focused on unconditional models or models conditioned on labels, %to the best of our knowledge 
 in this paper we develop a generative model of images conditioned on captions.
 
-\section{The AlignDRAW Model}
+\section{Model}
 \vspace{-0.1in}
 \label{sec:model}
 Our proposed model 
@@ -176,7 +176,7 @@ defines a generative process of images conditioned on captions. In particular, c
 \label{sec:lang}
 Let $\icaption$ be the input caption, represented as a sequence
 of 1-of-K encoded words 
-${\bf y} = \{y_{1}, y_{2}, ..., y_{N}\}$, 
+${\bf y} = (y_{1}, y_{2}, ..., y_{N})$, 
 where $K$ is the size of the vocabulary and $N$ is the length of the sequence.
 %and $\oimage$ be the output image. 
 We obtain the caption sentence representation by first 
@@ -287,7 +287,7 @@ The Gaussian filter banks are then applied to the generated $p$-by-$p$ image pat
 \eeqa
 
 Finally, each entry $\canv_{T,i}$ from the final canvas matrix $\canv_T$ is transformed using a sigmoid function $\sigmoid$ to produce a conditional Bernoulli 
-distribution with the mean vector $\sigmoid(\canv_{T})$ over the 
+distribution with mean vector $\sigmoid(\canv_{T})$ over the 
 $h\times w$ image pixels~$\oimage$ given the latent variables 
 $\Lat_{1:T}$ and the input caption $\icaption$.\footnote{We also experimented with a conditional Gaussian observation model, but
 it worked worse compared to the Bernoulli model.}
@@ -413,12 +413,12 @@ estimate the variational lower bound accordingly.
 Microsoft COCO \citep{mscoco} is a very large dataset of roughly 83k images, each annotated with at least 5 captions. The rich collection of images with a wide variety of styles, backgrounds and objects makes the task of learning a good generative model 
 %conditioned on a caption 
 very challenging. For consistency with related work on caption generation, we used only the first five captions when training and evaluating our model. 
-The images were resized to $32 \times 32$ dimension for consistency with other tiny image datasets \citep{krizhevsky_cifar}. In the following subsections, we analyzed both the qualitative and quantitative aspects of our model as well as compared its performance with that of other, related generative models\footnote{To see more
+The images were resized to $32 \times 32$ pixels for consistency with other tiny image datasets \citep{krizhevsky_cifar}. In the following subsections, we analyzed both the qualitative and quantitative aspects of our model as well as compared its performance with that of other, related generative models\footnote{To see more
 generated images, visit \url{http://www.cs.toronto.edu/~emansim/cap2im.html}}.
 
 \subsubsection{Analysis of Generated Images}
 \vspace{-0.05in}
-The main goal of this work is to learn a model that can understand the semantic meaning expressed in the textual descriptions of images, such as the properties of objects, the relationships between them, etc. and then use that knowledge to generate relevant images. To examine the understanding of our model, we wrote a set of captions inspired by the COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
+The main goal of this work is to learn a model that can understand the semantic meaning expressed in the textual descriptions of images, such as the properties of objects, the relationships between them, etc., and then use that knowledge to generate relevant images. To examine the understanding of our model, we wrote a set of captions inspired by the COCO dataset and changed some words in the captions to see whether the model made the relevant changes in the generated samples.
 
 First, we explored whether the model understood one of the most basic properties of any object, the color. In \Figref{fig:genimages3}, we generated images of school buses with four different colors: yellow, red, green and blue. Although, there are images of buses with different colors in the training set, all mentioned school buses are specifically colored yellow. Despite that, the model managed to generate images of an object that is visually reminiscent of a school bus that is painted with the specified color.
 
@@ -503,12 +503,12 @@ We also tried to analyze the way the model generated images. Unfortunately, we f
 \vspace{-0.05in}
 Quantitatively evaluating generative models remains a challenging task in of itself as each method of evaluation suffers from its own specific drawbacks. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparison between performances of different generative models, we report results on two different metrics as well as a qualitative comparison of different generative models.
 
-We compared the performance of the proposed model to the DRAW model conditioned on captions without $align$ function (noalignDRAW) as well as the DRAW model conditioned on skipthought vectors of \citep{kiros_skipthought} (skipthoughtDRAW). All of the conditional DRAW models were trained with binary cross-entropy cost function. We also compared our model with Fully-Connected (Fully-Conn) and Convolutional-Deconvolutional (Conv-Deconv) Variational Autoencoders which were trained with the least squares cost function. The LAPGAN model of~\citep{denton_lapgan} was trained on a two level Laplacian Pyramid with a GAN as a top layer generator and all stages were conditioned on the same skipthought vector.
+We compared the performance of the proposed model to the DRAW model conditioned on captions without the $align$ function (noalignDRAW) as well as the DRAW model conditioned on the skipthought vectors of \citep{kiros_skipthought} (skipthoughtDRAW). All of the conditional DRAW models were trained with a binary cross-entropy cost function, i.e. they had Bernoulli conditional likelihoods. We also compared our model with Fully-Connected (Fully-Conn) and Convolutional-Deconvolutional (Conv-Deconv) Variational Autoencoders which were trained with the least squares cost function. The LAPGAN model of~\citep{denton_lapgan} was trained on a two level Laplacian Pyramid with a GAN as a top layer generator and all stages were conditioned on the same skipthought vector.
 
 In \Figref{fig:diffmodels}, bottom row, we generated several samples from the prior of each of the current state-of-the-art generative models, conditioned on the caption ``A group of people walk on a beach with surf boards". While all of the samples look sharp, the images generated by LAPGAN look more noisy and it is harder to make out definite objects, whereas the images generated by variational models trained with least squares cost function have a watercolor effect on the images. We also found that the quality of generated samples was very similar among different variants of conditional DRAW models.
 
 As for the quantitative comparison of different models, we first compare the performances of the model trained with variational methods. We rank the images in the test set conditioned on the captions based on the variational lower bound of the log-probabilities 
-and then report the Precision-Recall metric as an evaluation of the quality of the generative model (see Table~\ref{tab:results}.). Unsurprisingly, generative models did not perform well on the image retrieval task. To deal with the large computational complexity involved in looping through each test image, we create a shortlist of one hundred images including the correct one, based on the images having the closest distance in the convolutional feature-space of a VGG-like model \citep{simonyan_convnet} trained on the CIFAR dataset\footnote{The architecture of the model is described here \url{http://torch.ch/blog/2015/07/30/cifar.html}. The shortlist of test images used for evaluation can be downloaded from \url{http://www.cs.toronto.edu/~emansim/cap2im/test-nns.pkl}.} \citep{krizhevsky_cifar}. 
+and then report the Precision-Recall metric as an evaluation of the quality of the generative model (see Table~\ref{tab:results}.). Perhaps unsurprisingly, generative models did not perform well on the image retrieval task. To deal with the large computational complexity involved in looping through each test image, we create a shortlist of one hundred images including the correct one, based on the images having the closest distance in the convolutional feature-space of a VGG-like model \citep{simonyan_convnet} trained on the CIFAR dataset\footnote{The architecture of the model is described here \url{http://torch.ch/blog/2015/07/30/cifar.html}. The shortlist of test images used for evaluation can be downloaded from \url{http://www.cs.toronto.edu/~emansim/cap2im/test-nns.pkl}.} \citep{krizhevsky_cifar}. 
 Since there are ``easy'' images for which the model assigns high log-probabilities independent of the query caption, 
 we instead look at the ratio of 
 the likelihood of the image conditioned on the sentence to the likelihood of the image conditioned on the mean sentence representation in the training set, following the retrieval protocol of~\citep{kiros_captions}.
