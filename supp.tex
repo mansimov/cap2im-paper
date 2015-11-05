@@ -72,6 +72,7 @@ MNIST   & 32 & 300 & 300 & 150 & 8 & 8\\
 \end{table}
 
 The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of the CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
+When training the model, we used a data augmentation step where we took 5 crops (top-left, top-right, bottom-left, bottom-right, center) of each COCO image and randomly assigned each crop one of the 5 captions that described the uncropped image.
 
 \subsection*{Evaluation}
 Table~\ref{tab:nll} shows the estimated variational lower bounds on the average train/validation/test 
