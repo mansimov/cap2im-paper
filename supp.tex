@@ -35,8 +35,8 @@ mean $0$ and standard deviation $0.01$.
 The model was trained using \textit{RMSprop} with an initial learning rate of $0.001$. 
 For the Microsoft COCO task, we trained our model for $18$ epochs. The learning rate was 
 reduced to $0.0001$ after $11$ epochs.
-\FIXME{For the MNIST with Captions task, the model was trained for ??? epochs and the 
-learnign rate was reduced to ?? after ?? epochs}.   
+For the MNIST with Captions task, the model was trained for 150 epochs and the 
+learning rate was reduced to $0.0001$ after 110 epochs. During each epoch, randomly created $10000$ training samples were used for training.
 The norm of the gradients was clipped at $10$ during training 
 to avoid the exploding gradients problem. 
 
@@ -56,7 +56,7 @@ The architectural configurations of the alignDRAW models are shown in Table~\ref
 \begin{center}
 \begin{tabulary}{\linewidth}{c | c c c c c c}
 \hline
-\hline
+%\hline
  & & \multicolumn{3}{c}{\textbf{alignDRAW Model}}  & &  \\
 \hline
 Task & \#glimpses & Inference  & Generative  & Latent & Read Size & Write Size\\
