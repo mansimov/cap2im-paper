@@ -83,7 +83,7 @@
 \setlength{\abovecaptionskip}{5pt} % Chosen fairly arbitrarily
 \setlength{\belowcaptionskip}{5pt} % Chosen fairly arbitrarily
 
-\title{Generating Images From Captions\\ With Attention}
+\title{Generating Images from Captions\\ with Attention}
 
 \author{
 Elman Mansimov, Emilio Parisotto, Jimmy Lei Ba \& Ruslan Salakhutdinov\\
@@ -508,7 +508,7 @@ We also tried to analyze the way the model generated images. Unfortunately, we f
 
 \subsubsection{Comparison With Other Models}
 \vspace{-0.05in}
-Quantitatively evaluating generative models remains a challenging task in of itself as each method of evaluation suffers from its own specific drawbacks. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparison between performances of different generative models, we report results on two different metrics as well as a qualitative comparison of different generative models.
+Quantitatively evaluating generative models remains a challenging task in itself as each method of evaluation suffers from its own specific drawbacks. Compared to reporting classification accuracies in discriminative models, the measures defining generative models are intractable most of the times and might not correctly define the real quality of the model. To get a better comparison between performances of different generative models, we report results on two different metrics as well as a qualitative comparison of different generative models.
 
 We compared the performance of the proposed model to the DRAW model conditioned on captions without the $align$ function (noalignDRAW) as well as the DRAW model conditioned on the skipthought vectors of \citep{kiros_skipthought} (skipthoughtDRAW). All of the conditional DRAW models were trained with a binary cross-entropy cost function, i.e. they had Bernoulli conditional likelihoods. We also compared our model with Fully-Connected (Fully-Conn) and Convolutional-Deconvolutional (Conv-Deconv) Variational Autoencoders which were trained with the least squares cost function. The LAPGAN model of~\citep{denton_lapgan} was trained on a two level Laplacian Pyramid with a GAN as a top layer generator and all stages were conditioned on the same skipthought vector.
 
@@ -516,7 +516,7 @@ In \Figref{fig:diffmodels}, bottom row, we generated several samples from the pr
 
 As for the quantitative comparison of different models, we first compare the performances of the model trained with variational methods. We rank the images in the test set conditioned on the captions based on the variational lower bound of the log-probabilities 
 and then report the Precision-Recall metric as an evaluation of the quality of the generative model (see Table~\ref{tab:results}.). Perhaps unsurprisingly, generative models did not perform well on the image retrieval task. To deal with the large computational complexity involved in looping through each test image, we create a shortlist of one hundred images including the correct one, based on the images having the closest 
-Euclidean distance in the top convolutional feature-space of a VGG-like model~\citep{simonyan_convnet} trained on the CIFAR dataset\footnote{The architecture of the model is described here \url{http://torch.ch/blog/2015/07/30/cifar.html}. The shortlist of test images used for evaluation can be downloaded from \url{http://www.cs.toronto.edu/~emansim/cap2im/test-nns.pkl}.} \citep{krizhevsky_cifar}. 
+Euclidean distance in the last fully-connected feature space of a VGG-like model~\citep{simonyan_convnet} trained on the CIFAR dataset\footnote{The architecture of the model is described here \url{http://torch.ch/blog/2015/07/30/cifar.html}. The shortlist of test images used for evaluation can be downloaded from \url{http://www.cs.toronto.edu/~emansim/cap2im/test-nns.pkl}.} \citep{krizhevsky_cifar}. 
 Since there are ``easy'' images for which the model assigns high log-probabilities independent of the query caption, 
 we instead look at the ratio of 
 the likelihood of the image conditioned on the sentence to the likelihood of the image conditioned on the mean sentence representation in the training set, following the retrieval protocol of~\citep{kiros_captions}.
