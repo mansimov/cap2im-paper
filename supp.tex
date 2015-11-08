@@ -35,8 +35,8 @@ mean $0$ and standard deviation $0.01$.
 The model was trained using \textit{RMSprop} with an initial learning rate of $0.001$. 
 For the Microsoft COCO task, we trained our model for $18$ epochs. The learning rate was 
 reduced to $0.0001$ after $11$ epochs.
-For the MNIST with Captions task, the model was trained for 150 epochs and the 
-learning rate was reduced to $0.0001$ after 110 epochs. During each epoch, randomly created $10000$ training samples were used for training.
+\FIXME{For the MNIST with Captions task, the model was trained for 150 epochs and the 
+learning rate was reduced to $0.0001$ after 110 epochs. During each epoch, randomly created $10,000$ training samples were used for training.}
 The norm of the gradients was clipped at $10$ during training 
 to avoid the exploding gradients problem. 
 
@@ -72,7 +72,6 @@ MNIST   & 32 & 300 & 300 & 150 & 8 & 8\\
 \end{table}
 
 The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of the CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
-When training the model, we used a data augmentation step where we took 5 crops (top-left, top-right, bottom-left, bottom-right, center) of each COCO image and randomly assigned each crop one of the 5 captions that described the uncropped image.
 
 \subsection*{Evaluation}
 Table~\ref{tab:nll} shows the estimated variational lower bounds on the average train/validation/test 
