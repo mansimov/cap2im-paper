@@ -392,7 +392,7 @@ estimate the variational lower bound accordingly.
 \vspace{-0.05in}
 \subsection{Microsoft COCO}
 \vspace{-0.05in}
-Microsoft COCO \citep{mscoco} is a large dataset containing $82,783$ images, each annotated with at least 5 captions. The rich collection of images with a wide variety of styles, backgrounds and objects makes the task of learning a good generative model 
+Microsoft COCO \citep{mscoco} is a large dataset containing 82,783 images, each annotated with at least 5 captions. The rich collection of images with a wide variety of styles, backgrounds and objects makes the task of learning a good generative model 
 very challenging. For consistency with related work on caption generation, we used only the first five captions when training and evaluating our model. 
 The images were resized to $32 \times 32$ pixels for consistency with other tiny image datasets \citep{krizhevsky_cifar}. In the following subsections, we analyzed both the qualitative and quantitative aspects of our model as well as compared its performance with that of other, related generative models.\footnote{To see more
 generated images, visit \url{http://www.cs.toronto.edu/~emansim/cap2im.html}}
@@ -495,7 +495,7 @@ Euclidean distance in the last fully-connected feature space of a VGG-like model
 Since there are ``easy'' images for which the model assigns high log-probabilities independent of the query caption, 
 we instead look at the ratio of 
 the likelihood of the image conditioned on the sentence to the likelihood of the image conditioned on the mean sentence representation in the training set, following the retrieval protocol of~\citep{kiros_captions}.
-We also found that the lower bound on the test log-probabilities decreased for sharpened images, and that sharpening considerably hurt the retrieval results. Since sharpening changes the statistics of images, the estimated log-probailities of image pixels is not necessarily a good metric.
+We also found that the lower bound on the test log-probabilities decreased for sharpened images, and that sharpening considerably hurt the retrieval results. Since sharpening changes the statistics of images, the estimated log-probabilities of image pixels is not necessarily a good metric.
 Some examples of generated images before and after sharpening are shown in Appendix~C. 
 
 
@@ -539,7 +539,7 @@ In this paper, we demonstrated that the alignDRAW model, a combination of a recu
 Because the alignDRAW model tends to output slightly blurry samples, we augmented the model with a sharpening post-processing step in which GAN generated edges which were added to the alignDRAW samples. Unfortunately, this is not an ideal solution due to the fact that the whole model was not trained in an end-to-end fashion. Therefore a direction of future work would be to find methods that can bypass the separate post-processing step and output sharp images directly in an end-to-end manner. 
 
 {\small
-{\bf Acknowledgements:}
+{\bf Acknowledgments:}
 This work was supported by Samsung and IARPA, Raytheon BBN Contract No. D11PC20071.
 We would like to thank developers of Theano \citep{theano}, the authors of \citep{denton_lapgan} for open sourcing their code, and Ryan Kiros and Nitish Srivastava for helpful discussions. 
 }
