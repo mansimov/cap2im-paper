@@ -6,7 +6,6 @@
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
 \includegraphics[width=0.99\textwidth]{figures/new/mnist/test3.pdf}\quad
-%
 \end{center}
 \caption{Examples of generating $60 \times 60$ MNIST images corresponding to respective captions. The captions on the \textbf{left column} were part of the training set. The digits described in the captions on the \textbf{right column} were hidden during training for the respective configurations.}
 \label{fig:figmnist}
@@ -35,8 +34,9 @@ mean $0$ and standard deviation $0.01$.
 The model was trained using \textit{RMSprop} with an initial learning rate of $0.001$. 
 For the Microsoft COCO task, we trained our model for $18$ epochs. The learning rate was 
 reduced to $0.0001$ after $11$ epochs.
-\FIXME{For the MNIST with Captions task, the model was trained for 150 epochs and the 
-learning rate was reduced to $0.0001$ after 110 epochs. During each epoch, randomly created $10,000$ training samples were used for training.}
+For the MNIST with Captions task, the model was trained for 150 epochs and the 
+learning rate was reduced to $0.0001$ after 110 epochs. During each epoch, 
+randomly created $10,000$ training samples were used for learning. 
 The norm of the gradients was clipped at $10$ during training 
 to avoid the exploding gradients problem. 
 
@@ -56,7 +56,6 @@ The architectural configurations of the alignDRAW models are shown in Table~\ref
 \begin{center}
 \begin{tabulary}{\linewidth}{c | c c c c c c}
 \hline
-%\hline
  & & \multicolumn{3}{c}{\textbf{alignDRAW Model}}  & &  \\
 \hline
 Task & \#glimpses & Inference  & Generative  & Latent & Read Size & Write Size\\
@@ -68,7 +67,6 @@ MNIST   & 32 & 300 & 300 & 150 & 8 & 8\\
 \caption{The architectural configurations of alignDRAW models.}
 \label{tab:drawhyper}
 \end{center}
-%\vspace{-0.3cm}
 \end{table}
 
 The GAN model used for sharpening had the same configuration as the $28 \times 28$ model trained by \cite{denton_lapgan} on the edge residuals of the CIFAR dataset. The configuration can be found at \url{https://gist.github.com/soumith/e3f722173ea16c1ea0d9}. The model was trained for $6$ epochs.
@@ -83,7 +81,7 @@ The results substantially worsen after sharpening test images.
 \begin{center}
 \begin{tabulary}{\linewidth}{c | c c c c}
 \hline
-Model & Train LL & Valid LL & Test LL & Test LL (after sharpening)\\
+Model & Train & Validation  & Test  & Test  (after sharpening)\\
 \hline
 skipthoughtDRAW & -1794.29 & -1797.41 & -1791.37 & -2045.84 \\
 noalignDRAW & -1792.14 & -1796.94 & -1791.15 & -2051.07 \\
@@ -216,5 +214,4 @@ pyramid conditioned on the skipthought vectors of the captions.
 \end{center}
 %
 \caption{\small Effect of sharpening images.}
-%\vspace{-0.1in}
 \end{figure}
