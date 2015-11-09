@@ -12,9 +12,9 @@
 \vspace{-0.3cm}
 \end{figure}
 
-As an additional experiment, we trained our model on the MNIST dataset with artificial captions. Either one or two digits from the MNIST training dataset were placed on a $60 \times 60$ blank image. One digit was placed in one of the four (top-left, top-right, bottom-left or bottom-right) corners of the image. Two digits were either placed horizontally or vertically in nonoverlapping fashion. The corresponding artificial captions specified the 
-identity of each digit along with their relative positions, e.g. ``The digit two is on the top  
-of the digit zero'', or ``The digit seven is at the bottom left of the image''.  
+As an additional experiment, we trained our model on the MNIST dataset with artificial captions. Either one or two digits from the MNIST training dataset were placed on a $60 \times 60$ blank image. One digit was placed in one of the four (top-left, top-right, bottom-left or bottom-right) corners of the image. Two digits were either placed horizontally or vertically in non-overlapping fashion. The corresponding artificial captions specified the 
+identity of each digit along with their relative positions, e.g. ``The digit three is at the top  
+of the digit one'', or ``The digit seven is at the bottom left of the image''.  
 
 The generated images together with the attention alignments are displayed in Figure~\ref{fig:figmnist}. The model correctly displayed the specified digits at the described positions and even managed to generalize 
 reasonably well to the configurations that were never present during training.
