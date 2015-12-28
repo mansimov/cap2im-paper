@@ -1,0 +1,47 @@
+Dear reviewers,
+We thank you for very constructive reviews.
+
+----
+Reviewer 1
+
+Q. It would also be nice to know how their align function compares to the standard content-based attention.
+
+A. Not sure what to write to him/her. Not clear what reviewer means by "standard content-based attention".
+
+----
+Reviewer 2
+
+Q. The results of "picture of a cat" vs. "picture of a dog" highlight my concern - I see no noticeable difference between the two sets of generated images.
+
+A. Yes this example was meant to highlight the limitation of our model. 
+
+Q. The use of SSI and retrieval for comparison of the generative models is interesting, but I worry that the regime in which these models operate (SSI 0-0.2) is not a place where SSI is really useful or particularly interpretable - is a relative gain of 0.08 to 0.156 immense, or "in the noise". What is the standard deviation of the measurements for each row?
+
+A. We agree that SSI results may not be particularly interpretable, however it was one of the only good ways to quantitatively compare performances of LAPGAN and our model that we could think of. The standard deviation for each model is around 0.1
+
+Good quantitative evaluation of generative models still remains an open problem that was recently adressed in Theis et al. 2015.
+
+Q. Given the recent (e.g. under submission in this conference!) improvements to generative models, I would expect this work will be extended to much higher quality in the near future. This paper lays solid groundwork for that, and is interesting in its own right, though the generated image quality is the main a limiting factor in giving a higher score.
+
+A. As for the recent work on Generative Adversarial Networks (GANs) by Radford et al. 2015, their model was trained on a very narrow domain of images, for example millions of images of just bedrooms from LSUN dataset, where it is not clear whether the model is overfitting or not. In comparison, Microsoft COCO is much smaller and much more diverse dataset. Conditioning the model on captions provides a clear qualitative way to see whether the model has some notion of generalization. Being able to generalize to weird and novel captions not present in dataset is in itself a very challenging problem. At the same time, we hope that other researchers will try to come up with better generative models for this task.
+
+----
+Reviewer 3
+
+Q. In the experiments, the size of the image is quite small (i.e 32 by 32). This means that the groundtruth images have already been blurred before the training of the model. This might be one of the reasons why the generated images are blurry. Can you train your model on images with common sizes (e,g, 100 by 100 or even 224 by 224)? Is there any obstacle to overcome for the proposed model to handle larger size of images than 32 by 32?
+
+A. The images were resized to 32x32 dimension using nearest neighbor interpolation which doesn't make images blurry. The image size is not a limiting factor of the model, however it takes a bit more than a week to train the model on 32x32 images using Nvidia Titan GPUs due to large size of the model (both in depth and in time). Due to time constraints, we made the dimension of images in the dataset consistent with other popular tiny images datasets (CIFAR-10 and CIFAR-100).
+
+Q. How does the model perform without the post-processing GAN model quantitatively, compared to other models with GAN shown in Table 1?
+
+The results in Table 1 are shown without the post-processing GAN step. With post-processing step, where reconstruction error is the difference between sharpened images and real images instead of the difference between blurry images and real images, the ranking results become much worse. Median rank drops from 31 to 50, where ranking essentially becomes random. The bad quality of pixel-wise error motivated us to try better image similarity metrics such as SSI. In comparison SSI drops only by 0.02 points after sharpening images.
+
+Q. It would be great if GAN post-processing step is merged into the model shown in Figure 2 so that the whole model can be trained and tested in an end-to-end way.
+
+A. We tried combining VAE and GAN cost functions so that the model could be trained in an end-to-end fashion on CIFAR-10 and MS COCO datasets. We didn't have any success in that because the model started emphasizing GAN objective function and the samples started looking more like the samples from original GAN model from Goodfellow et al. 2014. Scaling both objectives and doing other tricks didn't help either. Note that Lotter et al. 2015 (Unsupervised Learning of Visual Structure using Predictive Generative Network submitted to this conference) have also tried combining both objectives in the similar way and had a limited success.
+
+We also tried experimenting with other types of reconstruction error, for example in Fourier domain, all with no major success. Generating sharp and very realistic images from autoencoder without overfitting is a very hard problem and is part of an ongoing research (see Mathieu et al. 2015 Deep multi-scale video prediction beyond mean square error; Ridgeway et al. 2015 Learning to generate images with perceptual similarity metrics all submitted to this conference).
+
+Q. In Eqn (15), only one sample is used for parameter learning. Will more samples make a difference in the learning process?
+
+A. We would expect that using more samples would improve the lower bound of log likelihood as well as the quality of generated samples, which was shown recently in Burda et al. 2015 Importance Weighted Autoencoders (also submitted to this conference). However, using more samples would increase the training time and in our case training already takes quite a while on Nvidia Titan GPUs.
