@@ -17,7 +17,7 @@ A. Yes this example was meant to highlight the limitation of our model.
 
 Q. The use of SSI and retrieval for comparison of the generative models is interesting, but I worry that the regime in which these models operate (SSI 0-0.2) is not a place where SSI is really useful or particularly interpretable - is a relative gain of 0.08 to 0.156 immense, or "in the noise". What is the standard deviation of the measurements for each row?
 
-A. We agree that SSI results may not be particularly interpretable, however it was one of the only good ways to quantitatively compare performances of LAPGAN and our model that we could think of. The standard deviation for each model is around 0.1
+A. We agree that SSI results may not be particularly interpretable, however it was one of the only good ways to quantitatively compare performances of LAPGAN and our model that we could think of. The standard deviation of SSI scores for variational models is around 0.1 and the standard deviation for LAPGAN is 0.08
 
 Good quantitative evaluation of generative models still remains an open problem that was recently adressed in Theis et al. 2015.
 
