@@ -1,7 +1,14 @@
 We thank all reviewer for their valuable reviews.
 
+Reviewer 1:
+Thank you for your review, but we were not quite sure what the reviewer meant by the standard content-based attention. In our paper, we compared the performance of our model to the DRAW model conditioned on captions
+without attention and the DRAW model conditioned on
+the skipthought vectors of Kiros et al., 2015.
+We generally found that the
+quality of generated samples was similar among different variants of conditional DRAW models.
 
-Reviewer 2
+
+Reviewer 2:
 
 Regarding the results of "picture of a cat" vs. "picture of a dog" with no noticeable difference:
 Indeed, when swapping two objects that are visually similar, it is difficult to discriminate solely from the generated samples. This example was meant to highlight a limitation of our model in that it has difficulty generating the fine-grained details of objects.
@@ -26,12 +33,12 @@ in the blue skies" is in itself a very challenging problem.
 At the same time, we also hope that other researchers will try to come up with better generative models for this task.
 
 
-Reviewer 3
+Reviewer 3: 
 
 In regard to small size images and training images with more common sizes: 
 The images were resized to 32x32 dimension using bi-cubic interpolation and the resulting images do not look 
 blurry. The image size is not a limiting factor of the model, however, it takes about a week 
-to train our model on 32x32 images on a single Nvidia TitanX GPU due to large size of the model 
+to train our model on 32x32 images on a single Nvidia Titan GPU due to large size of the model 
 (both in depth and in time). Due to time constraints, we made the dimension of images in the dataset consistent with other popular tiny images datasets (CIFAR-10 and CIFAR-100). 
 We also believe that scaling our model up to modeling 64x64 or 100x100 images 
 will not necessarily significantly improve the quality of generated images. 
@@ -54,6 +61,6 @@ Eq (15): 1 vs. many samples:
 We would expect that using more samples could improve the lower bound on the log-likelihood 
 as well as the quality of generated samples, especially when using importance sampling as 
 was shown recently in Burda et al. 2015. However, using more samples would increase the training 
-time, which in our case already takes quite a while (using TitanX GPUs).
+time, which in our case already takes quite a while (using Titan GPUs).
 
 
