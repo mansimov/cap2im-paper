@@ -1,11 +1,9 @@
-We thank all reviewer for their valuable reviews.
+We thank all reviewer for their valuable feedback.
 
 Reviewer 1:
-Thank you for your review, but we were not quite sure what the reviewer meant by the standard content-based attention. In our paper, we compared the performance of our model to the DRAW model conditioned on captions
-without attention and the DRAW model conditioned on
-the skipthought vectors of Kiros et al., 2015.
-We generally found that the
-quality of generated samples was similar among different variants of conditional DRAW models.
+Thank you for your review. We were not quite sure what the reviewer meant by the standard content-based attention. In our paper, we compared the performance of our model to the DRAW model conditioned on captions
+without attention and the DRAW model conditioned on the skipthought vectors of Kiros et al., 2015.
+We generally found that the quality of generated samples was similar among different variants of conditional DRAW models.
 
 
 Reviewer 2:
@@ -14,53 +12,49 @@ Regarding the results of "picture of a cat" vs. "picture of a dog" with no notic
 Indeed, when swapping two objects that are visually similar, it is difficult to discriminate solely from the generated samples. This example was meant to highlight a limitation of our model in that it has difficulty generating the fine-grained details of objects.
 
 The use of SSI and retrieval for comparison:
-We agree that SSI results may not be particularly interpretable, however it was one of the only good ways to quantitatively compare performances of LAPGAN and our model that we could think of. We note that good quantitative evaluation of generative models still remains an open problem as was recently discussed in Theis et al. 2015.
+We agree that SSI results may not be particularly interpretable. However, it was one of the only good ways to quantitatively compare performances of LAPGAN and our model that we could think of. We note that good quantitative evaluation of generative models still remains an open problem as was recently discussed in Theis et al. 2015.
 
 The standard deviation of SSI scores for variational models is 0.1 and the standard deviation for LAPGAN is 0.08. We will add these numbers to the paper. 
 
 
-On the the recent improvements to generative models and the generated image quality remaining the main a limiting factor:
+On the recent improvements to generative models and the quality of generated images:
 We agree that there has been a lot of recent work on improving generative models. However, even today, generating sharp and globally consistent images of arbitrary scenes remains an open problem.
 
-For example, in the recent work on Generative Adversarial Networks (GANs) by Radford et al. 2015, 
-they train their model on a very narrow domain of images -- millions of images of just 
+For example, in the recent work on Generative Adversarial Networks (GANs) by Radford et al. 2015, they train their model on a very narrow domain of images -- millions of images of just 
 bedroom scenes from LSUN bedroom dataset. In this setting, it is may not clear how much overfitting takes place. 
 In comparison, Microsoft COCO is a far more diverse dataset. Conditioning the model on 
 novel captions provides a clear qualitative way to evaluate whether the model has some notion of generalization. 
 Being able to generalize to novel captions not present in dataset, such as 
-"A herd of elephants flying
-in the blue skies" is in itself a very challenging problem. 
-At the same time, we also hope that other researchers will try to come up with better generative models for this task.
+"A herd of elephants flying in the blue skies" is in itself a very challenging problem. At the same time, we also hope that other researchers will try to come up with better generative models for this task.
 
 
 Reviewer 3: 
 
-In regard to small size images and training images with more common sizes: 
-The images were resized to 32x32 dimension using bi-cubic interpolation and the resulting images do not look 
-blurry. The image size is not a limiting factor of the model, however, it takes about a week 
-to train our model on 32x32 images on a single Nvidia Titan GPU due to large size of the model 
+In regard to training on small size images:
+The images were resized to 32x32 using bi-cubic interpolation and the resulting images did not look blurry. The image size is not a limiting factor of the model. However, even on a high-end GPU it takes about a week 
+to train our model on 32x32 images due to the large size of the model 
 (both in depth and in time). Due to time constraints, we made the dimension of images in the dataset consistent with other popular tiny images datasets (CIFAR-10 and CIFAR-100). 
 We also believe that scaling our model up to modeling 64x64 or 100x100 images 
 will not necessarily significantly improve the quality of generated images. 
 
 
 Model performance without the post-processing GAN step:   
-The results in Table 1 are shown without the post-processing GAN step. We found that with the post-processing GAN step, the ranking results became much worse. Median rank drops from 31 to 50, in which 
-case the ranking essentially becomes random. The bad quality of pixel-wise error motivated 
+The results in Table 1 are shown without the post-processing GAN step. We found that with the post-processing GAN step, the ranking results became much worse. Median rank dropped from 31 to 50, in which 
+case the ranking essentially became random. The bad quality of pixel-wise error motivated 
 us to try better image similarity metrics such as SSI. In comparison, SSI drops only by 0.02 points 
 after sharpening images.
 
 In regard to merging GAN post-processing step into the whole model:
 We tried combining VAE and GAN cost functions so that the model could be trained in an end-to-end fashion on CIFAR-10 and MS COCO datasets. 
-So far, we did not have much success in that because the model started emphasizing GAN objective function and the samples started to look more like the samples from the GAN model. Scaling both objectives and doing other tricks 
+So far, we did not have much success because the model started emphasizing GAN objective function and the samples started to look more like the samples from the GAN model. Scaling both objectives and doing other tricks 
 did not help either. Note that Lotter et al. 2015 (Unsupervised Learning of Visual Structure using Predictive Generative Network submitted to this conference) have also tried combining both objectives in a similar way and had a limited success.
 
-We also tried experimenting with other types of reconstruction error, for example in Fourier domain, all with no major success so far. Generating sharp and very realistic images remains challenging and is part of an ongoing research (see Mathieu et al.; Ridgeway et al. 2015 all submitted to this conference).
+We have also tried experimenting with other types of reconstruction error, for example in Fourier domain, all with no major success so far. Generating sharp and very realistic images remains challenging and is part of an ongoing research (see Mathieu et al.; Ridgeway et al. 2015 all submitted to this conference).
 
 Eq (15): 1 vs. many samples:
 We would expect that using more samples could improve the lower bound on the log-likelihood 
 as well as the quality of generated samples, especially when using importance sampling as 
-was shown recently in Burda et al. 2015. However, using more samples would increase the training 
-time, which in our case already takes quite a while (using Titan GPUs).
+was recently demonstrated by Burda et al. 2015. However, using more samples would increase the training 
+time, which in our case already takes quite a while.
 
 
