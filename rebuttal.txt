@@ -39,4 +39,4 @@ We have also tried experimenting with other types of reconstruction error, for e
 
 Eq (15): 1 vs. many samples:
 
-We would expect that using more samples could improve the lower bound on the log-likelihood as well as the quality of generated samples, especially when using importance sampling as was recently demonstrated by Burda et al. 2015. However, using more samples would increase the training time, which in our case already takes quite a while.
+We would expect that using more samples could improve the lower bound on the log-likelihood as well as the quality of generated samples, especially when using importance sampling as was recently demonstrated by Burda et al. 2015. However, using more samples would increase the training time, which in our case already takes some time. 
